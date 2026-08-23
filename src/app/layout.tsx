@@ -51,9 +51,15 @@ export const metadata: Metadata = {
   authors: [{ name: "Krishna Rajak" }, { name: "MaximumPixel Team" }],
   creator: "MaximumPixel",
   publisher: "MaximumPixel Media",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://maximumpixel.in"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://maximumpixel.online"),
   alternates: {
     canonical: "/",
+  },
+  applicationName: "MaximumPixel Studio",
+  appleWebApp: {
+    capable: true,
+    title: "MaximumPixel",
+    statusBarStyle: "black-translucent",
   },
   manifest: "/manifest.json",
   icons: {
