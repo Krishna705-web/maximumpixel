@@ -62,6 +62,9 @@ export const metadata: Metadata = {
     title: "MaximumPixel",
     statusBarStyle: "black-translucent",
   },
+  verification: {
+    google: "k5pYJ-ctLiw362ugrGOEYiTYqQDSlKw8ewmp7iQn7d8",
+  },
   manifest: "/manifest.json",
   icons: {
     icon: [
@@ -244,6 +247,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#5B2EE8" />
+        <meta name="google-site-verification" content="k5pYJ-ctLiw362ugrGOEYiTYqQDSlKw8ewmp7iQn7d8" />
 
         <script
           type="application/ld+json"
