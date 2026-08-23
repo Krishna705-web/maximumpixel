@@ -27,9 +27,9 @@ export async function sendContactNotification({
   const pass = process.env.SMTP_PASS;
   const port = parseInt(process.env.SMTP_PORT || "587", 10);
   const secure = process.env.SMTP_SECURE === "true";
-  const to = process.env.CONTACT_RECEIVER_EMAIL || "hello@maximumpixel.in";
+  const to = process.env.CONTACT_RECEIVER_EMAIL || "hello.maximumpixel@gmail.com";
 
-  // If SMTP is not fully configured, log and resolve gracefully (safe for local development)
+  // If SMTP is not fully configured, log and resolve gracefully (safe for development / mock)
   if (!host || !user || !pass) {
     console.log("ℹ️ SMTP credentials not configured. Mocking email dispatch:");
     console.log(`To: ${to}`);
@@ -54,7 +54,7 @@ export async function sendContactNotification({
   const safeMessage = escapeHtml(message);
 
   const mailOptions = {
-    from: `"MaximumPixel Web" <${user}>`,
+    from: `"MaximumPixel Studio" <${user}>`,
     to,
     replyTo: email,
     subject: `⚡ New Inquiry from ${safeName} via MaximumPixel`,
@@ -68,18 +68,18 @@ ${message}
     `,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #0A0A0A; color: #FFFFFF; border-radius: 12px; border: 1px solid #222;">
-        <h2 style="color: #5B2EE8; margin-top: 0;">⚡ New Inquiry Received</h2>
+        <h2 style="color: #5B2EE8; margin-top: 0;">⚡ New Client Inquiry</h2>
         <div style="background-color: #141416; padding: 15px; border-radius: 8px; margin: 20px 0;">
           <p style="margin: 8px 0;"><strong>Name:</strong> ${safeName}</p>
           <p style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${safeEmail}" style="color: #FF7A1A;">${safeEmail}</a></p>
           <p style="margin: 8px 0;"><strong>Phone:</strong> ${safePhone}</p>
         </div>
         <div style="background-color: #141416; padding: 15px; border-radius: 8px; margin: 20px 0;">
-          <h4 style="margin-top: 0; color: #A0A0A0;">Message:</h4>
+          <h4 style="margin-top: 0; color: #A0A0A0;">Message Details:</h4>
           <p style="white-space: pre-wrap; line-height: 1.5;">${safeMessage}</p>
         </div>
         <p style="font-size: 12px; color: #666; text-align: center; margin-top: 30px;">
-          MaximumPixel Studio — Jaipur, Rajasthan
+          MaximumPixel Studio — Jaipur, Rajasthan, India
         </p>
       </div>
     `,
