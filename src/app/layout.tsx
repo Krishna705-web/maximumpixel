@@ -75,7 +75,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://maximumpixel.in",
+    url: "https://maximumpixel.online",
     siteName: "MaximumPixel Creative Studio",
     title: "MaximumPixel | Best Creative Content & Video Production Studio in Jaipur",
     description:
@@ -121,9 +121,9 @@ export default function RootLayout({
     "@type": "ProfessionalService",
     "name": "MaximumPixel",
     "alternateName": "MaximumPixel Media Studio",
-    "url": "https://maximumpixel.in",
-    "logo": "https://maximumpixel.in/assets/logo.png",
-    "image": "https://maximumpixel.in/og-image.jpg",
+    "url": "https://maximumpixel.online",
+    "logo": "https://maximumpixel.online/assets/logo.png",
+    "image": "https://maximumpixel.online/og-image.jpg",
     "description":
       "MaximumPixel is Jaipur's premier creative media agency providing video production, commercial photography, event coverage, viral reels, and branding design.",
     "telephone": "+917878736798",
@@ -164,12 +164,12 @@ export default function RootLayout({
       {
         "@type": "Person",
         "name": "Vishwajeet Barman",
-        "jobTitle": "Co-Founder & Strategist",
+        "jobTitle": "Co-Founder & Visual Lead",
       },
       {
         "@type": "Person",
         "name": "Rahul Gyanchandani",
-        "jobTitle": "Co-Founder & Visual Lead",
+        "jobTitle": "Co-Founder & Strategist",
       },
     ],
     "sameAs": [

@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/admin/", "/api/admin/"],
     },
-    sitemap: "https://maximumpixel.in/sitemap.xml",
+    sitemap: "https://maximumpixel.online/sitemap.xml",
   };
 }
