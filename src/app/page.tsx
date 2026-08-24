@@ -138,9 +138,9 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            {/* Right Mascot Visual (Interactive 3D Mascot standing on Green Carpet with 3D Studio Backdrop) */}
+            {/* Right Mascot Visual (Landscape 3D Studio Stage) */}
             <div className="col-span-5 sm:col-span-5 md:col-span-6 lg:col-span-6 relative flex justify-center items-center">
-              <div className="relative w-full max-w-[240px] sm:max-w-[320px] md:max-w-[420px] lg:max-w-[500px] min-h-[260px] sm:min-h-[340px] md:min-h-[440px] lg:min-h-[520px] aspect-[4/5] flex items-center justify-center">
+              <div className="relative w-full max-w-[320px] sm:max-w-[440px] md:max-w-[560px] lg:max-w-[660px] aspect-[16/10] sm:aspect-[16/10] md:aspect-[16/9] flex items-center justify-center rounded-2xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/10 bg-[#0c0c12]">
                 {/* 3D Mascot & Studio Backdrop Scene */}
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
                   <Mascot3D className="w-full h-full" />
