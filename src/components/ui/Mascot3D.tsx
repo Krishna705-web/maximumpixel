@@ -29,10 +29,10 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       // 1. Scene setup
       const scene = new THREE.Scene();
 
-      // 2. Camera setup - Landscape Studio Framing matching reference image
+      // 2. Camera setup - Framed to capture the full mirrored studio scene
       const getContainerDims = () => {
-        const w = container.clientWidth || (window.innerWidth < 640 ? 320 : 540);
-        const h = container.clientHeight || (window.innerWidth < 640 ? 200 : 340);
+        const w = container.clientWidth || (window.innerWidth < 640 ? 320 : 560);
+        const h = container.clientHeight || (window.innerWidth < 640 ? 200 : 350);
         return { w: Math.max(w, 240), h: Math.max(h, 150) };
       };
 
@@ -40,9 +40,8 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       const isMobile = window.innerWidth < 640;
       const fov = isMobile ? 38 : 34;
       const camera = new THREE.PerspectiveCamera(fov, initWidth / initHeight, 0.1, 100);
-      // Framing matching the reference image perspective
-      camera.position.set(0.02, 0.04, isMobile ? 1.55 : 1.42);
-      camera.lookAt(0.02, 0.02, 0);
+      camera.position.set(-0.02, 0.04, isMobile ? 1.55 : 1.42);
+      camera.lookAt(-0.02, 0.01, 0);
 
       // 3. Renderer setup
       renderer = new THREE.WebGLRenderer({
@@ -57,27 +56,27 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.35;
 
-      // 4. Studio Lighting setup (Matching vibrant studio vibe)
+      // 4. Studio Lighting setup
       const ambientLight = new THREE.AmbientLight(0xffffff, 1.8);
       scene.add(ambientLight);
 
       const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
-      keyLight.position.set(2, 4, 3);
+      keyLight.position.set(-2, 4, 3);
       scene.add(keyLight);
 
-      const purpleRimLight = new THREE.PointLight(0x9d4edd, 4.0, 8);
-      purpleRimLight.position.set(-1.5, 0.8, -0.2);
+      const purpleRimLight = new THREE.PointLight(0x9d4edd, 4.5, 8);
+      purpleRimLight.position.set(1.5, 0.8, -0.2);
       scene.add(purpleRimLight);
 
-      const orangeFillLight = new THREE.PointLight(0xff9e00, 2.5, 8);
-      orangeFillLight.position.set(1.5, 0.2, 1.0);
+      const orangeFillLight = new THREE.PointLight(0xff9e00, 2.8, 8);
+      orangeFillLight.position.set(-1.5, 0.2, 1.0);
       scene.add(orangeFillLight);
 
       const frontLight = new THREE.DirectionalLight(0xffffff, 1.2);
       frontLight.position.set(0, 0.5, 3.5);
       scene.add(frontLight);
 
-      // 5. STATIC 3D STUDIO BACKDROP (Desk on left, Green mat in center, Shelf on right)
+      // 5. STATIC 3D STUDIO BACKDROP (Mirrored: Desk on Right Side, Shelf on Left Side)
       const backdropGroup = new THREE.Group();
       scene.add(backdropGroup);
 
@@ -108,14 +107,14 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
           }
         });
 
-        // Backdrop sits statically in exact studio orientation
+        // Mirror horizontally so Computer Desk is on the RIGHT side
         cloned.position.set(0, 0, 0);
-        cloned.scale.set(1, 1, 1);
+        cloned.scale.set(-1, 1, 1);
 
         backdropGroup.add(cloned);
       };
 
-      // Fast Draco Loader for Backdrop
+      // Fast Draco Loader for ultra-compressed backdrop (6MB)
       const dracoLoader = new DRACOLoader();
       dracoLoader.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
 
@@ -126,7 +125,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         setupBackdrop(cachedBackdropScene);
       } else {
         backdropLoader.load(
-          "/assets/studio-backdrop-fast.glb",
+          "/assets/studio-backdrop-ultra.glb",
           (gltf) => {
             if (isDisposed) return;
             cachedBackdropScene = gltf.scene;
@@ -134,9 +133,9 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
           },
           undefined,
           () => {
-            const fallbackLoader = new GLTFLoader();
-            fallbackLoader.load(
-              "/assets/studio-backdrop.glb",
+            // Fallback to fast GLB if needed
+            backdropLoader.load(
+              "/assets/studio-backdrop-fast.glb",
               (gltfFallback) => {
                 if (isDisposed) return;
                 cachedBackdropScene = gltfFallback.scene;
@@ -151,7 +150,35 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         );
       }
 
-      // 6. INTERACTIVE 3D MASCOT CHARACTER (Positioned on the green floor mat)
+      // --- DYNAMIC CONTACT SHADOW LOCKED UNDER FEET ---
+      const shadowCanvas = document.createElement("canvas");
+      shadowCanvas.width = 128;
+      shadowCanvas.height = 128;
+      const ctx = shadowCanvas.getContext("2d");
+      if (ctx) {
+        const grad = ctx.createRadialGradient(64, 64, 4, 64, 64, 58);
+        grad.addColorStop(0, "rgba(0, 10, 0, 0.95)");
+        grad.addColorStop(0.35, "rgba(0, 15, 5, 0.6)");
+        grad.addColorStop(0.7, "rgba(0, 0, 0, 0.2)");
+        grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 128, 128);
+      }
+      const shadowTexture = new THREE.CanvasTexture(shadowCanvas);
+      const shadowGeo = new THREE.PlaneGeometry(0.55, 0.42);
+      const shadowMat = new THREE.MeshBasicMaterial({
+        map: shadowTexture,
+        transparent: true,
+        opacity: 0.95,
+        depthWrite: false,
+      });
+      const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
+      shadowMesh.rotation.x = -Math.PI / 2;
+      // Positioned right under character shoes on the floor
+      shadowMesh.position.set(-0.16, -0.428, 0.08);
+      scene.add(shadowMesh);
+
+      // 6. INTERACTIVE 3D MASCOT CHARACTER (Firmly Grounded on the Floor)
       const mascotGroup = new THREE.Group();
       scene.add(mascotGroup);
 
@@ -168,15 +195,15 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const autoScale = targetHeight / (size.y || 1);
         cloned.scale.set(autoScale, autoScale, autoScale);
 
-        // Center the pivot at character's base/feet
+        // Center pivot at character's base/feet
         cloned.position.x = -center.x * autoScale;
         cloned.position.y = -box.min.y * autoScale;
         cloned.position.z = -center.z * autoScale;
 
         mascotGroup.add(cloned);
 
-        // Position character standing on the green mat in front of abstract wall shape
-        mascotGroup.position.set(0.16, -0.34, 0.08);
+        // Ground feet firmly on the studio floor (zero gap, firmly standing)
+        mascotGroup.position.set(-0.16, -0.425, 0.08);
       };
 
       if (cachedGLTFScene) {
@@ -191,19 +218,8 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
             setupModel(gltf.scene);
           },
           undefined,
-          () => {
-            loader.load(
-              "/assets/mascot-3d.glb",
-              (gltfFallback) => {
-                if (isDisposed) return;
-                cachedGLTFScene = gltfFallback.scene;
-                setupModel(gltfFallback.scene);
-              },
-              undefined,
-              (err) => {
-                console.warn("3D mascot load error:", err);
-              }
-            );
+          (err) => {
+            console.warn("3D mascot load error:", err);
           }
         );
       }
@@ -297,12 +313,11 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       window.addEventListener("resize", handleResize);
       window.addEventListener("orientationchange", handleResize);
 
-      // 9. 60 FPS Render Loop (ONLY Mascot Character Rotates, Backdrop stays STATIC)
+      // 9. 60 FPS Render Loop (ONLY Character Rotates, Backdrop is STATIC)
       const animate = () => {
         if (isDisposed) return;
         animationFrameId = requestAnimationFrame(animate);
 
-        // Smoothly rotate character toward cursor
         mascotGroup.rotation.y = THREE.MathUtils.lerp(
           mascotGroup.rotation.y,
           targetRotY + dragRotY,
@@ -351,10 +366,9 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       ref={containerRef}
       className={`relative w-full h-full aspect-[16/10] sm:aspect-[16/10] md:aspect-[16/9] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
     >
-      {/* 3D WebGL Canvas (Static Studio Backdrop + Interactive Moving Character on Green Mat) */}
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-cover pointer-events-auto"
+        className="w-full h-full object-contain pointer-events-auto"
       />
     </div>
   );
