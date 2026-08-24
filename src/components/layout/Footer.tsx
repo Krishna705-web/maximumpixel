@@ -114,14 +114,6 @@ export const Footer: React.FC = () => {
             >
               Terms of Use
             </Link>
-            <span className="text-white/20">|</span>
-            <Link
-              href="/admin/messages"
-              className="hover:text-[#5B2EE8] transition-colors flex items-center gap-1 opacity-60 hover:opacity-100"
-              title="Founder Inbox"
-            >
-              <span>Founder Portal</span>
-            </Link>
           </div>
         </div>
       </div>

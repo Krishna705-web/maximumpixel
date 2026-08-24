@@ -65,11 +65,11 @@ export default function HomePage() {
         <ConfettiAccent variant="hero-home" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 lg:gap-12 items-center">
             {/* Left Content */}
-            <div className="lg:col-span-6 z-10 space-y-5 text-left">
+            <div className="md:col-span-7 lg:col-span-6 z-10 space-y-4 md:space-y-5 text-left">
               {/* Big Display Headline with Staggered Word Reveal */}
-              <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] uppercase overflow-hidden">
+              <h1 className="font-display font-black text-4xl sm:text-6xl md:text-6xl lg:text-8xl tracking-tight leading-[0.95] uppercase overflow-hidden">
                 <motion.span
                   custom={0}
                   variants={wordVariants}
@@ -104,10 +104,9 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
-                className="text-[#FF7A1A] font-semibold text-lg sm:text-xl md:text-2xl pt-1"
+                className="text-[#FF7A1A] font-semibold text-base sm:text-xl md:text-2xl pt-1 leading-snug"
               >
-                Jaipur-Based Creative <br className="hidden sm:inline" />
-                Content &amp; Media Studio
+                Jaipur-Based Creative Content &amp; Media Studio
               </motion.p>
 
               {/* Body Description */}
@@ -126,14 +125,14 @@ export default function HomePage() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.8 }}
-                className="pt-3"
+                className="pt-2 md:pt-3"
               >
                 <Button
                   href="/contact"
                   variant="primary"
                   size="md"
                   showArrow
-                  className="px-8 py-3.5 text-base font-bold shadow-[0_4px_25px_rgba(91,46,232,0.5)] hover:shadow-[0_8px_30px_rgba(91,46,232,0.7)]"
+                  className="px-7 sm:px-8 py-3.5 text-sm sm:text-base font-bold shadow-[0_4px_25px_rgba(91,46,232,0.5)] hover:shadow-[0_8px_30px_rgba(91,46,232,0.7)]"
                 >
                   Let&apos;s Create
                 </Button>
@@ -141,8 +140,8 @@ export default function HomePage() {
             </div>
 
             {/* Right Mascot Visual (Interactive 3D Character with Mouse-Look Physics) */}
-            <div className="lg:col-span-6 relative flex justify-center items-center mt-4 lg:mt-0">
-              <div className="relative w-full max-w-[280px] sm:max-w-[380px] md:max-w-[440px] lg:max-w-[480px] aspect-[4/5] flex items-center justify-center">
+            <div className="md:col-span-5 lg:col-span-6 relative flex justify-center items-center mt-6 md:mt-0">
+              <div className="relative w-full max-w-[260px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[480px] aspect-[4/5] flex items-center justify-center">
                 {/* Faceted polygon background shape */}
                 <div
                   className="absolute inset-0 w-full h-full pointer-events-none opacity-90"

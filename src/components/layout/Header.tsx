@@ -7,6 +7,7 @@ import { Logo } from "@/components/ui/Logo";
 import { NAV_ITEMS, COMPANY_INFO } from "@/data/company";
 import { Menu, X, ArrowRight, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { GetAppButton } from "@/components/ui/GetAppButton";
 
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -93,8 +94,9 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          {/* Desktop Right: CTA */}
+          {/* Desktop Right: Get App + CTA */}
           <div className="hidden md:flex items-center gap-3">
+            <GetAppButton variant="desktop" />
             <Link
               href="/contact"
               prefetch={true}
@@ -190,7 +192,11 @@ export const Header: React.FC = () => {
                 <span>{COMPANY_INFO.phone}</span>
               </a>
 
-              <div className="pt-2">
+              <div className="pt-2 space-y-2.5">
+                <GetAppButton
+                  variant="mobile-menu"
+                  onActionComplete={() => setIsMobileMenuOpen(false)}
+                />
                 <Link
                   href="/contact"
                   prefetch={true}

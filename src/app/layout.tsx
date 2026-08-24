@@ -5,7 +5,6 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { FloatingWhatsApp } from "@/components/ui/FloatingWhatsApp";
-import { InstallAppPrompt } from "@/components/ui/InstallAppPrompt";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 
 const inter = Inter({
@@ -265,7 +264,6 @@ export default function RootLayout({
           <main className="flex-1 w-full">{children}</main>
           <Footer />
           <FloatingWhatsApp />
-          <InstallAppPrompt />
         </SmoothScroll>
       </body>
     </html>
