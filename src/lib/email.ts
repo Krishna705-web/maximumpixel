@@ -27,15 +27,11 @@ export async function sendContactNotification({
   const pass = process.env.SMTP_PASS;
   const port = parseInt(process.env.SMTP_PORT || "465", 10);
   const secure = process.env.SMTP_SECURE !== "false"; // Default true for port 465
-  const to = process.env.CONTACT_RECEIVER_EMAIL || process.env.SMTP_USER || "hello.maximumpixel@gmail.com";
+  const adminReceiver = process.env.CONTACT_RECEIVER_EMAIL || process.env.SMTP_USER || "hello.maximumpixel@gmail.com";
 
   // If SMTP is not fully configured, log diagnostic info
   if (!user || !pass) {
     console.warn("⚠️ SMTP credentials (SMTP_USER / SMTP_PASS) not configured in environment.");
-    console.log("Mocking email dispatch payload:");
-    console.log(`To: ${to}`);
-    console.log(`From: ${name} <${email}> (${phone || "No phone"})`);
-    console.log(`Message: ${message}`);
     return {
       success: false,
       mocked: true,
@@ -47,7 +43,7 @@ export async function sendContactNotification({
   const cleanUser = user?.trim();
   const cleanPass = pass?.trim().replace(/\s+/g, "");
 
-  // Create transporter: use Gmail service preset if host contains gmail or user is a gmail address
+  // Create transporter: use Gmail service preset
   const isGmail = !host || host.includes("gmail") || (cleanUser && cleanUser.includes("@gmail.com"));
 
   const transporter = isGmail
@@ -73,9 +69,10 @@ export async function sendContactNotification({
   const safePhone = phone ? escapeHtml(phone) : "Not provided";
   const safeMessage = escapeHtml(message);
 
-  const mailOptions = {
-    from: `"MaximumPixel Studio" <${user}>`,
-    to,
+  // 1. Email to Studio Admin (hello.maximumpixel@gmail.com)
+  const adminMailOptions = {
+    from: `"MaximumPixel Studio" <${cleanUser}>`,
+    to: adminReceiver,
     replyTo: email,
     subject: `⚡ New Inquiry from ${safeName} via MaximumPixel`,
     text: `
@@ -119,12 +116,83 @@ ${message}
     `,
   };
 
+  // 2. Email to Client (Auto-Confirmation Receipt)
+  const clientConfirmationOptions = {
+    from: `"MaximumPixel Studio" <${cleanUser}>`,
+    to: email,
+    subject: `✨ Thanks for reaching out, ${safeName}! — MaximumPixel`,
+    text: `
+Hi ${name},
+
+Thank you for getting in touch with MaximumPixel! We have received your project inquiry:
+
+"${message}"
+
+Our creative team is reviewing your requirements and will get back to you within 24 hours.
+
+If your project is urgent, you can also reach us directly on WhatsApp: https://wa.me/917878736798
+
+Best regards,
+Krishna Rajak & MaximumPixel Creative Team
+Jaipur, Rajasthan, India
+https://www.maximumpixel.online
+    `,
+    html: `
+      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 28px; background-color: #0A0A0A; color: #FFFFFF; border-radius: 16px; border: 1px solid #222222;">
+        <div style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #222;">
+          <h1 style="color: #FFFFFF; font-size: 26px; margin: 0; font-weight: 900; letter-spacing: -0.5px;">MAXIMUM<span style="color: #5B2EE8;">PIXEL</span></h1>
+          <p style="color: #A0A0A0; margin: 6px 0 0 0; font-size: 13px;">Creative Content & Video Production Studio</p>
+        </div>
+        
+        <div style="padding: 24px 0 10px 0;">
+          <h2 style="color: #FFFFFF; font-size: 20px; margin: 0 0 12px 0;">Hi ${safeName}, thanks for reaching out! 👋</h2>
+          <p style="color: #CCCCCC; font-size: 14px; line-height: 1.6; margin: 0 0 16px 0;">
+            We received your message and project details. Our creative team in Jaipur is reviewing your requirements and will get back to you with ideas, timelines, and next steps within <strong style="color: #FFFFFF;">24 hours</strong>.
+          </p>
+        </div>
+
+        <div style="background-color: #141416; padding: 18px; border-radius: 12px; margin: 16px 0; border: 1px solid #282828;">
+          <p style="margin: 0 0 8px 0; color: #5B2EE8; font-size: 12px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Your Message Summary:</p>
+          <p style="margin: 0; color: #E0E0E0; font-size: 14px; line-height: 1.5; font-style: italic;">&ldquo;${safeMessage}&rdquo;</p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, rgba(91,46,232,0.15), rgba(255,122,26,0.1)); border: 1px solid rgba(91,46,232,0.3); padding: 18px; border-radius: 12px; margin: 20px 0; text-align: center;">
+          <p style="margin: 0 0 12px 0; font-size: 13px; color: #FFFFFF;">Have an urgent deadline or prefer instant chat?</p>
+          <a href="https://wa.me/917878736798" style="display: inline-block; background-color: #22B14C; color: #FFFFFF; text-decoration: none; padding: 10px 24px; border-radius: 9999px; font-weight: bold; font-size: 13px;">
+            💬 Chat on WhatsApp (+91 78787 36798)
+          </a>
+        </div>
+
+        <div style="text-align: center; padding-top: 20px; border-top: 1px solid #1A1A1A; margin-top: 24px;">
+          <p style="font-size: 12px; color: #888888; margin: 0;">
+            <strong>MaximumPixel Studio</strong> — Jaipur, Rajasthan, India<br />
+            <a href="https://www.maximumpixel.online" style="color: #5B2EE8; text-decoration: none;">www.maximumpixel.online</a>
+          </p>
+        </div>
+      </div>
+    `,
+  };
+
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log("✅ Email sent successfully:", info.messageId);
-    return { success: true, messageId: info.messageId };
+    // Dispatch both notifications concurrently
+    const [adminInfo, clientInfo] = await Promise.allSettled([
+      transporter.sendMail(adminMailOptions),
+      transporter.sendMail(clientConfirmationOptions),
+    ]);
+
+    const adminSent = adminMailOptions && adminInfo.status === "fulfilled";
+    const clientSent = clientInfo.status === "fulfilled";
+
+    console.log("✅ Admin Email result:", adminInfo.status);
+    console.log("✅ Client Confirmation result:", clientInfo.status);
+
+    return {
+      success: adminSent || clientSent,
+      adminMessageId: adminInfo.status === "fulfilled" ? adminInfo.value.messageId : null,
+      clientMessageId: clientInfo.status === "fulfilled" ? clientInfo.value.messageId : null,
+    };
   } catch (err: any) {
-    console.error("❌ Nodemailer transporter.sendMail error:", err);
+    console.error("❌ Nodemailer send error:", err);
     return { success: false, error: err?.message || String(err) };
   }
 }
