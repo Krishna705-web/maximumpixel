@@ -36,11 +36,12 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
 
       const { w: initWidth, h: initHeight } = getContainerDims();
       const isMobile = window.innerWidth < 640;
-      const fov = isMobile ? 42 : 38;
+      const fov = isMobile ? 44 : 39;
       const camera = new THREE.PerspectiveCamera(fov, initWidth / initHeight, 0.1, 100);
-      camera.position.set(0.15, 0.25, isMobile ? 4.6 : 4.3);
+      camera.position.set(0.05, 0.45, isMobile ? 4.7 : 4.4);
+      camera.lookAt(0, -0.15, 0);
 
-      // 3. Renderer setup
+      // 3. High-performance renderer setup
       renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
@@ -51,55 +52,71 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.2;
+      renderer.toneMappingExposure = 1.25;
 
       // 4. Studio Lighting setup
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
       scene.add(ambientLight);
 
       // Key light from top-left
-      const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
-      keyLight.position.set(3, 5, 4);
+      const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
+      keyLight.position.set(2.5, 6, 4);
       scene.add(keyLight);
 
       // Neon purple rim light hitting the right wall & character edge
-      const purpleRimLight = new THREE.PointLight(0x5b2ee8, 5.0, 12);
-      purpleRimLight.position.set(2.5, 1.5, -0.5);
-      scene.add(purpleRimLight);
+      const purpleWallLight = new THREE.PointLight(0x7c4dff, 6.0, 10);
+      purpleWallLight.position.set(1.8, 1.2, 0.2);
+      scene.add(purpleWallLight);
 
-      // Warm orange fill light from front-bottom
-      const orangeFillLight = new THREE.PointLight(0xff7a1a, 2.2, 10);
-      orangeFillLight.position.set(-2.5, -0.5, 2.5);
+      // Warm orange fill light from lower left
+      const orangeFillLight = new THREE.PointLight(0xff7a1a, 2.5, 8);
+      orangeFillLight.position.set(-2.5, -0.2, 2.5);
       scene.add(orangeFillLight);
 
-      const frontLight = new THREE.DirectionalLight(0xffffff, 0.7);
-      frontLight.position.set(0, 1, 5);
-      scene.add(frontLight);
+      const frontFill = new THREE.DirectionalLight(0xffffff, 0.8);
+      frontFill.position.set(0, 1, 5);
+      scene.add(frontFill);
 
-      const groundLevel = -1.05;
+      const groundLevel = -1.0;
 
-      // 5. 3D Studio Environment: Floor + Right Studio Wall
+      // 5. 3D Studio Environment: Seamless Studio Floor Platform + Clearly Visible Right Wall
       const studioStage = new THREE.Group();
       scene.add(studioStage);
 
-      // --- A. STUDIO FLOOR PLANE ---
-      const floorGeo = new THREE.PlaneGeometry(6, 6);
-      const floorMat = new THREE.MeshStandardMaterial({
-        color: 0x111115,
-        roughness: 0.35,
-        metalness: 0.25,
+      // --- A. SEAMLESS 3D STUDIO FLOOR PODIUM (No hard cutting edges) ---
+      const platformRadius = 2.1;
+      const platformHeight = 0.18;
+      const platformGeo = new THREE.CylinderGeometry(
+        platformRadius,
+        platformRadius + 0.12,
+        platformHeight,
+        48
+      );
+      const platformMat = new THREE.MeshStandardMaterial({
+        color: 0x14141a,
+        roughness: 0.3,
+        metalness: 0.4,
       });
-      const floorMesh = new THREE.Mesh(floorGeo, floorMat);
-      floorMesh.rotation.x = -Math.PI / 2;
-      floorMesh.position.set(0, groundLevel, 0);
-      studioStage.add(floorMesh);
+      const platformMesh = new THREE.Mesh(platformGeo, platformMat);
+      platformMesh.position.set(0, groundLevel - platformHeight / 2, 0);
+      studioStage.add(platformMesh);
 
-      // Floor spotlight ring highlight
-      const ringGeo = new THREE.RingGeometry(0.8, 1.3, 32);
-      const ringMat = new THREE.MeshBasicMaterial({
+      // Glowing Neon Base Rim around the studio platform
+      const baseRimGeo = new THREE.TorusGeometry(platformRadius + 0.05, 0.025, 16, 64);
+      const baseRimMat = new THREE.MeshBasicMaterial({
         color: 0x5b2ee8,
+      });
+      const baseRimMesh = new THREE.Mesh(baseRimGeo, baseRimMat);
+      baseRimMesh.rotation.x = Math.PI / 2;
+      baseRimMesh.position.set(0, groundLevel - platformHeight, 0);
+      studioStage.add(baseRimMesh);
+
+      // Subtle Spotlight Ring on the floor
+      const ringGeo = new THREE.RingGeometry(0.7, 1.4, 48);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: 0x7c4dff,
         transparent: true,
-        opacity: 0.15,
+        opacity: 0.16,
         side: THREE.DoubleSide,
       });
       const ringMesh = new THREE.Mesh(ringGeo, ringMat);
@@ -107,60 +124,66 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       ringMesh.position.set(0, groundLevel + 0.002, 0);
       studioStage.add(ringMesh);
 
-      // --- B. RIGHT STUDIO WALL ---
+      // --- B. CLEARLY VISIBLE RIGHT STUDIO WALL ---
       const rightWallGroup = new THREE.Group();
-      rightWallGroup.position.set(1.6, groundLevel + 1.6, -0.2);
-      rightWallGroup.rotation.y = -Math.PI / 6; // Angled 30 deg inward
+      // Positioned on the right and angled nicely toward camera view
+      rightWallGroup.position.set(1.35, groundLevel + 1.5, -0.3);
+      rightWallGroup.rotation.y = -Math.PI * 0.28; // ~50 degrees facing camera
 
-      // Main Right Wall Panel
-      const wallGeo = new THREE.BoxGeometry(0.1, 3.4, 3.8);
+      // Main Right Studio Wall Panel
+      const wallGeo = new THREE.BoxGeometry(0.12, 3.2, 3.4);
       const wallMat = new THREE.MeshStandardMaterial({
-        color: 0x16161c,
-        roughness: 0.6,
-        metalness: 0.2,
+        color: 0x1a1a24,
+        roughness: 0.5,
+        metalness: 0.3,
       });
       const wallMesh = new THREE.Mesh(wallGeo, wallMat);
       rightWallGroup.add(wallMesh);
 
-      // Studio Acoustic Vertical Slats on the Right Wall
+      // Studio Acoustic Vertical Slats on the Right Wall (Distinct & High Contrast)
       const slatMat = new THREE.MeshStandardMaterial({
-        color: 0x22222c,
-        roughness: 0.4,
-        metalness: 0.3,
+        color: 0x2a2a38,
+        roughness: 0.35,
+        metalness: 0.45,
       });
-      for (let i = -1.5; i <= 1.5; i += 0.28) {
-        const slatGeo = new THREE.BoxGeometry(0.04, 3.2, 0.12);
+      for (let i = -1.35; i <= 1.35; i += 0.26) {
+        const slatGeo = new THREE.BoxGeometry(0.06, 3.0, 0.11);
         const slatMesh = new THREE.Mesh(slatGeo, slatMat);
-        slatMesh.position.set(-0.06, 0, i);
+        slatMesh.position.set(-0.08, 0, i);
         rightWallGroup.add(slatMesh);
       }
 
-      // Vertical Neon LED Light Strip on the Right Wall edge
-      const neonGeo = new THREE.BoxGeometry(0.04, 3.2, 0.05);
-      const neonMat = new THREE.MeshBasicMaterial({
-        color: 0x7c4dff,
-      });
-      const neonMesh = new THREE.Mesh(neonGeo, neonMat);
-      neonMesh.position.set(-0.08, 0, -1.6);
-      rightWallGroup.add(neonMesh);
+      // Vertical Accent Neon Tube 1 (Studio Purple)
+      const neon1Geo = new THREE.CylinderGeometry(0.02, 0.02, 3.0, 16);
+      const neon1Mat = new THREE.MeshBasicMaterial({ color: 0x9d4edd });
+      const neon1Mesh = new THREE.Mesh(neon1Geo, neon1Mat);
+      neon1Mesh.position.set(-0.11, 0, -1.4);
+      rightWallGroup.add(neon1Mesh);
+
+      // Vertical Accent Neon Tube 2 (Studio Warm Glow)
+      const neon2Geo = new THREE.CylinderGeometry(0.015, 0.015, 3.0, 16);
+      const neon2Mat = new THREE.MeshBasicMaterial({ color: 0xff7a1a });
+      const neon2Mesh = new THREE.Mesh(neon2Geo, neon2Mat);
+      neon2Mesh.position.set(-0.11, 0, 1.4);
+      rightWallGroup.add(neon2Mesh);
 
       studioStage.add(rightWallGroup);
 
-      // --- C. DYNAMIC CONTACT SHADOW ---
+      // --- C. DYNAMIC CONTACT SHADOW ON FLOOR ---
       const shadowCanvas = document.createElement("canvas");
       shadowCanvas.width = 128;
       shadowCanvas.height = 128;
       const ctx = shadowCanvas.getContext("2d");
       if (ctx) {
         const grad = ctx.createRadialGradient(64, 64, 5, 64, 64, 60);
-        grad.addColorStop(0, "rgba(0, 0, 0, 0.75)");
-        grad.addColorStop(0.4, "rgba(0, 0, 0, 0.45)");
+        grad.addColorStop(0, "rgba(0, 0, 0, 0.85)");
+        grad.addColorStop(0.4, "rgba(0, 0, 0, 0.5)");
         grad.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, 128, 128);
       }
       const shadowTexture = new THREE.CanvasTexture(shadowCanvas);
-      const shadowGeo = new THREE.PlaneGeometry(1.5, 1.2);
+      const shadowGeo = new THREE.PlaneGeometry(1.6, 1.3);
       const shadowMat = new THREE.MeshBasicMaterial({
         map: shadowTexture,
         transparent: true,
@@ -172,7 +195,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       shadowMesh.position.set(0, groundLevel + 0.005, 0);
       scene.add(shadowMesh);
 
-      // 6. Mascot Pivot Group (Positioned on floor)
+      // 6. Mascot Pivot Group (Standing firmly on floor)
       const mascotGroup = new THREE.Group();
       scene.add(mascotGroup);
 
@@ -184,7 +207,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
 
-        const targetHeight = 2.18;
+        const targetHeight = 2.15;
         const autoScale = targetHeight / (size.y || 1);
         cloned.scale.set(autoScale, autoScale, autoScale);
 
@@ -225,7 +248,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         );
       }
 
-      // 7. Interactive Hover Movement on the Floor
+      // 7. Interactive Hover Movement on the Floor Platform
       let targetRotY = 0;
       let targetRotX = 0;
       let targetPosX = 0;
@@ -241,12 +264,12 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const normX = (e.clientX / windowWidth) * 2 - 1;
         const normY = (e.clientY / windowHeight) * 2 - 1;
 
-        // Character slides on floor and turns to face cursor
-        targetPosX = normX * 0.35;
-        targetPosZ = normY * 0.25;
+        // Move character within platform bounds & turn to face pointer
+        targetPosX = normX * 0.32;
+        targetPosZ = normY * 0.22;
         targetRotY = normX * 0.55;
-        targetRotX = normY * 0.15;
-        targetTiltZ = -normX * 0.05; // Gentle body lean
+        targetRotX = normY * 0.12;
+        targetTiltZ = -normX * 0.04;
       };
 
       const handleMouseDown = (e: MouseEvent) => {
@@ -287,11 +310,11 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const windowHeight = window.innerHeight || 640;
         const normX = (currentX / windowWidth) * 2 - 1;
         const normY = (e.touches[0].clientY / windowHeight) * 2 - 1;
-        targetPosX = normX * 0.35;
-        targetPosZ = normY * 0.25;
+        targetPosX = normX * 0.32;
+        targetPosZ = normY * 0.22;
         targetRotY = normX * 0.55;
-        targetRotX = normY * 0.15;
-        targetTiltZ = -normX * 0.05;
+        targetRotX = normY * 0.12;
+        targetTiltZ = -normX * 0.04;
       };
 
       window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -309,8 +332,8 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const { w: newWidth, h: newHeight } = getContainerDims();
         if (newWidth > 0 && newHeight > 0) {
           const mobile = window.innerWidth < 640;
-          camera.fov = mobile ? 42 : 38;
-          camera.position.z = mobile ? 4.6 : 4.3;
+          camera.fov = mobile ? 44 : 39;
+          camera.position.z = mobile ? 4.7 : 4.4;
           camera.aspect = newWidth / newHeight;
           camera.updateProjectionMatrix();
           renderer.setSize(newWidth, newHeight, false);
@@ -330,11 +353,11 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         if (isDisposed) return;
         animationFrameId = requestAnimationFrame(animate);
 
-        // Interpolate Mascot Position on the floor
+        // Slide Mascot on Floor
         mascotGroup.position.x = THREE.MathUtils.lerp(mascotGroup.position.x, targetPosX, 0.07);
         mascotGroup.position.z = THREE.MathUtils.lerp(mascotGroup.position.z, targetPosZ, 0.07);
 
-        // Interpolate Rotation & Lean
+        // Rotate and Lean
         mascotGroup.rotation.y = THREE.MathUtils.lerp(
           mascotGroup.rotation.y,
           targetRotY + dragRotY,
@@ -351,7 +374,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
           0.08
         );
 
-        // Keep shadow locked right beneath the mascot on the floor
+        // Dynamic Contact Shadow follows mascot on floor
         shadowMesh.position.x = mascotGroup.position.x;
         shadowMesh.position.z = mascotGroup.position.z;
         shadowMesh.rotation.z = -mascotGroup.rotation.y * 0.4;
@@ -390,7 +413,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full min-h-[260px] sm:min-h-[320px] md:min-h-[420px] lg:min-h-[500px] aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
+      className={`relative w-full h-full min-h-[260px] sm:min-h-[340px] md:min-h-[440px] lg:min-h-[520px] aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
     >
       <canvas
         ref={canvasRef}
