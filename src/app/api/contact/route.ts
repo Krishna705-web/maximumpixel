@@ -110,14 +110,17 @@ export async function POST(req: NextRequest) {
 
     // 5. Send email notification via Nodemailer
     try {
-      await sendContactNotification({
+      const emailResult = await sendContactNotification({
         name: name.trim(),
         email: email.trim().toLowerCase(),
         phone: phone ? phone.trim() : null,
         message: message.trim(),
       });
+      if (!emailResult.success) {
+        console.warn("⚠️ Contact form saved but email dispatch failed:", emailResult.error);
+      }
     } catch (emailError) {
-      console.error("Error sending email notification:", emailError);
+      console.error("Error invoking sendContactNotification:", emailError);
     }
 
     return NextResponse.json(

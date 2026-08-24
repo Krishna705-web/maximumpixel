@@ -119,6 +119,12 @@ ${message}
     `,
   };
 
-  const info = await transporter.sendMail(mailOptions);
-  return { success: true, messageId: info.messageId };
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log("✅ Email sent successfully:", info.messageId);
+    return { success: true, messageId: info.messageId };
+  } catch (err: any) {
+    console.error("❌ Nodemailer transporter.sendMail error:", err);
+    return { success: false, error: err?.message || String(err) };
+  }
 }
