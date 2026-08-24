@@ -27,12 +27,12 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       // 1. Scene setup
       const scene = new THREE.Scene();
 
-      // 2. Camera setup - Optimized closer framing for Phone, Tablet, Laptop, and PC
+      // 2. Camera setup - Generous framing to prevent any cutting or clipping
       const getContainerDims = () => {
         const width = window.innerWidth || 1200;
-        const w = container.clientWidth || (width < 640 ? 320 : width < 1024 ? 440 : width < 1440 ? 560 : 640);
-        const h = container.clientHeight || (width < 640 ? 400 : width < 1024 ? 540 : width < 1440 ? 660 : 760);
-        return { w: Math.max(w, 240), h: Math.max(h, 300) };
+        const w = container.clientWidth || (width < 640 ? 340 : width < 1024 ? 480 : width < 1440 ? 600 : 700);
+        const h = container.clientHeight || (width < 640 ? 400 : width < 1024 ? 560 : width < 1440 ? 700 : 800);
+        return { w: Math.max(w, 260), h: Math.max(h, 320) };
       };
 
       const { w: initWidth, h: initHeight } = getContainerDims();
@@ -41,11 +41,11 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       const isTablet = screenWidth >= 640 && screenWidth < 1024;
       const isLaptop = screenWidth >= 1024 && screenWidth < 1440;
       
-      // Closer camera zoom for all screens so character stands large and prominent
-      const fov = isMobile ? 36 : isTablet ? 37 : isLaptop ? 38 : 39;
+      // Expanded FOV & camera distance so character has full clearance with ZERO cutting
+      const fov = isMobile ? 41 : isTablet ? 41 : isLaptop ? 42 : 42;
       const camera = new THREE.PerspectiveCamera(fov, initWidth / initHeight, 0.1, 100);
-      const camZ = isMobile ? 3.25 : isTablet ? 3.45 : isLaptop ? 3.65 : 3.8;
-      camera.position.set(0, 0.06, camZ);
+      const camZ = isMobile ? 3.55 : isTablet ? 3.75 : isLaptop ? 3.95 : 4.1;
+      camera.position.set(0, 0.04, camZ);
 
       // 3. Renderer setup
       renderer = new THREE.WebGLRenderer({
@@ -80,13 +80,13 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       frontFillLight.position.set(0, 0, 5);
       scene.add(frontFillLight);
 
-      const groundLevel = -1.15;
+      const groundLevel = -1.1;
 
       // 5. Mascot Pivot Group
       const mascotGroup = new THREE.Group();
       scene.add(mascotGroup);
 
-      // 6. Direct GLTF Loader (Prominent scale for large display impact)
+      // 6. Direct GLTF Loader (Scaled for prominent visual impact)
       const setupModel = (model: THREE.Group) => {
         if (isDisposed) return;
         const cloned = model.clone(true);
@@ -95,7 +95,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
 
-        const targetHeight = 2.48;
+        const targetHeight = 2.45;
         const autoScale = targetHeight / (size.y || 1);
         cloned.scale.set(autoScale, autoScale, autoScale);
 
@@ -202,7 +202,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       window.addEventListener("touchend", handleTouchEnd);
       container.addEventListener("touchmove", handleTouchMove, { passive: true });
 
-      // 8. Responsive Resize Observer across all breakpoints
+      // 8. Responsive Resize Observer with generous clearances
       const handleResize = () => {
         if (!container || !renderer || !camera) return;
         const { w: newWidth, h: newHeight } = getContainerDims();
@@ -211,8 +211,8 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
           const mobile = width < 640;
           const tablet = width >= 640 && width < 1024;
           const laptop = width >= 1024 && width < 1440;
-          camera.fov = mobile ? 36 : tablet ? 37 : laptop ? 38 : 39;
-          camera.position.z = mobile ? 3.25 : tablet ? 3.45 : laptop ? 3.65 : 3.8;
+          camera.fov = mobile ? 41 : tablet ? 41 : laptop ? 42 : 42;
+          camera.position.z = mobile ? 3.55 : tablet ? 3.75 : laptop ? 3.95 : 4.1;
           camera.aspect = newWidth / newHeight;
           camera.updateProjectionMatrix();
           renderer.setSize(newWidth, newHeight, false);
@@ -277,7 +277,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full min-h-[320px] sm:min-h-[420px] md:min-h-[520px] lg:min-h-[600px] xl:min-h-[660px] aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
+      className={`relative w-full h-full min-h-[340px] sm:min-h-[440px] md:min-h-[540px] lg:min-h-[620px] xl:min-h-[680px] aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
     >
       <canvas
         ref={canvasRef}
