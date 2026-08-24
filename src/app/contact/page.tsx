@@ -22,7 +22,7 @@ import {
   Linkedin,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AnimatedMascot } from "@/components/ui/AnimatedMascot";
+import { Mascot3D } from "@/components/ui/Mascot3D";
 
 const SERVICES_OPTIONS = [
   "Video Production",
@@ -291,9 +291,9 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              {/* Character Visual */}
-              <div className="relative z-10 w-full flex justify-center items-center py-2 my-auto">
-                <AnimatedMascot className="max-w-[240px] sm:max-w-[280px]" />
+              {/* Character Visual (Pure 3D WebGL) */}
+              <div className="relative z-10 w-full flex justify-center items-center py-2 my-auto max-w-[240px] sm:max-w-[280px] mx-auto aspect-[4/5]">
+                <Mascot3D className="w-full h-full" />
               </div>
 
               {/* Studio Metrics Row & Socials */}

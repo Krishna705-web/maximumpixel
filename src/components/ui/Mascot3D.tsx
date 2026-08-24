@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
@@ -14,7 +13,6 @@ let cachedGLTFScene: THREE.Group | null = null;
 export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [is3DReady, setIs3DReady] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -81,7 +79,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       const mascotGroup = new THREE.Group();
       scene.add(mascotGroup);
 
-      // 6. Direct GLTF Loader with Fast 1.1MB Model & Fallback
+      // 6. Direct GLTF Loader (Pure 3D Only - No 2D image overlays)
       const setupModel = (model: THREE.Group) => {
         if (isDisposed) return;
         const cloned = model.clone(true);
@@ -99,14 +97,13 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         cloned.position.z = -center.z * autoScale;
 
         mascotGroup.add(cloned);
-        setIs3DReady(true);
       };
 
       if (cachedGLTFScene) {
         setupModel(cachedGLTFScene);
       } else {
         const loader = new GLTFLoader();
-        // Load optimized fast GLB first (1.1MB) with fallback to full GLB
+        // Load fast 1.1MB GLB directly
         loader.load(
           "/assets/mascot-3d-fast.glb",
           (gltf) => {
@@ -267,28 +264,10 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       ref={containerRef}
       className={`relative w-full h-full min-h-[260px] sm:min-h-[320px] md:min-h-[420px] lg:min-h-[500px] aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
     >
-      {/* 2D Fallback Graphic (instantly visible while 3D downloads in background) */}
-      <div
-        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 pointer-events-none ${
-          is3DReady ? "opacity-0" : "opacity-100"
-        }`}
-      >
-        <Image
-          src="/assets/mascot-wave.png"
-          alt="MaximumPixel 3D Character"
-          width={400}
-          height={500}
-          priority
-          className="w-full h-full object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]"
-        />
-      </div>
-
-      {/* Interactive 3D WebGL Canvas */}
+      {/* Pure Interactive 3D WebGL Canvas */}
       <canvas
         ref={canvasRef}
-        className={`w-full h-full object-contain pointer-events-auto transition-opacity duration-500 ${
-          is3DReady ? "opacity-100" : "opacity-0"
-        }`}
+        className="w-full h-full object-contain pointer-events-auto"
       />
     </div>
   );
