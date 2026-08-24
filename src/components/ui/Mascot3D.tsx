@@ -27,18 +27,21 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       // 1. Scene setup
       const scene = new THREE.Scene();
 
-      // 2. Camera setup - Safe width/height calculation
+      // 2. Camera setup - Optimized closer framing for mobile, tablet, and desktop
       const getContainerDims = () => {
-        const w = container.clientWidth || (window.innerWidth < 640 ? 260 : 420);
-        const h = container.clientHeight || (window.innerWidth < 640 ? 325 : 525);
-        return { w: Math.max(w, 200), h: Math.max(h, 250) };
+        const w = container.clientWidth || (window.innerWidth < 640 ? 280 : window.innerWidth < 1024 ? 360 : 440);
+        const h = container.clientHeight || (window.innerWidth < 640 ? 350 : window.innerWidth < 1024 ? 450 : 550);
+        return { w: Math.max(w, 220), h: Math.max(h, 280) };
       };
 
       const { w: initWidth, h: initHeight } = getContainerDims();
       const isMobile = window.innerWidth < 640;
-      const fov = isMobile ? 44 : 40;
+      const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024;
+      
+      // Closer camera zoom for mobile and tablet so character appears larger and bolder
+      const fov = isMobile ? 38 : isTablet ? 39 : 40;
       const camera = new THREE.PerspectiveCamera(fov, initWidth / initHeight, 0.1, 100);
-      camera.position.set(0, 0.12, isMobile ? 4.4 : 4.2);
+      camera.position.set(0, 0.08, isMobile ? 3.45 : isTablet ? 3.7 : 4.1);
 
       // 3. Renderer setup
       renderer = new THREE.WebGLRenderer({
@@ -51,35 +54,35 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
+      renderer.toneMappingExposure = 1.18;
 
       // 4. Lighting setup
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
       scene.add(ambientLight);
 
-      const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+      const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
       keyLight.position.set(4, 5, 4);
       scene.add(keyLight);
 
-      const purpleRimLight = new THREE.PointLight(0x5b2ee8, 4.5, 10);
+      const purpleRimLight = new THREE.PointLight(0x5b2ee8, 5.0, 10);
       purpleRimLight.position.set(-3.5, 2.5, -2);
       scene.add(purpleRimLight);
 
-      const orangeFillLight = new THREE.PointLight(0xff7a1a, 2.0, 10);
+      const orangeFillLight = new THREE.PointLight(0xff7a1a, 2.2, 10);
       orangeFillLight.position.set(3, -1, 2);
       scene.add(orangeFillLight);
 
-      const frontFillLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      const frontFillLight = new THREE.DirectionalLight(0xffffff, 0.9);
       frontFillLight.position.set(0, 0, 5);
       scene.add(frontFillLight);
 
-      const groundLevel = -1.05;
+      const groundLevel = -1.1;
 
       // 5. Mascot Pivot Group
       const mascotGroup = new THREE.Group();
       scene.add(mascotGroup);
 
-      // 6. Direct GLTF Loader (Pure 3D Only - Fast 1.1MB GLB)
+      // 6. Direct GLTF Loader (Scaled for prominent visual prominence)
       const setupModel = (model: THREE.Group) => {
         if (isDisposed) return;
         const cloned = model.clone(true);
@@ -88,7 +91,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
 
-        const targetHeight = 2.22;
+        const targetHeight = 2.35;
         const autoScale = targetHeight / (size.y || 1);
         cloned.scale.set(autoScale, autoScale, autoScale);
 
@@ -201,8 +204,9 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const { w: newWidth, h: newHeight } = getContainerDims();
         if (newWidth > 0 && newHeight > 0) {
           const mobile = window.innerWidth < 640;
-          camera.fov = mobile ? 44 : 40;
-          camera.position.z = mobile ? 4.4 : 4.2;
+          const tablet = window.innerWidth >= 640 && window.innerWidth < 1024;
+          camera.fov = mobile ? 38 : tablet ? 39 : 40;
+          camera.position.z = mobile ? 3.45 : tablet ? 3.7 : 4.1;
           camera.aspect = newWidth / newHeight;
           camera.updateProjectionMatrix();
           renderer.setSize(newWidth, newHeight, false);
@@ -267,9 +271,8 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full min-h-[260px] sm:min-h-[320px] md:min-h-[420px] lg:min-h-[500px] aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
+      className={`relative w-full h-full min-h-[300px] sm:min-h-[380px] md:min-h-[460px] lg:min-h-[520px] aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
     >
-      {/* Pure Interactive 3D WebGL Canvas */}
       <canvas
         ref={canvasRef}
         className="w-full h-full object-contain pointer-events-auto"

@@ -139,14 +139,14 @@ export default function HomePage() {
             </div>
 
             {/* Right Mascot Visual (Interactive 3D Character with Abstract Faceted Polygon Background) */}
-            <div className="col-span-5 sm:col-span-5 md:col-span-6 lg:col-span-6 relative flex justify-center items-center">
-              <div className="relative w-full max-w-[240px] sm:max-w-[300px] md:max-w-[380px] lg:max-w-[480px] min-h-[260px] sm:min-h-[320px] md:min-h-[420px] lg:min-h-[500px] aspect-[4/5] flex items-center justify-center">
-                {/* Faceted polygon background shape */}
+            <div className="col-span-5 sm:col-span-5 md:col-span-6 lg:col-span-6 relative flex justify-end sm:justify-center items-center">
+              <div className="relative w-full max-w-[280px] sm:max-w-[360px] md:max-w-[440px] lg:max-w-[500px] min-h-[300px] sm:min-h-[380px] md:min-h-[460px] lg:min-h-[520px] aspect-[4/5] flex items-center justify-center">
+                {/* Faceted polygon background shape - Scaled for mobile, tablet, and desktop */}
                 <div
-                  className="absolute inset-0 w-full h-full pointer-events-none opacity-90"
+                  className="absolute -inset-1 sm:-inset-3 md:-inset-4 w-[104%] sm:w-[108%] h-[104%] sm:h-[108%] pointer-events-none opacity-95 flex items-center justify-center"
                   aria-hidden="true"
                 >
-                  <svg viewBox="0 0 400 500" fill="none" className="w-full h-full">
+                  <svg viewBox="0 0 400 500" fill="none" className="w-full h-full object-contain">
                     <polygon points="280,40 400,140 340,240 260,180" fill="#1E7FE0" />
                     <polygon points="340,240 260,180 200,280 290,320" fill="#E53E3E" />
                     <polygon points="260,180 400,280 340,360 200,280" fill="#FFC72C" />
