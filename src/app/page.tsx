@@ -60,7 +60,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════
           HERO SECTION
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative pt-6 pb-16 md:pt-16 md:pb-24 overflow-hidden">
+      <section className="relative pt-1 sm:pt-2 md:pt-3 pb-12 md:pb-20 overflow-hidden">
         {/* Floating Confetti Accents */}
         <ConfettiAccent variant="hero-home" />
 
