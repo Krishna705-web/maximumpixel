@@ -237,6 +237,45 @@ export default function RootLayout({
     },
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is MaximumPixel?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MaximumPixel is Jaipur's premier creative content, video production, 3D animation, and digital media studio specializing in commercial films, viral reels, event coverage, and brand storytelling.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "What services does MaximumPixel offer in Jaipur?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MaximumPixel offers cinematic commercial video production, viral Instagram reels creation, product & fashion photography, live concert & event coverage, 3D VFX design, and brand identity strategy.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "Where is MaximumPixel located?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MaximumPixel is headquartered in Jaipur, Rajasthan, India, delivering creative media production for clients across India and globally.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "Who founded MaximumPixel?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MaximumPixel was founded by Krishna Rajak, leading creative direction, 3D concepts, and commercial production in Jaipur.",
+        },
+      },
+    ],
+  };
+
   return (
     <html lang="en" className={`${inter.variable} ${archivoBlack.variable} dark`} suppressHydrationWarning>
       <head>
@@ -255,6 +294,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       </head>
       <body className="min-h-screen bg-[#0A0A0A] text-white flex flex-col antialiased selection:bg-[#5B2EE8] selection:text-white">
