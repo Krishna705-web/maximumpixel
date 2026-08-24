@@ -229,7 +229,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "MaximumPixel",
-    "url": "https://maximumpixel.in",
+    "url": "https://maximumpixel.online",
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://maximumpixel.online/our-work?q={search_term_string}",
@@ -240,7 +240,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${archivoBlack.variable} dark`} suppressHydrationWarning>
       <head>
-        <link rel="preload" href="/assets/mascot-3d.glb" as="fetch" crossOrigin="anonymous" />
+        <link rel="preload" href="/assets/mascot-3d-fast.glb" as="fetch" crossOrigin="anonymous" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
