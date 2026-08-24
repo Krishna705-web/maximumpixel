@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 
 interface Mascot3DProps {
   className?: string;
@@ -52,25 +53,25 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.2;
+      renderer.toneMappingExposure = 1.3;
 
-      // 4. Lighting setup (Studio Key, Fill, and Rim)
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+      // 4. Lighting setup (Key, Fill, Rim, Ambient)
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
       scene.add(ambientLight);
 
-      const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
+      const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
       keyLight.position.set(3, 5, 4);
       scene.add(keyLight);
 
-      const purpleRimLight = new THREE.PointLight(0x5b2ee8, 4.5, 12);
+      const purpleRimLight = new THREE.PointLight(0x7c4dff, 5.5, 14);
       purpleRimLight.position.set(2.8, 1.8, -1.0);
       scene.add(purpleRimLight);
 
-      const orangeFillLight = new THREE.PointLight(0xff7a1a, 2.2, 10);
+      const orangeFillLight = new THREE.PointLight(0xff7a1a, 2.5, 10);
       orangeFillLight.position.set(-2.8, -0.5, 2.2);
       scene.add(orangeFillLight);
 
-      const frontLight = new THREE.DirectionalLight(0xffffff, 0.9);
+      const frontLight = new THREE.DirectionalLight(0xffffff, 1.0);
       frontLight.position.set(0, 0.5, 4.5);
       scene.add(frontLight);
 
@@ -85,14 +86,14 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       const carpetGeo = new THREE.CylinderGeometry(carpetRadius, carpetRadius + 0.08, 0.08, 48);
       const carpetMat = new THREE.MeshStandardMaterial({
         color: 0x22b14c, // Authentic Brand Studio Green
-        roughness: 0.75, // Soft velvet carpet feel
-        metalness: 0.08,
+        roughness: 0.7,  // Soft velvet carpet feel
+        metalness: 0.05,
       });
       const carpetMesh = new THREE.Mesh(carpetGeo, carpetMat);
       carpetMesh.position.set(0, groundLevel - 0.04, 0);
       stageGroup.add(carpetMesh);
 
-      // Carpet Border Trim (Subtle darker green velvet bevel)
+      // Carpet Border Trim (Subtle darker green bevel)
       const trimGeo = new THREE.TorusGeometry(carpetRadius + 0.02, 0.02, 16, 48);
       const trimMat = new THREE.MeshBasicMaterial({ color: 0x168135 });
       const trimMesh = new THREE.Mesh(trimGeo, trimMat);
@@ -107,8 +108,8 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       const ctx = shadowCanvas.getContext("2d");
       if (ctx) {
         const grad = ctx.createRadialGradient(64, 64, 5, 64, 64, 60);
-        grad.addColorStop(0, "rgba(0, 40, 10, 0.8)");
-        grad.addColorStop(0.4, "rgba(0, 30, 8, 0.45)");
+        grad.addColorStop(0, "rgba(0, 30, 8, 0.85)");
+        grad.addColorStop(0.4, "rgba(0, 25, 6, 0.5)");
         grad.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, 128, 128);
@@ -134,37 +135,80 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         if (isDisposed) return;
         const cloned = model.clone(true);
 
+        // Ensure materials render DoubleSide with proper PBR properties
+        cloned.traverse((child) => {
+          if ((child as THREE.Mesh).isMesh) {
+            const mesh = child as THREE.Mesh;
+            mesh.castShadow = false;
+            mesh.receiveShadow = true;
+            if (mesh.material) {
+              const fixMat = (m: THREE.Material) => {
+                m.side = THREE.DoubleSide;
+                if ((m as THREE.MeshStandardMaterial).isMeshStandardMaterial) {
+                  const std = m as THREE.MeshStandardMaterial;
+                  std.metalness = Math.min(std.metalness || 0, 0.2);
+                  std.roughness = Math.max(std.roughness || 0.5, 0.6);
+                }
+              };
+              if (Array.isArray(mesh.material)) {
+                mesh.material.forEach(fixMat);
+              } else {
+                fixMat(mesh.material);
+              }
+            }
+          }
+        });
+
         const box = new THREE.Box3().setFromObject(cloned);
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
 
-        // Scale backdrop model to frame the character nicely
+        // Scale backdrop model to frame the studio nicely
         const targetHeight = 3.6;
         const scale = targetHeight / (size.y || 1);
         cloned.scale.set(scale, scale, scale);
 
         cloned.position.x = -center.x * scale;
-        cloned.position.y = groundLevel - box.min.y * scale - 0.02;
-        cloned.position.z = -center.z * scale - 0.35; // Positioned behind character
+        cloned.position.y = groundLevel - box.min.y * scale - 0.05;
+        cloned.position.z = -center.z * scale - 0.3; // Positioned behind character
 
         backdropGroup.add(cloned);
       };
 
-      // Load 3D Backdrop Model
+      // Configure Draco Loader for fast 7MB model
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
+
+      const backdropLoader = new GLTFLoader();
+      backdropLoader.setDRACOLoader(dracoLoader);
+
       if (cachedBackdropScene) {
         setupBackdrop(cachedBackdropScene);
       } else {
-        const backdropLoader = new GLTFLoader();
+        // Load fast 7MB backdrop model (compressed from 58MB)
         backdropLoader.load(
-          "/assets/studio-backdrop.glb",
+          "/assets/studio-backdrop-fast.glb",
           (gltf) => {
             if (isDisposed) return;
             cachedBackdropScene = gltf.scene;
             setupBackdrop(gltf.scene);
           },
           undefined,
-          (err) => {
-            console.warn("Backdrop GLB load error:", err);
+          () => {
+            // Secondary fallback attempt with uncompressed model if needed
+            const fallbackLoader = new GLTFLoader();
+            fallbackLoader.load(
+              "/assets/studio-backdrop.glb",
+              (gltfFallback) => {
+                if (isDisposed) return;
+                cachedBackdropScene = gltfFallback.scene;
+                setupBackdrop(gltfFallback.scene);
+              },
+              undefined,
+              (err) => {
+                console.warn("Backdrop GLB load error:", err);
+              }
+            );
           }
         );
       }
@@ -271,6 +315,13 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const deltaX = currentX - prevPointerX;
         prevPointerX = currentX;
         dragRotY += deltaX * 0.015;
+
+        const windowWidth = window.innerWidth || 360;
+        const windowHeight = window.innerHeight || 640;
+        const normX = (currentX / windowWidth) * 2 - 1;
+        const normY = (e.touches[0].clientY / windowHeight) * 2 - 1;
+        targetRotY = normX * 0.5;
+        targetRotX = normY * 0.16;
       };
 
       window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -352,6 +403,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         if (renderer) {
           renderer.dispose();
         }
+        dracoLoader.dispose();
       };
     } catch (err) {
       console.warn("WebGL initialization error:", err);
