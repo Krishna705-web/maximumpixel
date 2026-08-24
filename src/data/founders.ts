@@ -2,7 +2,7 @@ export interface Founder {
   id: string;
   name: string;
   role: string;
-  tagline: "Founder" | "Co-Founder";
+  tagline: "Founder";
   specialty: string;
   bio: string;
   accentColor: string;
@@ -16,47 +16,21 @@ export const FOUNDERS: Founder[] = [
   {
     id: "krishna",
     name: "Krishna Rajak",
-    role: "Founder & Creative Lead",
+    role: "Founder & Creative Director",
     tagline: "Founder",
-    specialty: "Direction & Creative Concepts",
-    bio: "A visual storyteller from concept to final cut. Leads the creative vision, scripts, and production direction.",
-    accentColor: "#E53E3E", // Red accent
-    badgeBg: "text-[#FF4A4A]",
-    avatarBg: "bg-[#E53E3E]",
+    specialty: "Direction, 3D & Creative Concepts",
+    bio: "A passionate visual storyteller and creative director from Jaipur. Leads the creative vision, direction, 3D concepts, and commercial production at MaximumPixel.",
+    accentColor: "#5B2EE8", // Royal purple accent
+    badgeBg: "text-[#7C4DFF]",
+    avatarBg: "bg-[#5B2EE8]",
     avatarPlaceholder: "/assets/founders/krishna.png",
     initials: "KR",
-  },
-  {
-    id: "vishwajeet",
-    name: "Vishwajeet Barman",
-    role: "Co-Founder & Visual Lead",
-    tagline: "Co-Founder",
-    specialty: "Cinematography & Visual Editing",
-    bio: "The eye behind the lens. Handles camera framing, lighting, visual editing, and post-production color polish.",
-    accentColor: "#14B8A6", // Teal accent
-    badgeBg: "text-[#14B8A6]",
-    avatarBg: "bg-[#0D9488]",
-    avatarPlaceholder: "/assets/founders/vishwajeet.png",
-    initials: "VB",
-  },
-  {
-    id: "rahul",
-    name: "Rahul Gyanchandani",
-    role: "Co-Founder & Strategist",
-    tagline: "Co-Founder",
-    specialty: "Brand Strategy & Planning",
-    bio: "The strategist and problem solver. Turns brand objectives into clear roadmaps, timelines, and client execution.",
-    accentColor: "#FF7A1A", // Orange accent
-    badgeBg: "text-[#FF7A1A]",
-    avatarBg: "bg-[#EA580C]",
-    avatarPlaceholder: "/assets/founders/rahul.png",
-    initials: "RG",
   },
 ];
 
 export const ABOUT_MISSION = {
   title: "OUR MISSION",
-  statement: "To help brands and people express their story in the most creative, authentic and impactful way possible.",
+  statement: "To help brands and businesses express their story in the most creative, cinematic, and impactful way possible.",
 };
 
 export const ABOUT_STATS = [
@@ -69,8 +43,8 @@ export const ABOUT_STATS = [
   {
     icon: "users",
     iconColor: "text-[#5B2EE8]",
-    label: "3 Creators",
-    sublabel: "1 Founder, 2 Co-Founders",
+    label: "Founder-Led",
+    sublabel: "Personal Dedication",
   },
   {
     icon: "box",

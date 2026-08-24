@@ -112,9 +112,9 @@ export default function AboutPage() {
           transition={{ duration: 0.6, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
           className="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight uppercase leading-[1.05]"
         >
-          THREE CREATORS. <br />
+          CREATIVE VISION. <br />
           <span className="text-[#5B2EE8] drop-shadow-[0_0_25px_rgba(91,46,232,0.4)]">
-            ONE VISION.
+            DRIVEN BY PASSION.
           </span>
         </motion.h1>
 
@@ -124,7 +124,7 @@ export default function AboutPage() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-[#A0A0A0] text-sm sm:text-base md:text-lg max-w-2xl mx-auto mt-3 leading-relaxed"
         >
-          We are Krishna, Vishwajeet, and Rahul — three friends and creators starting our journey in Jaipur. We love visual storytelling and crafting clean, engaging content for brands and people.
+          MaximumPixel is a Jaipur-based creative content &amp; video production studio founded by Krishna Rajak. We specialize in visual storytelling, cinematic films, 3D concepts, and high-impact digital branding.
         </motion.p>
 
         {/* Authentic Studio Quick Facts */}
@@ -172,7 +172,7 @@ export default function AboutPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="flex justify-center max-w-xl mx-auto"
           >
             {FOUNDERS.map((founder) => (
               <motion.div
@@ -180,7 +180,7 @@ export default function AboutPage() {
                 variants={itemVariants}
                 whileHover={{ y: -6 }}
                 transition={{ duration: 0.25 }}
-                className="group relative rounded-3xl bg-gradient-to-b from-white/[0.05] to-white/[0.02] border border-white/10 p-6 flex flex-col items-center text-center transition-all duration-300 hover:border-white/30 hover:shadow-[0_10px_35px_rgba(0,0,0,0.6)] overflow-hidden"
+                className="w-full group relative rounded-3xl bg-gradient-to-b from-white/[0.05] to-white/[0.02] border border-white/10 p-7 flex flex-col items-center text-center transition-all duration-300 hover:border-[#5B2EE8]/50 hover:shadow-[0_10px_35px_rgba(91,46,232,0.25)] overflow-hidden"
               >
                 {/* Accent Color Line on Top */}
                 <div
@@ -190,7 +190,7 @@ export default function AboutPage() {
 
                 {/* Avatar */}
                 <div
-                  className={`w-28 h-28 sm:w-32 sm:h-32 rounded-2xl ${founder.avatarBg} shrink-0 overflow-hidden relative shadow-lg group-hover:scale-105 transition-transform duration-300 flex items-center justify-center mb-4 mt-2 border-2 border-white/10`}
+                  className={`w-32 h-32 sm:w-36 sm:h-36 rounded-2xl ${founder.avatarBg} shrink-0 overflow-hidden relative shadow-lg group-hover:scale-105 transition-transform duration-300 flex items-center justify-center mb-4 mt-2 border-2 border-white/10`}
                 >
                   <Image
                     src={founder.avatarPlaceholder}
@@ -202,9 +202,9 @@ export default function AboutPage() {
                 </div>
 
                 {/* Details */}
-                <div className="space-y-1.5 flex-1 flex flex-col justify-between">
+                <div className="space-y-2 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="font-display font-black text-xl text-white tracking-wide">
+                    <h3 className="font-display font-black text-2xl text-white tracking-wide">
                       {founder.name}
                     </h3>
                     <p
@@ -213,14 +213,14 @@ export default function AboutPage() {
                     >
                       {founder.role}
                     </p>
-                    <p className="text-xs sm:text-sm text-[#CCCCCC] leading-relaxed pt-2.5">
+                    <p className="text-xs sm:text-sm text-[#CCCCCC] leading-relaxed pt-2.5 max-w-md">
                       {founder.bio}
                     </p>
                   </div>
 
-                  <div className="pt-4 mt-3 border-t border-white/10 w-full flex items-center justify-between text-[11px]">
+                  <div className="pt-4 mt-4 border-t border-white/10 w-full flex items-center justify-between text-xs">
                     <span
-                      className="px-2.5 py-0.5 rounded-md font-bold uppercase tracking-wider text-[10px]"
+                      className="px-3 py-1 rounded-md font-bold uppercase tracking-wider text-[11px]"
                       style={{
                         backgroundColor: `${founder.accentColor}20`,
                         color: founder.accentColor,
@@ -228,7 +228,7 @@ export default function AboutPage() {
                     >
                       {founder.tagline}
                     </span>
-                    <span className="text-[#A0A0A0] text-[11px] font-medium">
+                    <span className="text-[#A0A0A0] text-xs font-medium">
                       {founder.specialty}
                     </span>
                   </div>
@@ -292,7 +292,7 @@ export default function AboutPage() {
                 IDEAS TO LIFE
               </h2>
               <p className="text-white/80 text-sm sm:text-base">
-                Ready to collaborate with Krishna, Vishwajeet, and Rahul on your next project?
+                Ready to collaborate with Krishna on your next project?
               </p>
               <div className="pt-2">
                 <Button
