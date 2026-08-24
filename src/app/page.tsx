@@ -138,24 +138,10 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            {/* Right Mascot Visual (Interactive 3D Character with Mouse-Look Physics) */}
+            {/* Right Mascot Visual (Interactive 3D Mascot standing on Green Carpet with 3D Studio Backdrop) */}
             <div className="col-span-5 sm:col-span-5 md:col-span-6 lg:col-span-6 relative flex justify-center items-center">
-              <div className="relative w-full max-w-[240px] sm:max-w-[300px] md:max-w-[380px] lg:max-w-[480px] min-h-[260px] sm:min-h-[320px] md:min-h-[420px] lg:min-h-[500px] aspect-[4/5] flex items-center justify-center">
-                {/* Faceted polygon background shape */}
-                <div
-                  className="absolute inset-0 w-full h-full pointer-events-none opacity-90"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 400 500" fill="none" className="w-full h-full">
-                    <polygon points="280,40 400,140 340,240 260,180" fill="#1E7FE0" />
-                    <polygon points="340,240 260,180 200,280 290,320" fill="#E53E3E" />
-                    <polygon points="260,180 400,280 340,360 200,280" fill="#FFC72C" />
-                    <polygon points="200,280 340,360 280,460 160,400" fill="#5B2EE8" />
-                    <polygon points="160,400 280,460 180,500 80,440" fill="#22B14C" />
-                  </svg>
-                </div>
-
-                {/* Interactive 3D Mascot Model with Mouse Tracking */}
+              <div className="relative w-full max-w-[240px] sm:max-w-[320px] md:max-w-[420px] lg:max-w-[500px] min-h-[260px] sm:min-h-[340px] md:min-h-[440px] lg:min-h-[520px] aspect-[4/5] flex items-center justify-center">
+                {/* 3D Mascot & Studio Backdrop Scene */}
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
                   <Mascot3D className="w-full h-full" />
                 </div>
