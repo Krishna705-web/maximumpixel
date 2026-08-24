@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
@@ -8,12 +9,12 @@ interface Mascot3DProps {
   className?: string;
 }
 
-// In-memory cache of the loaded GLTF object so client navigations load in 0ms
 let cachedGLTFScene: THREE.Group | null = null;
 
 export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [is3DReady, setIs3DReady] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -28,15 +29,20 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       // 1. Scene setup
       const scene = new THREE.Scene();
 
-      // 2. Camera setup - Responsive FOV for mobile & desktop
+      // 2. Camera setup - Safe width/height calculation
+      const getContainerDims = () => {
+        const w = container.clientWidth || (window.innerWidth < 640 ? 260 : 420);
+        const h = container.clientHeight || (window.innerWidth < 640 ? 325 : 525);
+        return { w: Math.max(w, 200), h: Math.max(h, 250) };
+      };
+
+      const { w: initWidth, h: initHeight } = getContainerDims();
       const isMobile = window.innerWidth < 640;
-      const initWidth = container.clientWidth > 0 ? container.clientWidth : (isMobile ? 320 : 440);
-      const initHeight = container.clientHeight > 0 ? container.clientHeight : (isMobile ? 400 : 520);
       const fov = isMobile ? 44 : 40;
       const camera = new THREE.PerspectiveCamera(fov, initWidth / initHeight, 0.1, 100);
       camera.position.set(0, 0.12, isMobile ? 4.4 : 4.2);
 
-      // 3. High-performance renderer setup
+      // 3. Renderer setup
       renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
@@ -73,15 +79,13 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
 
       // 5. Mascot Pivot Group
       const mascotGroup = new THREE.Group();
-      mascotGroup.position.set(0, 0, 0);
       scene.add(mascotGroup);
 
-      // 6. Direct GLTF Loader (Pure 3D Only - No 2D image swaps)
+      // 6. Direct GLTF Loader with Fast 1.1MB Model & Fallback
       const setupModel = (model: THREE.Group) => {
         if (isDisposed) return;
         const cloned = model.clone(true);
 
-        // Compute exact bounding box
         const box = new THREE.Box3().setFromObject(cloned);
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
@@ -90,47 +94,57 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const autoScale = targetHeight / (size.y || 1);
         cloned.scale.set(autoScale, autoScale, autoScale);
 
-        // Lock shoes onto green facet floor level
         cloned.position.x = -center.x * autoScale;
         cloned.position.y = groundLevel - box.min.y * autoScale;
         cloned.position.z = -center.z * autoScale;
 
         mascotGroup.add(cloned);
+        setIs3DReady(true);
       };
 
       if (cachedGLTFScene) {
         setupModel(cachedGLTFScene);
       } else {
         const loader = new GLTFLoader();
+        // Load optimized fast GLB first (1.1MB) with fallback to full GLB
         loader.load(
-          "/assets/mascot-3d.glb",
+          "/assets/mascot-3d-fast.glb",
           (gltf) => {
             if (isDisposed) return;
-            const model = gltf.scene;
-            cachedGLTFScene = model;
-            setupModel(model);
+            cachedGLTFScene = gltf.scene;
+            setupModel(gltf.scene);
           },
           undefined,
-          (error) => {
-            console.warn("3D mascot load error:", error);
+          () => {
+            // Secondary attempt with mascot-3d.glb
+            loader.load(
+              "/assets/mascot-3d.glb",
+              (gltfFallback) => {
+                if (isDisposed) return;
+                cachedGLTFScene = gltfFallback.scene;
+                setupModel(gltfFallback.scene);
+              },
+              undefined,
+              (err) => {
+                console.warn("3D mascot load error:", err);
+              }
+            );
           }
         );
       }
 
-      // 7. Clean Interactive Mouse & Touch Cursor Tracking
+      // 7. Interactive Cursor Tracking (Mouse & Touch)
       let targetRotY = 0;
       let targetRotX = 0;
       let isInteracting = false;
       let prevPointerX = 0;
       let dragRotY = 0;
 
-      // Mouse movements
       const handleMouseMove = (e: MouseEvent) => {
         const windowWidth = window.innerWidth || 1920;
         const windowHeight = window.innerHeight || 1080;
         const normX = (e.clientX / windowWidth) * 2 - 1;
         const normY = (e.clientY / windowHeight) * 2 - 1;
-
         targetRotY = normX * 0.45;
         targetRotX = normY * 0.18;
       };
@@ -151,17 +165,10 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         dragRotY += deltaX * 0.012;
       };
 
-      // Touch gestures for Mobile & Tablets
       const handleTouchStart = (e: TouchEvent) => {
         if (e.touches.length > 0) {
           isInteracting = true;
           prevPointerX = e.touches[0].clientX;
-          const windowWidth = window.innerWidth || 360;
-          const windowHeight = window.innerHeight || 640;
-          const normX = (e.touches[0].clientX / windowWidth) * 2 - 1;
-          const normY = (e.touches[0].clientY / windowHeight) * 2 - 1;
-          targetRotY = normX * 0.45;
-          targetRotX = normY * 0.18;
         }
       };
 
@@ -175,13 +182,6 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         const deltaX = currentX - prevPointerX;
         prevPointerX = currentX;
         dragRotY += deltaX * 0.015;
-
-        const windowWidth = window.innerWidth || 360;
-        const windowHeight = window.innerHeight || 640;
-        const normX = (currentX / windowWidth) * 2 - 1;
-        const normY = (e.touches[0].clientY / windowHeight) * 2 - 1;
-        targetRotY = normX * 0.45;
-        targetRotX = normY * 0.18;
       };
 
       window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -193,11 +193,10 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       window.addEventListener("touchend", handleTouchEnd);
       container.addEventListener("touchmove", handleTouchMove, { passive: true });
 
-      // 8. Responsive Resize & Orientation Observer
+      // 8. Responsive Resize Observer
       const handleResize = () => {
         if (!container || !renderer || !camera) return;
-        const newWidth = container.clientWidth;
-        const newHeight = container.clientHeight;
+        const { w: newWidth, h: newHeight } = getContainerDims();
         if (newWidth > 0 && newHeight > 0) {
           const mobile = window.innerWidth < 640;
           camera.fov = mobile ? 44 : 40;
@@ -216,7 +215,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       window.addEventListener("resize", handleResize);
       window.addEventListener("orientationchange", handleResize);
 
-      // 9. Direct 60 FPS Render Loop (Pure 3D Canvas)
+      // 9. 60 FPS Render Loop
       const animate = () => {
         if (isDisposed) return;
         animationFrameId = requestAnimationFrame(animate);
@@ -239,7 +238,6 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
 
       animate();
 
-      // 10. Cleanup
       return () => {
         isDisposed = true;
         cancelAnimationFrame(animationFrameId);
@@ -267,9 +265,31 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
+      className={`relative w-full h-full min-h-[260px] sm:min-h-[320px] md:min-h-[420px] lg:min-h-[500px] aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
     >
-      <canvas ref={canvasRef} className="w-full h-full object-contain pointer-events-auto" />
+      {/* 2D Fallback Graphic (instantly visible while 3D downloads in background) */}
+      <div
+        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 pointer-events-none ${
+          is3DReady ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <Image
+          src="/assets/mascot-wave.png"
+          alt="MaximumPixel 3D Character"
+          width={400}
+          height={500}
+          priority
+          className="w-full h-full object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]"
+        />
+      </div>
+
+      {/* Interactive 3D WebGL Canvas */}
+      <canvas
+        ref={canvasRef}
+        className={`w-full h-full object-contain pointer-events-auto transition-opacity duration-500 ${
+          is3DReady ? "opacity-100" : "opacity-0"
+        }`}
+      />
     </div>
   );
 };

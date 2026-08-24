@@ -140,7 +140,7 @@ export default function HomePage() {
 
             {/* Right Mascot Visual (Interactive 3D Character with Mouse-Look Physics) */}
             <div className="col-span-5 sm:col-span-5 md:col-span-6 lg:col-span-6 relative flex justify-center items-center">
-              <div className="relative w-full max-w-[200px] sm:max-w-[280px] md:max-w-[380px] lg:max-w-[480px] aspect-[4/5] flex items-center justify-center">
+              <div className="relative w-full max-w-[240px] sm:max-w-[300px] md:max-w-[380px] lg:max-w-[480px] min-h-[260px] sm:min-h-[320px] md:min-h-[420px] lg:min-h-[500px] aspect-[4/5] flex items-center justify-center">
                 {/* Faceted polygon background shape */}
                 <div
                   className="absolute inset-0 w-full h-full pointer-events-none opacity-90"
