@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Maximum Pixel | Best Creative Content & Video Production Studio in Jaipur",
+    default: "Maximum Pixel | Creative Content & Video Production Studio in Jaipur",
     template: "%s | Maximum Pixel Creative Studio",
   },
   description:
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  applicationName: "Maximum Pixel Studio",
+  applicationName: "Maximum Pixel Creative Studio",
   appleWebApp: {
     capable: true,
     title: "Maximum Pixel",
@@ -88,23 +88,23 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://maximumpixel.online",
     siteName: "Maximum Pixel Creative Studio",
-    title: "Maximum Pixel | Best Creative Content & Video Production Studio in Jaipur",
+    title: "Maximum Pixel | Creative Content & Video Production Studio in Jaipur",
     description:
-      "Transforming brands with cinematic videos, viral reels, commercial photography, and 3D branding. Maximum Pixel is Jaipur's top creative production agency.",
+      "Maximum Pixel is Jaipur's top creative studio for cinematic video production, commercial photography, viral reels, event coverage, and brand design.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Maximum Pixel Creative Content & Media Studio Jaipur",
+        alt: "Maximum Pixel Creative Content & Video Production Studio Jaipur",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maximum Pixel | Premier Creative Media & Video Production Studio",
+    title: "Maximum Pixel | Creative Content & Video Production Studio in Jaipur",
     description:
-      "Cinematic video production, viral social content, and brand design that convert. Based in Jaipur, delivering worldwide.",
+      "Maximum Pixel is Jaipur's top creative studio for cinematic video production, commercial photography, viral reels, event coverage, and brand design.",
     images: ["/og-image.jpg"],
     creator: "@maximumpixel",
   },
