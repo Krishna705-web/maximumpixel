@@ -9,7 +9,7 @@ export const FloatingWhatsApp: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="hidden md:flex fixed bottom-6 right-6 z-50 flex-col items-end">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Mini Chat Prompt Popup */}
       <AnimatePresence>
         {isOpen && (
