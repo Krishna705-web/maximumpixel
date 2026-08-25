@@ -37,25 +37,25 @@ export default function HomePage() {
 
   const latestWorkPreviews = [
     {
-      title: "Brand Film",
+      title: "Cinematic Brand Commercial",
       tag: "VIDEO",
       tagColor: "bg-[#5B2EE8]",
       image: "/assets/projects/brand-film.jpg",
-      subtext: "Portfolio coming soon",
+      subtext: "4K Cinema & HDR • Bespoke Sound Design & Color Grade",
     },
     {
-      title: "Portrait Shoot",
+      title: "Commercial Product & Lookbook",
       tag: "PHOTO",
       tagColor: "bg-[#65A30D]",
       image: "/assets/projects/product-shoot.jpg",
-      subtext: "Portfolio coming soon",
+      subtext: "High-Res Editorial • Studio Lighting & E-Commerce Retouch",
     },
     {
-      title: "Live Event",
+      title: "Arena Concert & Live Festival",
       tag: "EVENT",
       tagColor: "bg-[#FF7A1A]",
       image: "/assets/projects/live-event.jpg",
-      subtext: "Portfolio coming soon",
+      subtext: "Multi-Cam 60FPS • Fast-Turnaround 4K Festival Aftermovie",
     },
   ];
 
