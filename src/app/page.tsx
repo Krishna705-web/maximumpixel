@@ -156,7 +156,7 @@ export default function HomePage() {
                   variant="primary"
                   size="md"
                   showArrow
-                  className="px-7 sm:px-9 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-black shadow-[0_6px_30px_rgba(91,46,232,0.6)] hover:shadow-[0_8px_35px_rgba(91,46,232,0.8)] hover:scale-105 transition-all"
+                  className="px-8 sm:px-10 py-4 sm:py-4.5 text-base sm:text-lg font-black shadow-[0_8px_35px_rgba(91,46,232,0.65)] hover:shadow-[0_10px_45px_rgba(91,46,232,0.85)] hover:scale-105 transition-all"
                 >
                   Let&apos;s Create
                 </Button>
@@ -253,10 +253,10 @@ export default function HomePage() {
             </h2>
             <Link
               href="/our-work"
-              className="group inline-flex items-center gap-1.5 text-sm sm:text-base font-bold text-[#FF7A1A] hover:text-[#FF8E3C] transition-colors"
+              className="group inline-flex items-center gap-2 text-base font-extrabold text-[#FF7A1A] hover:text-[#FF8E3C] transition-colors"
             >
               <span>View All</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
             </Link>
           </div>
 
@@ -280,10 +280,10 @@ export default function HomePage() {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {/* Subtle top scrim */}
-                  <div className="absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/75 via-black/30 to-transparent pointer-events-none" />
 
                   {/* Category Pill Tag */}
-                  <div className="absolute top-3 left-3 z-10">
+                  <div className="absolute top-3.5 left-3.5 z-10">
                     <span
                       className={`px-2.5 py-1 rounded-md ${work.tagColor} text-white text-xs font-bold tracking-wider uppercase shadow-lg backdrop-blur-md border border-white/10`}
                     >

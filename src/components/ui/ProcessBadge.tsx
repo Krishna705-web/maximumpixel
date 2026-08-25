@@ -65,7 +65,7 @@ export const ProcessBadge: React.FC<ProcessBadgeProps> = ({
       </div>
 
       {/* Icon */}
-      <div className="mb-2 h-9 flex items-center justify-center group-hover:translate-y-[-2px] transition-transform duration-200">
+      <div className="mb-3 h-10 flex items-center justify-center group-hover:translate-y-[-2px] transition-transform duration-200">
         {getIcon()}
       </div>
 
@@ -75,7 +75,7 @@ export const ProcessBadge: React.FC<ProcessBadgeProps> = ({
       </h3>
 
       {/* Description */}
-      <p className="text-xs text-[#A0A0A0] leading-relaxed max-w-[140px] md:max-w-[160px]">
+      <p className="text-xs sm:text-sm text-[#B0B0B0] leading-normal max-w-[145px] md:max-w-[165px]">
         {description}
       </p>
     </div>

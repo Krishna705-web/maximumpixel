@@ -25,7 +25,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     step: "03",
     badgeColor: "bg-[#FF7A1A]",
     title: "SHOOT",
-    description: "Lights, camera, creativity.",
+    description: "Camera & action live.",
     iconName: "camera",
   },
   {
