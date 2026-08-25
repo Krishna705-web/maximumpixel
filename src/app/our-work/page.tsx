@@ -314,15 +314,27 @@ export default function OurWorkPage() {
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Large Image Header */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
-                <Image
-                  src={selectedProject.imageUrl}
-                  alt={selectedProject.title}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute top-4 left-4 flex items-center gap-2">
+              {/* Large Media Header (Video or Image) */}
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-black flex items-center justify-center">
+                {selectedProject.videoUrl ? (
+                  <video
+                    src={selectedProject.videoUrl}
+                    poster={selectedProject.imageUrl}
+                    controls
+                    autoPlay
+                    playsInline
+                    loop
+                    className="w-full h-full object-contain bg-black"
+                  />
+                ) : (
+                  <Image
+                    src={selectedProject.imageUrl}
+                    alt={selectedProject.title}
+                    fill
+                    className="object-cover"
+                  />
+                )}
+                <div className="absolute top-4 left-4 flex items-center gap-2 pointer-events-none z-10">
                   <span
                     className={`px-3 py-1 rounded-md ${selectedProject.tagBg} text-white text-xs font-black tracking-wider uppercase shadow-lg`}
                   >
@@ -352,6 +364,14 @@ export default function OurWorkPage() {
                 <p className="text-sm text-[#CCCCCC] leading-relaxed">
                   {selectedProject.description}
                 </p>
+
+                {/* Credits Badge */}
+                {selectedProject.credits && (
+                  <div className="flex items-start gap-2 p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs text-[#A0A0A0]">
+                    <Sparkles className="w-4 h-4 text-[#FFC72C] shrink-0 mt-0.5" />
+                    <span>{selectedProject.credits}</span>
+                  </div>
+                )}
 
                 {/* Deliverables List */}
                 <div className="pt-2">

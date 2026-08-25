@@ -37,23 +37,23 @@ export default function HomePage() {
 
   const latestWorkPreviews = [
     {
-      title: "Cinematic Brand Commercial",
+      title: "Artisan Cafe & Hospitality Reel",
       tag: "VIDEO",
+      tagColor: "bg-[#FF7A1A]",
+      image: "/assets/projects/cafe-reel.jpg",
+      subtext: "9:16 4K Vertical • Warm Aesthetic & Coffee Craft Post-Production",
+    },
+    {
+      title: "Cinematic Brand Commercial",
+      tag: "COMMERCIAL",
       tagColor: "bg-[#5B2EE8]",
       image: "/assets/projects/brand-film.jpg",
       subtext: "4K Cinema & HDR • Bespoke Sound Design & Color Grade",
     },
     {
-      title: "Commercial Product & Lookbook",
-      tag: "PHOTO",
-      tagColor: "bg-[#65A30D]",
-      image: "/assets/projects/product-shoot.jpg",
-      subtext: "High-Res Editorial • Studio Lighting & E-Commerce Retouch",
-    },
-    {
       title: "Arena Concert & Live Festival",
       tag: "EVENT",
-      tagColor: "bg-[#FF7A1A]",
+      tagColor: "bg-[#22B14C]",
       image: "/assets/projects/live-event.jpg",
       subtext: "Multi-Cam 60FPS • Fast-Turnaround 4K Festival Aftermovie",
     },

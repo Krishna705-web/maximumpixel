@@ -116,22 +116,36 @@ export const ReelsShowcase: React.FC = () => {
                   <X className="w-4 h-4" />
                 </button>
 
-                {/* 9:16 Video Frame Simulation */}
+                {/* 9:16 Video Player or Concept Preview Frame */}
                 <div className="relative aspect-[9/16] w-full bg-black flex items-center justify-center overflow-hidden">
-                  <Image
-                    src={activeReel.thumbnail}
-                    alt={activeReel.title}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-6 text-center space-y-3 z-10">
-                    <div className="w-16 h-16 rounded-full bg-[#5B2EE8] flex items-center justify-center text-white shadow-2xl animate-pulse">
-                      <Play className="w-7 h-7 fill-white ml-1" />
-                    </div>
-                    <p className="text-xs font-bold text-white uppercase tracking-wider">
-                      Previewing Concept Reel
-                    </p>
-                  </div>
+                  {activeReel.videoUrl ? (
+                    <video
+                      src={activeReel.videoUrl}
+                      poster={activeReel.thumbnail}
+                      controls
+                      autoPlay
+                      playsInline
+                      loop
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <>
+                      <Image
+                        src={activeReel.thumbnail}
+                        alt={activeReel.title}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-6 text-center space-y-3 z-10">
+                        <div className="w-16 h-16 rounded-full bg-[#5B2EE8] flex items-center justify-center text-white shadow-2xl animate-pulse">
+                          <Play className="w-7 h-7 fill-white ml-1" />
+                        </div>
+                        <p className="text-xs font-bold text-white uppercase tracking-wider">
+                          Previewing Concept Reel
+                        </p>
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 {/* Reel Info */}
@@ -144,6 +158,13 @@ export const ReelsShowcase: React.FC = () => {
                       {activeReel.caption}
                     </p>
                   </div>
+
+                  {activeReel.credits && (
+                    <div className="flex items-start gap-1.5 p-2 rounded-xl bg-white/[0.04] border border-white/[0.08] text-[11px] text-[#A0A0A0]">
+                      <Sparkles className="w-3.5 h-3.5 text-[#FFC72C] shrink-0 mt-0.5" />
+                      <span>{activeReel.credits}</span>
+                    </div>
+                  )}
 
                   <Button
                     href={`/contact?service=reels&reel=${encodeURIComponent(activeReel.title)}`}

@@ -5,15 +5,28 @@ export interface ReelItem {
   tagColor: string;
   views: string;
   thumbnail: string;
+  videoUrl?: string;
+  credits?: string;
   caption: string;
 }
 
 export const REELS: ReelItem[] = [
   {
+    id: "reel-cafe-aesthetic",
+    title: "Aesthetic Cafe & Coffee Reel",
+    category: "HOSPITALITY",
+    tagColor: "bg-[#FF7A1A]",
+    views: "340K Views",
+    thumbnail: "/assets/projects/cafe-reel.jpg",
+    videoUrl: "/assets/videos/cafe-edit.mp4",
+    credits: "Stock Footage: Pexels • Editing & Production: Maximum Pixel Studio",
+    caption: "Warm golden tones, sensory pour-over cuts & cozy barista craft storytelling.",
+  },
+  {
     id: "reel-1",
     title: "Cinematic Street Food Jaipur",
     category: "REELS",
-    tagColor: "bg-[#FF7A1A]",
+    tagColor: "bg-[#5B2EE8]",
     views: "245K Views",
     thumbnail: "/assets/projects/brand-film.jpg",
     caption: "High-octane sound design & rapid cuts capturing Jaipur's culinary soul.",
@@ -35,14 +48,5 @@ export const REELS: ReelItem[] = [
     views: "410K Views",
     thumbnail: "/assets/projects/live-event.jpg",
     caption: "Same-night turnaround for 5,000+ attendee music festival in Jaipur.",
-  },
-  {
-    id: "reel-4",
-    title: "Boutique Hotel Aerial Tour",
-    category: "PROPERTY",
-    tagColor: "bg-[#1E7FE0]",
-    views: "95K Views",
-    thumbnail: "/assets/projects/commercial-shoot.jpg",
-    caption: "4K FPV drone flythrough showcasing architecture and royal courtyards.",
   },
 ];

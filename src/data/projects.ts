@@ -8,6 +8,8 @@ export interface ProjectItem {
   tagBg: string;
   status: "Studio Concept" | "Creative Spec Shoot";
   imageUrl: string;
+  videoUrl?: string;
+  credits?: string;
   featured: boolean;
   formatBadge: string;
   deliverables: string[];
@@ -26,6 +28,24 @@ export const CATEGORIES = [
 export type CategoryFilter = (typeof CATEGORIES)[number];
 
 export const PROJECTS: ProjectItem[] = [
+  {
+    id: "cafe-aesthetic-reel",
+    title: "Artisan Cafe & Hospitality Reel",
+    subtitle: "Warm Aesthetic Social Reel & Spec Shoot",
+    category: "Video",
+    conceptType: "Hospitality & Food Commercial",
+    tagColor: "#FFFFFF",
+    tagBg: "bg-[#FF7A1A]",
+    status: "Studio Concept",
+    imageUrl: "/assets/projects/cafe-reel.jpg",
+    videoUrl: "/assets/videos/cafe-edit.mp4",
+    credits: "Stock Footage: Pexels • Original Editing & Post-Production: Maximum Pixel Studio",
+    featured: true,
+    formatBadge: "9:16 4K Vertical",
+    deliverables: ["9:16 Vertical Master", "Atmospheric Sound Design", "Warm Tone Color Grade", "Curated Pexels Footage"],
+    description:
+      "A rich, sensory cafe commercial capturing artisan pour-over brewing, warm ambient interior seating, and intimate barista craft. Optimized for viral social retention and brand engagement.",
+  },
   {
     id: "brand-film",
     title: "Cinematic Brand Commercial",
