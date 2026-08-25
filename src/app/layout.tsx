@@ -274,7 +274,15 @@ export default function RootLayout({
         "name": "Who founded Maximum Pixel?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Maximum Pixel was founded by Krishna Rajak, leading creative direction, 3D concepts, and commercial production in Jaipur.",
+          "text": "Maximum Pixel was founded by Krishna Rajak, leading creative direction and commercial production in Jaipur.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "How to contact Maximum Pixel (MaximumPixel)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can contact Maximum Pixel via official email at info@maximumpixel.online, phone/WhatsApp at +91 78787 36798, or through the official website at https://maximumpixel.online/contact.",
         },
       },
     ],
