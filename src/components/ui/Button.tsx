@@ -50,7 +50,9 @@ export const Button: React.FC<ButtonProps> = ({
   const content = (
     <>
       {isLoading && <Loader2 className="w-4 h-4 animate-spin shrink-0" />}
-      <span>{children}</span>
+      <span className="inline-flex items-center justify-center gap-2 whitespace-nowrap">
+        {children}
+      </span>
       {showArrow && !isLoading && (
         <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 shrink-0" />
       )}

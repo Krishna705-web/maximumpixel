@@ -499,10 +499,10 @@ export default function ContactPage() {
                     fullWidth
                     disabled={status === "loading"}
                     isLoading={status === "loading"}
-                    className="py-4 text-base font-bold shadow-[0_4px_25px_rgba(91,46,232,0.5)] hover:shadow-[0_8px_30px_rgba(91,46,232,0.7)] flex items-center justify-center gap-2"
+                    className="py-4 text-sm sm:text-base font-bold shadow-[0_4px_25px_rgba(91,46,232,0.5)] hover:shadow-[0_8px_30px_rgba(91,46,232,0.7)]"
                   >
                     <span>Send Project Inquiry</span>
-                    <Send className="w-4 h-4 ml-1" />
+                    <Send className="w-4 h-4 shrink-0" />
                   </Button>
                 </div>
               </form>
