@@ -38,7 +38,7 @@ export default function ContactLayout({
       "@type": "ProfessionalService",
       "name": "MaximumPixel",
       "telephone": "+917878736798",
-      "email": "hello.maximumpixel@gmail.com",
+      "email": "info@maximumpixel.online",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Jaipur",

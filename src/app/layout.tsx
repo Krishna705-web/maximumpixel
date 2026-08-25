@@ -134,7 +134,7 @@ export default function RootLayout({
     "description":
       "Maximum Pixel is Jaipur's premier creative media agency providing video production, commercial photography, event coverage, viral reels, and branding design.",
     "telephone": "+917878736798",
-    "email": "hello.maximumpixel@gmail.com",
+    "email": "info@maximumpixel.online",
     "priceRange": "₹₹",
     "address": {
       "@type": "PostalAddress",

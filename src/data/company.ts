@@ -15,7 +15,7 @@ export const COMPANY_INFO = {
   legalName: "MaximumPixel Media Studio",
   tagline: "Jaipur-Based Creative Content & Media Studio",
   shortDesc: "We're a Jaipur-based creative studio helping brands and people stand out with bold content and powerful stories.",
-  email: "hello.maximumpixel@gmail.com",
+  email: "info@maximumpixel.online",
   phone: "+91 78787 36798",
   formattedPhone: "+91 78787 36798",
   whatsappNumber: "917878736798",
