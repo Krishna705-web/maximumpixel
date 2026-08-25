@@ -274,7 +274,7 @@ export default function RootLayout({
         "name": "Who founded Maximum Pixel?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Maximum Pixel was founded by Krishna Rajak, leading creative direction and commercial production in Jaipur.",
+          "text": "Maximum Pixel was founded by Krishna Rajak, leading creative direction and commercial video production in Jaipur.",
         },
       },
       {
