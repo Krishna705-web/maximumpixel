@@ -28,37 +28,44 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "MaximumPixel | Best Creative Content & Video Production Studio in Jaipur",
-    template: "%s | MaximumPixel Creative Studio",
+    default: "Maximum Pixel | Best Creative Content & Video Production Studio in Jaipur",
+    template: "%s | Maximum Pixel Creative Studio",
   },
   description:
-    "MaximumPixel is Jaipur's leading creative media agency specializing in cinematic video production, commercial photography, event coverage, social media reels, 3D/VFX, and brand strategy.",
+    "Maximum Pixel (MaximumPixel) is Jaipur's premier creative media agency specializing in cinematic video production, commercial photography, event coverage, viral Instagram reels, 3D graphics, and brand strategy.",
   keywords: [
+    "Maximum Pixel",
     "MaximumPixel",
+    "maximum pixel",
+    "maximumpixel",
+    "Maximum Pixel Studio",
     "MaximumPixel Studio",
+    "Maximum Pixel Jaipur",
+    "MaximumPixel Jaipur",
+    "Krishna Maximum Pixel",
+    "Krishna MaximumPixel",
     "Video Production Jaipur",
     "Best Video Production Agency Jaipur",
     "Commercial Photography Jaipur",
     "Event Coverage Jaipur",
     "Social Media Content Agency",
-    "Instagram Reels Production",
+    "Instagram Reels Production Jaipur",
     "Brand Strategy and Design",
     "Product Photography Jaipur",
-    "Video Editing Agency Rajasthan",
-    "Krishna Rajak",
+    "3D Animation Studio Jaipur",
     "Creative Agency Jaipur",
   ],
-  authors: [{ name: "Krishna Rajak" }, { name: "MaximumPixel Team" }],
-  creator: "MaximumPixel",
-  publisher: "MaximumPixel Media",
+  authors: [{ name: "Krishna Rajak" }, { name: "Maximum Pixel Team" }],
+  creator: "Maximum Pixel",
+  publisher: "Maximum Pixel Media",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://maximumpixel.online"),
   alternates: {
     canonical: "/",
   },
-  applicationName: "MaximumPixel Studio",
+  applicationName: "Maximum Pixel Studio",
   appleWebApp: {
     capable: true,
-    title: "MaximumPixel",
+    title: "Maximum Pixel",
     statusBarStyle: "black-translucent",
   },
   verification: {
@@ -79,22 +86,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://maximumpixel.online",
-    siteName: "MaximumPixel Creative Studio",
-    title: "MaximumPixel | Best Creative Content & Video Production Studio in Jaipur",
+    siteName: "Maximum Pixel Creative Studio",
+    title: "Maximum Pixel | Best Creative Content & Video Production Studio in Jaipur",
     description:
-      "Transforming brands with cinematic videos, viral reels, commercial photography, and pixel-perfect branding. Jaipur's top creative production agency.",
+      "Transforming brands with cinematic videos, viral reels, commercial photography, and 3D branding. Maximum Pixel is Jaipur's top creative production agency.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "MaximumPixel Creative Content & Media Studio Jaipur",
+        alt: "Maximum Pixel Creative Content & Media Studio Jaipur",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MaximumPixel | Premier Creative Media & Video Production Studio",
+    title: "Maximum Pixel | Premier Creative Media & Video Production Studio",
     description:
       "Cinematic video production, viral social content, and brand design that convert. Based in Jaipur, delivering worldwide.",
     images: ["/og-image.jpg"],
@@ -122,13 +129,19 @@ export default function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": "MaximumPixel",
-    "alternateName": "MaximumPixel Media Studio",
+    "name": "Maximum Pixel",
+    "alternateName": [
+      "MaximumPixel",
+      "Maximum Pixel Studio",
+      "MaximumPixel Creative Studio",
+      "Maximum Pixel Jaipur",
+      "MaximumPixel Media"
+    ],
     "url": "https://maximumpixel.online",
     "logo": "https://maximumpixel.online/assets/logo.png",
     "image": "https://maximumpixel.online/og-image.jpg",
     "description":
-      "MaximumPixel is Jaipur's premier creative media agency providing video production, commercial photography, event coverage, viral reels, and branding design.",
+      "Maximum Pixel is Jaipur's premier creative media agency providing video production, commercial photography, event coverage, viral reels, and branding design.",
     "telephone": "+917878736798",
     "email": "hello.maximumpixel@gmail.com",
     "priceRange": "₹₹",
@@ -155,8 +168,8 @@ export default function RootLayout({
         "Friday",
         "Saturday",
       ],
-      "opens": "09:00",
-      "closes": "20:00",
+      "opens": "10:00",
+      "closes": "18:00",
     },
     "founders": [
       {
@@ -243,34 +256,34 @@ export default function RootLayout({
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What is MaximumPixel?",
+        "name": "What is Maximum Pixel (MaximumPixel)?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "MaximumPixel is Jaipur's premier creative content, video production, 3D animation, and digital media studio specializing in commercial films, viral reels, event coverage, and brand storytelling.",
+          "text": "Maximum Pixel (MaximumPixel) is Jaipur's premier creative content, video production, 3D animation, and digital media studio specializing in commercial brand films, viral Instagram reels, event coverage, and visual storytelling.",
         },
       },
       {
         "@type": "Question",
-        "name": "What services does MaximumPixel offer in Jaipur?",
+        "name": "What services does Maximum Pixel offer in Jaipur?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "MaximumPixel offers cinematic commercial video production, viral Instagram reels creation, product & fashion photography, live concert & event coverage, 3D VFX design, and brand identity strategy.",
+          "text": "Maximum Pixel provides cinematic commercial video production, viral Instagram reels production, product & fashion photography, live concert & event coverage, 3D VFX design, and brand identity design.",
         },
       },
       {
         "@type": "Question",
-        "name": "Where is MaximumPixel located?",
+        "name": "Where is Maximum Pixel located?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "MaximumPixel is headquartered in Jaipur, Rajasthan, India, delivering creative media production for clients across India and globally.",
+          "text": "Maximum Pixel (MaximumPixel) is headquartered in Jaipur, Rajasthan, India, delivering creative media production for clients across India and worldwide.",
         },
       },
       {
         "@type": "Question",
-        "name": "Who founded MaximumPixel?",
+        "name": "Who founded Maximum Pixel?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "MaximumPixel was founded by Krishna Rajak, leading creative direction, 3D concepts, and commercial production in Jaipur.",
+          "text": "Maximum Pixel was founded by Krishna Rajak, leading creative direction, 3D concepts, and commercial production in Jaipur.",
         },
       },
     ],
