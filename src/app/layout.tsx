@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s | Maximum Pixel Creative Studio",
   },
   description:
-    "Maximum Pixel (MaximumPixel) is Jaipur's premier creative media agency specializing in cinematic video production, commercial photography, event coverage, viral Instagram reels, 3D graphics, and brand strategy.",
+    "Maximum Pixel is Jaipur's top creative studio for cinematic video production, commercial photography, viral reels, event coverage, and brand design.",
   keywords: [
     "Maximum Pixel",
     "MaximumPixel",
