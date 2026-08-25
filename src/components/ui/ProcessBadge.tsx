@@ -18,12 +18,12 @@ interface ProcessBadgeProps {
 }
 
 const STEP_COLORS: Record<string, { bg: string; iconColor: string }> = {
-  "01": { bg: "#1E7FE0", iconColor: "text-[#1E7FE0]" }, // Blue
-  "02": { bg: "#22B14C", iconColor: "text-[#22B14C]" }, // Green
-  "03": { bg: "#FF7A1A", iconColor: "text-[#FF7A1A]" }, // Orange
-  "04": { bg: "#5B2EE8", iconColor: "text-[#5B2EE8]" }, // Purple
-  "05": { bg: "#E53E3E", iconColor: "text-[#E53E3E]" }, // Red / Review
-  "06": { bg: "#1E7FE0", iconColor: "text-[#1E7FE0]" }, // Blue
+  "01": { bg: "#1665D8", iconColor: "text-[#3B82F6]" }, // Accessible Blue (5.4:1)
+  "02": { bg: "#15803D", iconColor: "text-[#22C55E]" }, // Accessible Green (5.1:1)
+  "03": { bg: "#C2410C", iconColor: "text-[#FB923C]" }, // Accessible Orange/Amber (4.9:1)
+  "04": { bg: "#5B2EE8", iconColor: "text-[#8B5CF6]" }, // Brand Purple (4.7:1)
+  "05": { bg: "#DC2626", iconColor: "text-[#F87171]" }, // Accessible Red (4.8:1)
+  "06": { bg: "#1665D8", iconColor: "text-[#3B82F6]" }, // Accessible Blue (5.4:1)
 };
 
 export const ProcessBadge: React.FC<ProcessBadgeProps> = ({
@@ -32,23 +32,23 @@ export const ProcessBadge: React.FC<ProcessBadgeProps> = ({
   description,
   iconName,
 }) => {
-  const stepColor = STEP_COLORS[step] || { bg: "#5B2EE8", iconColor: "text-[#5B2EE8]" };
+  const stepColor = STEP_COLORS[step] || { bg: "#5B2EE8", iconColor: "text-[#8B5CF6]" };
 
   const getIcon = () => {
     const iconClass = "w-7 h-7 md:w-8 md:h-8";
     switch (iconName) {
       case "message":
-        return <MessageSquare strokeWidth={1.75} className={`${iconClass} text-[#1E7FE0]`} />;
+        return <MessageSquare strokeWidth={1.75} className={`${iconClass} ${stepColor.iconColor}`} />;
       case "quote":
-        return <ReceiptText strokeWidth={1.75} className={`${iconClass} text-[#22B14C]`} />;
+        return <ReceiptText strokeWidth={1.75} className={`${iconClass} ${stepColor.iconColor}`} />;
       case "camera":
-        return <Camera strokeWidth={1.75} className={`${iconClass} text-[#FF7A1A]`} />;
+        return <Camera strokeWidth={1.75} className={`${iconClass} ${stepColor.iconColor}`} />;
       case "edit":
-        return <Scissors strokeWidth={1.75} className={`${iconClass} text-[#5B2EE8]`} />;
+        return <Scissors strokeWidth={1.75} className={`${iconClass} ${stepColor.iconColor}`} />;
       case "review":
-        return <CheckCircle2 strokeWidth={1.75} className={`${iconClass} text-[#E53E3E]`} />;
+        return <CheckCircle2 strokeWidth={1.75} className={`${iconClass} ${stepColor.iconColor}`} />;
       case "deliver":
-        return <Send strokeWidth={1.75} className={`${iconClass} text-[#1E7FE0]`} />;
+        return <Send strokeWidth={1.75} className={`${iconClass} ${stepColor.iconColor}`} />;
       default:
         return <MessageSquare strokeWidth={1.75} className={iconClass} />;
     }

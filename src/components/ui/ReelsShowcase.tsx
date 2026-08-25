@@ -50,8 +50,8 @@ export const ReelsShowcase: React.FC = () => {
                 className="object-cover transition-transform duration-700 group-hover:scale-108"
               />
 
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-black/40" />
+              {/* Dark Ambient Scrim Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/60 to-black/20 pointer-events-none" />
 
               {/* Top Tag & Views Counter */}
               <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
@@ -61,7 +61,7 @@ export const ReelsShowcase: React.FC = () => {
                   {reel.category}
                 </span>
 
-                <div className="h-6 flex items-center gap-1.5 bg-black/70 backdrop-blur-md px-2.5 rounded-full text-xs font-bold text-white border border-white/10">
+                <div className="h-6 flex items-center gap-1.5 bg-[#18181B] px-2.5 rounded-full text-xs font-bold text-white border border-white/20">
                   <Eye className="w-3.5 h-3.5 text-[#FFC72C]" />
                   <span>{reel.views}</span>
                 </div>
@@ -79,7 +79,7 @@ export const ReelsShowcase: React.FC = () => {
                 <h3 className="font-display font-bold text-sm sm:text-base text-white leading-snug min-h-[2.75rem] flex items-start group-hover:text-[#FF7A1A] transition-colors">
                   {reel.title}
                 </h3>
-                <p className="text-xs text-[#C0C0C0] line-clamp-2 leading-snug">
+                <p className="text-xs text-[#E4E4E7] line-clamp-2 leading-snug">
                   {reel.caption}
                 </p>
               </div>

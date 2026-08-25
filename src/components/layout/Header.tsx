@@ -77,7 +77,7 @@ export const Header: React.FC = () => {
                   className={`text-sm font-semibold tracking-wide transition-colors relative py-1 ${
                     isActive
                       ? "text-white font-bold"
-                      : "text-[#A0A0A0] hover:text-white"
+                      : "text-[#D4D4D8] hover:text-white"
                   }`}
                 >
                   {item.label}

@@ -39,7 +39,7 @@ export default function HomePage() {
     {
       title: "Artisan Cafe & Hospitality Reel",
       tag: "VIDEO",
-      tagColor: "bg-[#FF7A1A]",
+      tagColor: "bg-[#C2410C]",
       image: "/assets/projects/cafe-reel.jpg",
       subtext: "9:16 4K Vertical • Warm Aesthetic & Coffee Craft Post-Production",
     },
@@ -53,7 +53,7 @@ export default function HomePage() {
     {
       title: "Arena Concert & Live Festival",
       tag: "EVENT",
-      tagColor: "bg-[#22B14C]",
+      tagColor: "bg-[#15803D]",
       image: "/assets/projects/live-event.jpg",
       subtext: "Multi-Cam 60FPS • Fast-Turnaround 4K Festival Aftermovie",
     },
