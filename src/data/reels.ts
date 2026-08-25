@@ -25,7 +25,7 @@ export const REELS: ReelItem[] = [
   {
     id: "reel-1",
     title: "Cinematic Street Food Jaipur",
-    category: "REELS",
+    category: "FOOD",
     tagColor: "bg-[#5B2EE8]",
     views: "245K Views",
     thumbnail: "/assets/projects/brand-film.jpg",

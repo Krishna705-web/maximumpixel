@@ -149,14 +149,14 @@ export default function HomePage() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.8 }}
-                className="pt-1 sm:pt-2 md:pt-3"
+                className="pt-1"
               >
                 <Button
                   href="/contact"
                   variant="primary"
                   size="md"
                   showArrow
-                  className="px-4 sm:px-7 md:px-8 py-2.5 sm:py-3.5 text-xs sm:text-sm md:text-base font-bold shadow-[0_4px_25px_rgba(91,46,232,0.5)] hover:shadow-[0_8px_30px_rgba(91,46,232,0.7)]"
+                  className="px-7 sm:px-9 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-black shadow-[0_6px_30px_rgba(91,46,232,0.6)] hover:shadow-[0_8px_35px_rgba(91,46,232,0.8)] hover:scale-105 transition-all"
                 >
                   Let&apos;s Create
                 </Button>
@@ -191,29 +191,25 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          OUR PROCESS SECTION (Animated Connection Flow)
+          OUR PROCESS SECTION (Unified Section Pattern)
           ═══════════════════════════════════════════════════════ */}
       <section className="py-16 border-t border-white/[0.08] relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header with Dotted Lines */}
-          <div className="flex items-center justify-center gap-4 mb-10 md:mb-14">
-            <div className="flex-1 border-b-2 border-dotted border-white/20" />
-            <h2 className="font-display font-black text-xl sm:text-2xl md:text-3xl text-white uppercase tracking-wider text-center px-2">
-              OUR PROCESS
+          {/* Section Header */}
+          <div className="mb-8 md:mb-10">
+            <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">
+              Our Process
             </h2>
-            <div className="flex-1 border-b-2 border-dotted border-white/20" />
+            <p className="text-xs sm:text-sm text-[#A0A0A0] mt-1 max-w-md">
+              From initial brief to final delivery in 6 smooth creative steps.
+            </p>
           </div>
 
           {/* Connected Steps Grid */}
           <div className="relative">
-            {/* Horizontal glowing animated connector line on desktop */}
+            {/* Horizontal clean consistent connector track on desktop */}
             <div className="hidden lg:block absolute top-7 left-[8%] right-[8%] h-[2px] z-0 overflow-hidden">
               <div className="w-full h-full border-b-2 border-dotted border-white/20" />
-              <motion.div
-                className="absolute top-0 left-0 w-36 h-[2px] bg-gradient-to-r from-transparent via-[#5B2EE8] to-transparent shadow-[0_0_8px_#5B2EE8]"
-                animate={{ x: ["-100%", "900%"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              />
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 relative z-10">
@@ -250,10 +246,10 @@ export default function HomePage() {
           ═══════════════════════════════════════════════════════ */}
       <section className="py-16 border-t border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header with View All Link */}
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-display font-black text-2xl sm:text-3xl text-white uppercase tracking-wider">
-              LATEST WORK
+          {/* Header with Baseline-Aligned View All Link */}
+          <div className="flex items-baseline justify-between mb-8">
+            <h2 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tight">
+              Latest Work
             </h2>
             <Link
               href="/our-work"
@@ -273,9 +269,9 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.12, duration: 0.5 }}
-                className="group relative rounded-2xl bg-[#111113] border border-white/[0.08] overflow-hidden transition-all duration-300 hover:border-white/25 hover:-translate-y-1 shadow-lg"
+                className="group relative rounded-2xl bg-[#111113] border border-white/[0.08] overflow-hidden transition-all duration-300 hover:border-white/25 hover:-translate-y-1 shadow-lg flex flex-col"
               >
-                {/* Image Container with Tag Badge */}
+                {/* Image Container with Tag Badge and Top Gradient Isolation */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40">
                   <Image
                     src={work.image}
@@ -283,24 +279,27 @@ export default function HomePage() {
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                  {/* Subtle top scrim */}
+                  <div className="absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+
                   {/* Category Pill Tag */}
                   <div className="absolute top-3 left-3 z-10">
                     <span
-                      className={`px-3 py-1 rounded-md ${work.tagColor} text-white text-[11px] font-black tracking-wider uppercase shadow-md`}
+                      className={`px-2.5 py-1 rounded-md ${work.tagColor} text-white text-xs font-bold tracking-wider uppercase shadow-lg backdrop-blur-md border border-white/10`}
                     >
                       {work.tag}
                     </span>
                   </div>
-                  {/* Dark subtle gradient overlay */}
+                  {/* Dark subtle bottom gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#111113] via-transparent to-transparent opacity-80" />
                 </div>
 
-                {/* Card Body */}
-                <div className="p-4 sm:p-5">
-                  <h3 className="font-display font-black text-lg text-white mb-1">
+                {/* Card Body with Consistent Vertical Spacing */}
+                <div className="p-4 sm:p-5 flex flex-col justify-between flex-1">
+                  <h3 className="font-display font-black text-lg text-white mb-1 min-h-[3.25rem] flex items-start">
                     {work.title}
                   </h3>
-                  <p className="text-xs text-[#A0A0A0]">{work.subtext}</p>
+                  <p className="text-xs text-[#A0A0A0] mt-auto">{work.subtext}</p>
                 </div>
               </motion.div>
             ))}

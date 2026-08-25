@@ -16,12 +16,12 @@ export const ReelsShowcase: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-10">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF7A1A]/15 border border-[#FF7A1A]/30 text-xs font-bold uppercase tracking-wider text-[#FF7A1A]">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF7A1A]/15 border border-[#FF7A1A]/30 text-xs font-semibold tracking-wide text-[#FF7A1A]">
               <Flame className="w-3.5 h-3.5" />
               <span>Viral Content Studio</span>
             </div>
-            <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-white uppercase tracking-tight">
-              TRENDING REELS &amp; SHORTS
+            <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">
+              Trending Reels &amp; Shorts
             </h2>
             <p className="text-xs sm:text-sm text-[#A0A0A0] max-w-md">
               Short-form vertical videos engineered for maximum retention, hook rates, and algorithmic reach.
@@ -56,12 +56,12 @@ export const ReelsShowcase: React.FC = () => {
               {/* Top Tag & Views Counter */}
               <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
                 <span
-                  className={`px-2.5 py-0.5 rounded-md ${reel.tagColor} text-white text-[10px] font-black tracking-wider uppercase shadow-md`}
+                  className={`px-2.5 py-0.5 rounded-md ${reel.tagColor} text-white text-xs font-bold tracking-wider uppercase shadow-md`}
                 >
                   {reel.category}
                 </span>
 
-                <div className="flex items-center gap-1 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-bold text-white">
+                <div className="flex items-center gap-1 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-full text-xs font-bold text-white">
                   <Eye className="w-3 h-3 text-[#FFC72C]" />
                   <span>{reel.views}</span>
                 </div>
@@ -74,12 +74,12 @@ export const ReelsShowcase: React.FC = () => {
                 </div>
               </div>
 
-              {/* Bottom Caption & Title */}
-              <div className="absolute bottom-3 left-3 right-3 z-10 space-y-1 text-left">
-                <h3 className="font-display font-black text-sm text-white leading-tight group-hover:text-[#FF7A1A] transition-colors">
+              {/* Bottom Caption & Title (Fixed Vertical Baseline) */}
+              <div className="absolute bottom-3 left-3 right-3 z-10 flex flex-col justify-end min-h-[5rem] space-y-1 text-left">
+                <h3 className="font-display font-bold text-sm text-white leading-tight min-h-[2.5rem] flex items-end group-hover:text-[#FF7A1A] transition-colors">
                   {reel.title}
                 </h3>
-                <p className="text-[11px] text-[#C0C0C0] line-clamp-2 leading-snug">
+                <p className="text-xs text-[#C0C0C0] line-clamp-2 leading-snug">
                   {reel.caption}
                 </p>
               </div>

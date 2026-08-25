@@ -101,10 +101,10 @@ export const Header: React.FC = () => {
               href="/contact"
               prefetch={true}
               onMouseEnter={() => router.prefetch("/contact")}
-              className="px-5 py-2.5 rounded-full bg-[#5B2EE8] hover:bg-[#6C3DF5] text-white text-sm font-bold tracking-wide transition-all shadow-[0_4px_15px_rgba(91,46,232,0.4)] hover:shadow-[0_6px_20px_rgba(91,46,232,0.6)] active:scale-95 flex items-center gap-1.5"
+              className="px-5 py-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/20 hover:border-white/40 text-white text-sm font-semibold tracking-wide transition-all active:scale-95 flex items-center gap-1.5 backdrop-blur-sm"
             >
               <span>Let&apos;s Talk</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#A78BFA]" />
             </Link>
           </div>
 

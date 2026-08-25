@@ -80,7 +80,7 @@ export const Footer: React.FC = () => {
             <h4 className="font-display font-black text-white text-sm tracking-wider uppercase">
               FOLLOW US
             </h4>
-            <div className="flex items-center gap-2.5 pt-1">
+            <div className="flex items-center gap-2.5">
               {SOCIAL_LINKS.map((social) => (
                 <a
                   key={social.name}
