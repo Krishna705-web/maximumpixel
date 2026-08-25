@@ -18,13 +18,23 @@ interface ProcessBadgeProps {
   index: number;
 }
 
+const STEP_COLORS: Record<string, { bg: string; iconColor: string }> = {
+  "01": { bg: "#1E7FE0", iconColor: "text-[#1E7FE0]" }, // Blue
+  "02": { bg: "#22B14C", iconColor: "text-[#22B14C]" }, // Green
+  "03": { bg: "#FF7A1A", iconColor: "text-[#FF7A1A]" }, // Orange
+  "04": { bg: "#5B2EE8", iconColor: "text-[#5B2EE8]" }, // Purple
+  "05": { bg: "#E53E3E", iconColor: "text-[#E53E3E]" }, // Red / Review
+  "06": { bg: "#1E7FE0", iconColor: "text-[#1E7FE0]" }, // Blue
+};
+
 export const ProcessBadge: React.FC<ProcessBadgeProps> = ({
   step,
-  badgeColor,
   title,
   description,
   iconName,
 }) => {
+  const stepColor = STEP_COLORS[step] || { bg: "#5B2EE8", iconColor: "text-[#5B2EE8]" };
+
   const getIcon = () => {
     const iconClass = "w-8 h-8 md:w-9 md:h-9";
     switch (iconName) {
@@ -42,7 +52,7 @@ export const ProcessBadge: React.FC<ProcessBadgeProps> = ({
       case "edit":
         return <Scissors className={`${iconClass} text-[#5B2EE8]`} />;
       case "review":
-        return <CheckSquare className={`${iconClass} text-[#A3C93A]`} />;
+        return <CheckSquare className={`${iconClass} text-[#E53E3E]`} />;
       case "deliver":
         return <Send className={`${iconClass} text-[#1E7FE0]`} />;
       default:
@@ -52,9 +62,10 @@ export const ProcessBadge: React.FC<ProcessBadgeProps> = ({
 
   return (
     <div className="flex flex-col items-center text-center p-3 sm:p-4 relative group">
-      {/* Number Badge */}
+      {/* Number Badge with Guaranteed Solid Circle Color */}
       <div
-        className={`w-8 h-8 rounded-full ${badgeColor} text-white font-black text-sm flex items-center justify-center shadow-md mb-4 group-hover:scale-110 transition-transform duration-200`}
+        style={{ backgroundColor: stepColor.bg }}
+        className="w-8 h-8 sm:w-9 sm:h-9 rounded-full text-white font-black text-xs sm:text-sm flex items-center justify-center shadow-lg mb-4 group-hover:scale-110 transition-transform duration-200"
       >
         {step}
       </div>

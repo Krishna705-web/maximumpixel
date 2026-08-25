@@ -9,7 +9,7 @@ import { ProcessBadge } from "@/components/ui/ProcessBadge";
 import { PROCESS_STEPS } from "@/data/process";
 import { ReelsShowcase } from "@/components/ui/ReelsShowcase";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { motion, type Variants } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
 
 const Mascot3D = dynamic(
@@ -17,7 +17,24 @@ const Mascot3D = dynamic(
   { ssr: false }
 );
 
+const ROTATING_WORDS = [
+  { text: "STORIES", color: "text-[#5B2EE8]", shadow: "rgba(91,46,232,0.45)" },
+  { text: "REELS", color: "text-[#FF7A1A]", shadow: "rgba(255,122,26,0.45)" },
+  { text: "VISUALS", color: "text-[#1E7FE0]", shadow: "rgba(30,127,224,0.45)" },
+  { text: "IMPACT", color: "text-[#22B14C]", shadow: "rgba(34,177,76,0.45)" },
+  { text: "BRANDS", color: "text-[#FFC72C]", shadow: "rgba(255,199,44,0.45)" },
+];
+
 export default function HomePage() {
+  const [currentWordIndex, setCurrentWordIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
+    }, 2400);
+    return () => clearInterval(interval);
+  }, []);
+
   const latestWorkPreviews = [
     {
       title: "Brand Film",
@@ -68,7 +85,7 @@ export default function HomePage() {
           <div className="grid grid-cols-12 gap-3 sm:gap-6 md:gap-8 lg:gap-12 items-center">
             {/* Left Content */}
             <div className="col-span-7 sm:col-span-7 md:col-span-6 lg:col-span-6 z-10 space-y-3 sm:space-y-4 md:space-y-5 text-left">
-              {/* Big Display Headline with Staggered Word Reveal */}
+              {/* Big Display Headline with Staggered Word Reveal & Rotating Word */}
               <h1 className="font-display font-black text-3xl sm:text-5xl md:text-6xl lg:text-8xl tracking-tight leading-[0.92] uppercase overflow-hidden">
                 <motion.span
                   custom={0}
@@ -88,15 +105,23 @@ export default function HomePage() {
                 >
                   CREATE
                 </motion.span>
-                <motion.span
-                  custom={2}
-                  variants={wordVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="block text-[#5B2EE8] drop-shadow-[0_0_25px_rgba(91,46,232,0.4)]"
-                >
-                  STORIES
-                </motion.span>
+                <div className="relative block h-[1.08em] overflow-hidden align-top w-full">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={ROTATING_WORDS[currentWordIndex].text}
+                      initial={{ y: 40, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -40, opacity: 0 }}
+                      transition={{ duration: 0.45, ease: [0.21, 0.47, 0.32, 0.98] }}
+                      className={`block ${ROTATING_WORDS[currentWordIndex].color}`}
+                      style={{
+                        textShadow: `0 0 25px ${ROTATING_WORDS[currentWordIndex].shadow}`,
+                      }}
+                    >
+                      {ROTATING_WORDS[currentWordIndex].text}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
               </h1>
 
               {/* Sub-headline */}
