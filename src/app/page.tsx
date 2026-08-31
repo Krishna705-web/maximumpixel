@@ -56,6 +56,16 @@ export default function HomePage() {
 
   const latestWorkPreviews = [
     {
+      title: "Artisan Cafe Commercial Reel",
+      tag: "SHOOT + EDIT",
+      tagColor: "bg-[#5B2EE8]",
+      image: "/assets/projects/cafe-reel.jpg",
+      videoUrl: "/assets/videos/cafe-edit.mp4",
+      subtext: "4K 9:16 Vertical • Full On-Location Shoot + Master Post-Production",
+      credits: "Stock Footage: Pexels (Free Commercial License) • Editing, Sound Design & Color Grading: Maximum Pixel Studio",
+      description: "A rich, sensory commercial capturing artisan pour-over brewing, warm ambient seating, and barista craft. Produced from storyboard to final master cut.",
+    },
+    {
       title: "Cinematic Brand Commercial",
       tag: "VIDEO SHOOT",
       tagColor: "bg-[#1E7FE0]",
@@ -74,15 +84,6 @@ export default function HomePage() {
       subtext: "Kinetic Velocity Pacing • Warm Color Grading & Audio Foley",
       credits: "Stock Footage: Sourced from Pexels (Commercial Creative Commons License) • Post-Production, Velocity Editing, Audio Mastering & Grade: MaximumPixel Studio",
       description: "A rhythmic, sensory hospitality commercial edit capturing iced espresso preparation, barista artistry, and modern sunlit cafe ambiance with rich sound design.",
-    },
-    {
-      title: "High-Retention Reel Post-Production",
-      tag: "VIDEO EDIT",
-      tagColor: "bg-[#FF7A1A]",
-      image: "/assets/projects/social-content.jpg",
-      subtext: "Kinetic Subtitles & SFX • High-Retention Vertical Cutdowns",
-      credits: "Post-Production, Motion Typography & Algorithm Retention Strategy: MaximumPixel Studio",
-      description: "Fast-paced, high-retention vertical editing engineered specifically for organic reach, algorithm engagement, and viral retention on Instagram and YouTube Shorts.",
     },
   ];
 
