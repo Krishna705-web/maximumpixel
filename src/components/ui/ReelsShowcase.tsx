@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { REELS, ReelItem } from "@/data/reels";
 import { Play, Eye, X, Flame, Sparkles } from "lucide-react";
@@ -9,6 +9,17 @@ import { Button } from "@/components/ui/Button";
 
 export const ReelsShowcase: React.FC = () => {
   const [activeReel, setActiveReel] = useState<ReelItem | null>(null);
+
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActiveReel(null);
+    };
+    if (activeReel) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeReel]);
 
   return (
     <section className="py-14 border-t border-white/[0.08] relative overflow-hidden">
@@ -21,7 +32,7 @@ export const ReelsShowcase: React.FC = () => {
               <span>Viral Content Studio</span>
             </div>
             <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">
-              Trending Reels &amp; Shorts
+              Sample Video Edits
             </h2>
             <p className="text-xs sm:text-sm text-[#A0A0A0] max-w-md">
               Short-form vertical videos engineered for maximum retention, hook rates, and algorithmic reach.
@@ -87,7 +98,7 @@ export const ReelsShowcase: React.FC = () => {
           ))}
         </div>
 
-        {/* Video Preview Modal with Spring Physics */}
+        {/* Video Preview Modal with Side-by-Side Layout & Prominent Close Button */}
         <AnimatePresence>
           {activeReel && (
             <motion.div
@@ -96,28 +107,30 @@ export const ReelsShowcase: React.FC = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setActiveReel(null)}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+              className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto"
               role="dialog"
               aria-modal="true"
             >
               <motion.div
-                initial={{ opacity: 0, scale: 0.88, y: 25 }}
+                initial={{ opacity: 0, scale: 0.9, y: 25 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.88, y: 25 }}
+                exit={{ opacity: 0, scale: 0.9, y: 25 }}
                 transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-sm rounded-3xl bg-[#141416] border border-white/20 overflow-hidden shadow-2xl flex flex-col"
+                className="relative w-full max-w-2xl sm:max-w-3xl rounded-3xl bg-[#141416] border border-white/20 overflow-hidden shadow-2xl flex flex-col md:flex-row my-auto"
               >
-                {/* Close Button */}
+                {/* Prominent High-Contrast Close Button in Top-Right */}
                 <button
                   onClick={() => setActiveReel(null)}
-                  className="absolute top-4 right-4 z-30 w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-black transition-colors"
+                  className="absolute top-3.5 right-3.5 z-30 w-9 h-9 rounded-full bg-black/80 text-white hover:bg-white hover:text-black flex items-center justify-center transition-all border border-white/25 shadow-xl cursor-pointer"
+                  aria-label="Close video"
+                  title="Close (Esc)"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 </button>
 
-                {/* 9:16 Video Player or Concept Preview Frame */}
-                <div className="relative aspect-[9/16] w-full bg-black flex items-center justify-center overflow-hidden">
+                {/* Left Side: 9:16 Video Player Container */}
+                <div className="relative w-full md:w-[320px] aspect-[9/16] bg-black flex items-center justify-center overflow-hidden shrink-0">
                   {activeReel.videoUrl ? (
                     <video
                       src={activeReel.videoUrl}
@@ -146,35 +159,69 @@ export const ReelsShowcase: React.FC = () => {
                       </div>
                     </>
                   )}
+
+                  {/* Top Left Tag on Video for Context */}
+                  <div className="absolute top-3 left-3 flex items-center gap-2 pointer-events-none z-20">
+                    <span
+                      className={`px-2.5 py-0.5 rounded-md ${activeReel.tagColor} text-white text-[10px] font-black tracking-wider uppercase shadow-md`}
+                    >
+                      {activeReel.category}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Reel Info */}
-                <div className="p-4 bg-[#141416] space-y-3">
-                  <div>
-                    <h3 className="font-display font-black text-base text-white">
-                      {activeReel.title}
-                    </h3>
-                    <p className="text-xs text-[#A0A0A0] mt-0.5">
-                      {activeReel.caption}
-                    </p>
+                {/* Right Side: Description, Credits & Action Panel */}
+                <div className="p-5 sm:p-7 md:p-8 flex-1 flex flex-col justify-between space-y-4 bg-[#141416]">
+                  <div className="space-y-3">
+                    {/* Top Metadata Header */}
+                    <div className="flex items-center justify-between text-xs text-[#A0A0A0] pr-8">
+                      <span className="font-bold text-[#A78BFA] uppercase tracking-wider">
+                        {activeReel.category}
+                      </span>
+                      <div className="flex items-center gap-1 text-white font-bold bg-white/[0.06] px-2 py-0.5 rounded-full border border-white/10">
+                        <Eye className="w-3 h-3 text-[#FFC72C]" />
+                        <span>{activeReel.views}</span>
+                      </div>
+                    </div>
+
+                    {/* Title & Caption Description */}
+                    <div>
+                      <h3 className="font-display font-black text-xl sm:text-2xl text-white leading-tight">
+                        {activeReel.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#CCCCCC] mt-2 leading-relaxed">
+                        {activeReel.caption}
+                      </p>
+                    </div>
+
+                    {/* Copyright & Licensing Credits Badge */}
+                    {activeReel.credits && (
+                      <div className="flex items-start gap-2 p-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-xs text-[#A0A0A0] leading-relaxed">
+                        <Sparkles className="w-4 h-4 text-[#FFC72C] shrink-0 mt-0.5" />
+                        <span>{activeReel.credits}</span>
+                      </div>
+                    )}
                   </div>
 
-                  {activeReel.credits && (
-                    <div className="flex items-start gap-1.5 p-2 rounded-xl bg-white/[0.04] border border-white/[0.08] text-[11px] text-[#A0A0A0]">
-                      <Sparkles className="w-3.5 h-3.5 text-[#FFC72C] shrink-0 mt-0.5" />
-                      <span>{activeReel.credits}</span>
-                    </div>
-                  )}
-
-                  <Button
-                    href={`/contact?service=reels&reel=${encodeURIComponent(activeReel.title)}`}
-                    variant="primary"
-                    size="sm"
-                    fullWidth
-                    showArrow
-                  >
-                    Produce a Reel Like This
-                  </Button>
+                  {/* Action Buttons */}
+                  <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3">
+                    <Button
+                      href={`/contact?service=reels&reel=${encodeURIComponent(activeReel.title)}`}
+                      variant="primary"
+                      size="md"
+                      fullWidth
+                      showArrow
+                      className="py-3 font-bold shadow-lg"
+                    >
+                      Produce a Reel Like This
+                    </Button>
+                    <button
+                      onClick={() => setActiveReel(null)}
+                      className="w-full sm:w-auto px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-bold transition-colors cursor-pointer"
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             </motion.div>
