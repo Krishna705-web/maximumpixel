@@ -8,35 +8,45 @@ import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
 import {
   Video,
-  Camera,
-  Users,
-  MessageSquare,
-  Box,
-  ChevronRight,
-  Sparkles,
-  CheckCircle2,
-  Zap,
-  Palette,
   Clapperboard,
+  Scissors,
+  Palette,
+  Image as ImageIcon,
+  Sparkles,
+  ChevronRight,
+  CheckCircle2,
   Sliders,
   Layers,
+  Zap,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 
 const SERVICE_CAPABILITIES = [
-  { label: "Visual Standards", value: "High Quality", icon: Video, color: "text-[#5B2EE8]" },
-  { label: "Full Process", value: "Concept to Cut", icon: Clapperboard, color: "text-[#FF7A1A]" },
-  { label: "Post-Production", value: "Color & Sound", icon: Sliders, color: "text-[#22B14C]" },
-  { label: "Studio Hub", value: "Jaipur, India", icon: Layers, color: "text-[#1E7FE0]" },
+  { label: "Cinema Standards", value: "4K 10-Bit", icon: Video, color: "text-[#1E7FE0]" },
+  { label: "Turnkey Production", value: "Concept to Cut", icon: Clapperboard, color: "text-[#5B2EE8]" },
+  { label: "Post-Production", value: "Color & Sound", icon: Sliders, color: "text-[#FF7A1A]" },
+  { label: "Turnaround Time", value: "< 48 Hours", icon: Zap, color: "text-[#22B14C]" },
 ];
 
 const SERVICE_FEATURES: Record<string, string[]> = {
-  "short-form-video": ["Hook & Pacing Strategy", "Dynamic Subtitles & SFX", "Multi-Platform 9:16 Formats", "Trend-Aligned Audio"],
-  "photography": ["Clean Studio & Natural Light", "Professional Retouching", "Product & Lookbook Framing", "High-Resolution Deliverables"],
-  "events": ["Live Atmosphere & Emotion", "Fast-Turnaround Social Recap", "Keynote & Stage Highlights", "Event Storytelling"],
-  "social-content": ["Batch Reel Production", "Engaging Visual Hooks", "Consistent Brand Aesthetic", "Platform-Optimized Formats"],
-  "product-property": ["Crisp Product Lighting", "Clean Detail Shots", "Interior & Location Aesthetics", "E-Commerce Ready Deliverables"],
-  "branding-design": ["Logo & Typography System", "Visual Identity Guidelines", "3D Mascot & Graphic Assets", "Social Media Post Templates"],
+  "video-shoot": [
+    "4K Cinema Cameras & Lighting",
+    "On-Location & Studio Filming",
+    "Multi-Angle & Gimbal Directing",
+    "Professional Direct-to-Monitor Crew",
+  ],
+  "video-edit": [
+    "High-Retention Pacing & SFX Hooks",
+    "Dynamic Animated Subtitles",
+    "Sound Design & Audio Mastering",
+    "9:16 Reels & 16:9 Cutdowns",
+  ],
+  "video-shoot-edit": [
+    "Concept Ideation & Scripting",
+    "Full-Day On-Location Production",
+    "Master Post-Production & Color Grade",
+    "Turnkey Multi-Format Export",
+  ],
 };
 
 const containerVariants: Variants = {
@@ -66,16 +76,17 @@ export default function ServicesPage() {
     switch (iconType) {
       case "video":
         return <Video className={iconClass} />;
-      case "camera":
-        return <Camera className={iconClass} />;
-      case "users":
-        return <Users className={iconClass} />;
-      case "message":
-        return <MessageSquare className={iconClass} />;
-      case "box":
-        return <Box className={iconClass} />;
+      case "clapper":
+        return <Clapperboard className={iconClass} />;
+      case "scissors":
+        return <Scissors className={iconClass} />;
+      case "palette":
+        return <Palette className={iconClass} />;
+      case "image":
+        return <ImageIcon className={iconClass} />;
       case "logo":
         return <Logo showText={false} size="sm" />;
+      case "sparkles":
       default:
         return <Sparkles className={iconClass} />;
     }
@@ -108,7 +119,7 @@ export default function ServicesPage() {
         >
           <Sparkles className="w-3.5 h-3.5 text-[#FFC72C] animate-spin" style={{ animationDuration: "6s" }} />
           <span className="text-xs font-bold uppercase tracking-wider text-[#A78BFA]">
-            Media &amp; Content Creation
+            Cinematography &amp; Post-Production Studio
           </span>
         </motion.div>
 
@@ -118,9 +129,9 @@ export default function ServicesPage() {
           transition={{ duration: 0.6, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
           className="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight uppercase leading-[1.05]"
         >
-          CRAFTING CONTENT <br />
+          VIDEO PRODUCTION <br />
           <span className="text-[#5B2EE8] drop-shadow-[0_0_25px_rgba(91,46,232,0.4)]">
-            THAT LEAVES A MARK
+            BUILT TO CONVERT
           </span>
         </motion.h1>
 
@@ -130,7 +141,7 @@ export default function ServicesPage() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-[#A0A0A0] text-sm sm:text-base md:text-lg max-w-2xl mx-auto mt-3"
         >
-          From concept development and video shoots to photography, social media reels, and visual branding. Here is what we create for you.
+          We specialize exclusively in Video Shoot, Video Edit, and Shoot + Edit for high-growth brands, creators, and businesses.
         </motion.p>
 
         {/* Real Authentic Studio Pillars */}

@@ -1,27 +1,25 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Creative Services & Video Production in Jaipur",
+  title: "Video Shoot, Video Edit & Shoot + Edit Services | MaximumPixel Jaipur",
   description:
-    "Explore creative services at MaximumPixel Jaipur: Commercial video production, viral short-form reels, product photography, live event coverage, and 3D VFX design.",
+    "Explore professional video production services at MaximumPixel: Video Shoot, Video Edit, and Turnkey Shoot + Edit productions in Jaipur.",
   keywords: [
-    "Video Production Studio in Jaipur",
-    "Best Video Production Agency Jaipur",
-    "Instagram Reels Production Agency Jaipur",
-    "Commercial Photography Studio Jaipur",
-    "Product Shoot Studio Jaipur",
-    "3D Animation & VFX Studio Jaipur",
-    "Corporate Film Makers in Rajasthan",
-    "Brand Storytelling Jaipur",
+    "Video Shoot Studio in Jaipur",
+    "Video Shoot and Editing Jaipur",
+    "Video Editing Agency India",
+    "Instagram Reels Editor Jaipur",
+    "Shoot and Edit Video Agency",
+    "Commercial Video Production Jaipur",
     "MaximumPixel Services",
   ],
   alternates: {
     canonical: "/services",
   },
   openGraph: {
-    title: "Video Production, Reels, Photography & 3D Studio in Jaipur | MaximumPixel",
+    title: "Video Shoot, Video Edit & Shoot + Edit Services | MaximumPixel",
     description:
-      "High-impact commercial video production, viral Instagram reels, professional studio photography, and 3D design in Jaipur.",
+      "Specialized creative studio for Video Shoot, Video Edit, and Shoot + Edit in Jaipur.",
     url: "https://www.maximumpixel.online/services",
   },
 };
@@ -34,7 +32,7 @@ export default function ServicesLayout({
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "serviceType": "Video Production & Creative Content",
+    "serviceType": "Video Production & Editing",
     "provider": {
       "@type": "ProfessionalService",
       "name": "MaximumPixel",
@@ -53,46 +51,30 @@ export default function ServicesLayout({
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "MaximumPixel Creative Services",
+      "name": "MaximumPixel Video Services",
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Commercial Video Production & Brand Films",
-            "description": "High-end cinematic commercials, corporate films, and brand storytelling.",
+            "name": "Video Shoot",
+            "description": "Professional 4K on-location & studio cinematography with camera crews, gimbal operations, and lighting.",
           },
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Viral Instagram Reels & Short-Form Content",
-            "description": "High-engagement 9:16 vertical video production for Instagram and YouTube Shorts.",
+            "name": "Video Edit",
+            "description": "High-retention video editing, dynamic kinetic captions, sound design, sound mastering, and color polish.",
           },
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Commercial & Product Photography",
-            "description": "Studio lighting, e-commerce lookbooks, lifestyle shoots, and product imagery.",
-          },
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Live Event & Concert Cinematography",
-            "description": "Dynamic multi-camera coverage and fast-turnaround event recap films.",
-          },
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "3D Animation, VFX & Visual Design",
-            "description": "Custom 3D modeling, visual effects, and digital branding assets.",
+            "name": "Shoot + Edit",
+            "description": "Full end-to-end turnkey video production from concept and filming to color grading and master delivery.",
           },
         },
       ],
@@ -109,3 +91,4 @@ export default function ServicesLayout({
     </>
   );
 }
+

@@ -65,9 +65,20 @@ export default function OurWorkPage() {
   const filteredProjects =
     activeCategory === "ALL"
       ? PROJECTS
-      : PROJECTS.filter(
-          (p) => p.category.toUpperCase() === activeCategory.toUpperCase()
-        );
+      : PROJECTS.filter((p) => {
+          const cat = p.category.toUpperCase();
+          const act = activeCategory.toUpperCase();
+          if (act === "VIDEO SHOOT" || act === "SHOOT") {
+            return cat.includes("SHOOT") && !cat.includes("EDIT");
+          }
+          if (act === "VIDEO EDIT" || act === "EDIT") {
+            return cat.includes("EDIT") && !cat.includes("SHOOT");
+          }
+          if (act === "SHOOT + EDIT" || act === "SHOOT & EDIT") {
+            return cat.includes("SHOOT") && cat.includes("EDIT");
+          }
+          return cat === act;
+        });
 
   return (
     <div className="relative overflow-hidden bg-[#0A0A0A] text-white pb-16">
@@ -102,7 +113,7 @@ export default function OurWorkPage() {
         >
           <Sparkles className="w-3.5 h-3.5 text-[#FFC72C] animate-spin" style={{ animationDuration: "6s" }} />
           <span className="text-xs font-bold uppercase tracking-wider text-[#A78BFA]">
-            Creative Capabilities &amp; Concept Portfolio
+            Video Production &amp; Post-Production Portfolio
           </span>
         </motion.div>
 
@@ -124,7 +135,7 @@ export default function OurWorkPage() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-[#A0A0A0] text-sm sm:text-base md:text-lg max-w-2xl mx-auto mt-3"
         >
-          Explore our production styles across commercial films, high-fashion photography, dynamic event recaps, and viral vertical video formats.
+          Explore our portfolio across Video Shoot, Video Edit, and Turnkey Shoot + Edit productions.
         </motion.p>
 
         {/* Real Authentic Studio Capability Badges with Spring Stagger */}

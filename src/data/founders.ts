@@ -75,7 +75,7 @@ export const ABOUT_STATS = [
   {
     icon: "box",
     iconColor: "text-[#FF7A1A]",
-    label: "6 Services",
+    label: "7 Services",
     sublabel: "All In-House",
   },
 ];

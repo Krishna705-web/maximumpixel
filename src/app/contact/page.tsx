@@ -25,16 +25,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedMascot } from "@/components/ui/AnimatedMascot";
 
 const SERVICES_OPTIONS = [
-  "Video Production",
-  "Shorts & Reels",
-  "Commercial Photo",
-  "Event Coverage",
-  "Branding & Design",
-  "Product Shoot",
+  "Shoot + Edit",
+  "Video Shoot",
+  "Video Edit",
 ];
 
 export default function ContactPage() {
-  const [selectedService, setSelectedService] = useState<string>("Video Production");
+  const [selectedService, setSelectedService] = useState<string>("Shoot + Edit");
   const [formData, setFormData] = useState({
     name: "",
     email: "",

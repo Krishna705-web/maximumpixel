@@ -13,8 +13,8 @@ export interface NavItem {
 export const COMPANY_INFO = {
   name: "MaximumPixel",
   legalName: "MaximumPixel Media Studio",
-  tagline: "Jaipur-Based Creative Content & Media Studio",
-  shortDesc: "We're a Jaipur-based creative studio helping brands and people stand out with bold content and powerful stories.",
+  tagline: "Jaipur-Based Video Shoot & Video Edit Production Studio",
+  shortDesc: "We're a Jaipur-based studio specializing in Video Shoots, Video Edit, and Turnkey Shoot + Edit production.",
   email: "info@maximumpixel.online",
   phone: "+91 78787 36798",
   formattedPhone: "+91 78787 36798",

@@ -28,21 +28,21 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Maximum Pixel | Creative Content & Video Production Studio in Jaipur",
+    default: "Maximum Pixel | Video Shoot, Video Editing & Graphic Design Studio Jaipur",
     template: "%s | Maximum Pixel Creative Studio",
   },
   description:
-    "Maximum Pixel is Jaipur's top creative studio for cinematic video production, commercial photography, viral reels, event coverage, and brand design.",
+    "Maximum Pixel is Jaipur's premier studio for Video Shoots, Video Shoot + Edit, Video Post-Production, Social Media Posts, Carousels, High-CTR Thumbnails, and Brand Logo Design.",
   keywords: [
     "Maximum Pixel",
-    "Video Production Jaipur",
-    "Instagram Reels Production Jaipur",
-    "Commercial Photography Jaipur",
-    "Product Shoot Studio Jaipur",
-    "Event Videography Jaipur",
-    "3D Animation Studio Jaipur",
-    "Brand Film Production Rajasthan",
-    "Creative Agency Jaipur",
+    "Video Shoot Jaipur",
+    "Video Shoot and Edit Jaipur",
+    "Video Editing Agency Jaipur",
+    "Instagram Reels Editor Jaipur",
+    "Social Media Carousel Design",
+    "YouTube Thumbnail Designer Jaipur",
+    "Brand Logo Design Jaipur",
+    "Motion Graphics Rajasthan",
     "Krishna Rajak",
   ],
   authors: [{ name: "Krishna Rajak" }, { name: "Maximum Pixel Team" }],
@@ -191,32 +191,48 @@ export default function RootLayout({
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Video Production & Brand Films",
-            "description": "High-end commercial films, cinematic ads, and corporate brand videos.",
+            "name": "Video Shoot",
+            "description": "Professional 4K on-location and studio cinematography with camera crew and lighting.",
           },
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Social Media Reels & Shorts",
-            "description": "Viral short-form content designed for engagement and high conversion.",
+            "name": "Video Shoot + Edit",
+            "description": "Turnkey video production from concept and shooting to master color-graded delivery.",
           },
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Commercial & Product Photography",
-            "description": "Studio and on-location photography for e-commerce, lifestyle, and products.",
+            "name": "Video Editing & Post-Production",
+            "description": "High-retention reel editing, dynamic kinetic captions, pacing, sound design, and color grading.",
           },
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Event & Concert Coverage",
-            "description": "Multi-camera live event cinematography and dynamic event recaps.",
+            "name": "Social Posts, Carousels & Stories",
+            "description": "High-engagement swipeable carousels, single creative posts, and interactive story graphics.",
+          },
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "High-CTR Video Thumbnails",
+            "description": "Click-optimized custom video and YouTube thumbnails designed for maximum CTR.",
+          },
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Logo & Brand Identity",
+            "description": "Custom vector logo design, visual style guidelines, and digital brand identity systems.",
           },
         },
       ],
@@ -257,7 +273,7 @@ export default function RootLayout({
         "name": "What services does Maximum Pixel offer in Jaipur?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Maximum Pixel provides cinematic commercial video production, viral Instagram reels production, product & fashion photography, live concert & event coverage, 3D VFX design, and brand identity design.",
+          "text": "Maximum Pixel provides professional Video Shoot cinematography, high-retention Video Edit post-production, and turnkey Shoot + Edit commercial video production in Jaipur and across India.",
         },
       },
       {

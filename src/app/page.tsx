@@ -18,11 +18,9 @@ const Mascot3D = dynamic(
 );
 
 const ROTATING_WORDS = [
-  { text: "STORIES", color: "text-[#5B2EE8]", shadow: "rgba(91,46,232,0.45)" },
-  { text: "REELS", color: "text-[#FF7A1A]", shadow: "rgba(255,122,26,0.45)" },
-  { text: "VISUALS", color: "text-[#1E7FE0]", shadow: "rgba(30,127,224,0.45)" },
-  { text: "IMPACT", color: "text-[#22B14C]", shadow: "rgba(34,177,76,0.45)" },
-  { text: "BRANDS", color: "text-[#FFC72C]", shadow: "rgba(255,199,44,0.45)" },
+  { text: "VIDEO SHOOT", color: "text-[#1E7FE0]", shadow: "rgba(30,127,224,0.45)" },
+  { text: "VIDEO EDIT", color: "text-[#FF7A1A]", shadow: "rgba(255,122,26,0.45)" },
+  { text: "SHOOT + EDIT", color: "text-[#5B2EE8]", shadow: "rgba(91,46,232,0.45)" },
 ];
 
 export default function HomePage() {
@@ -37,25 +35,25 @@ export default function HomePage() {
 
   const latestWorkPreviews = [
     {
-      title: "Artisan Cafe & Hospitality Reel",
-      tag: "VIDEO",
-      tagColor: "bg-[#C2410C]",
+      title: "Artisan Cafe Commercial Reel",
+      tag: "SHOOT + EDIT",
+      tagColor: "bg-[#5B2EE8]",
       image: "/assets/projects/cafe-reel.jpg",
-      subtext: "9:16 4K Vertical • Warm Aesthetic & Coffee Craft Post-Production",
+      subtext: "4K 9:16 Vertical • Full On-Location Shoot + Master Post-Production",
     },
     {
       title: "Cinematic Brand Commercial",
-      tag: "COMMERCIAL",
-      tagColor: "bg-[#5B2EE8]",
+      tag: "VIDEO SHOOT",
+      tagColor: "bg-[#1E7FE0]",
       image: "/assets/projects/brand-film.jpg",
-      subtext: "4K Cinema & HDR • Bespoke Sound Design & Color Grade",
+      subtext: "4K Cinema & Lighting • Multi-Angle Production Rigging",
     },
     {
-      title: "Arena Concert & Live Festival",
-      tag: "EVENT",
-      tagColor: "bg-[#15803D]",
-      image: "/assets/projects/live-event.jpg",
-      subtext: "Multi-Cam 60FPS • Fast-Turnaround 4K Festival Aftermovie",
+      title: "High-Retention Reel Post-Production",
+      tag: "VIDEO EDIT",
+      tagColor: "bg-[#FF7A1A]",
+      image: "/assets/projects/social-content.jpg",
+      subtext: "Kinetic Subtitles & SFX • High-Retention Vertical Cutdowns",
     },
   ];
 
@@ -141,7 +139,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.65 }}
                 className="text-[#A0A0A0] text-xs sm:text-sm md:text-base lg:text-lg max-w-md leading-relaxed"
               >
-                Video. Photo. Events. Social Content. Product Shoots. Branding &amp; Design.
+                Video Shoot • Video Edit • Shoot + Edit — Cinematic production and high-retention post-production in Jaipur.
               </motion.p>
 
               {/* CTA Button */}

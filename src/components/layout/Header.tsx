@@ -56,16 +56,18 @@ export const Header: React.FC = () => {
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           scrolled
-            ? "bg-[#0A0A0A]/95 backdrop-blur-md border-b border-white/[0.08] py-1.5 sm:py-2 shadow-lg"
-            : "bg-[#0A0A0A] py-1.5 sm:py-2 md:py-2.5"
+            ? "bg-[#0A0A0A]/95 backdrop-blur-md border-b border-white/[0.08] py-2 shadow-lg"
+            : "bg-[#0A0A0A] py-2 sm:py-2.5 md:py-3"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Brand Logo */}
-          <Logo size="md" />
+          <div className="shrink-0">
+            <Logo size="md" />
+          </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-7" aria-label="Main Navigation">
+          {/* Desktop & Tablet Navigation */}
+          <nav className="hidden md:flex items-center gap-4 lg:gap-7" aria-label="Main Navigation">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -74,7 +76,7 @@ export const Header: React.FC = () => {
                   href={item.href}
                   prefetch={true}
                   onMouseEnter={() => router.prefetch(item.href)}
-                  className={`text-sm font-semibold tracking-wide transition-colors relative py-1 ${
+                  className={`text-xs lg:text-sm font-semibold tracking-wide transition-colors relative py-1 px-1 ${
                     isActive
                       ? "text-white font-bold"
                       : "text-[#D4D4D8] hover:text-white"
@@ -93,16 +95,16 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          {/* Desktop Right: CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Desktop & Tablet Right: CTA */}
+          <div className="hidden md:flex items-center gap-3 shrink-0">
             <Link
               href="/contact"
               prefetch={true}
               onMouseEnter={() => router.prefetch("/contact")}
-              className="px-6 py-2.5 rounded-full bg-[#5B2EE8] hover:bg-[#6C3DF5] text-white text-sm font-bold tracking-wide transition-all shadow-[0_4px_18px_rgba(91,46,232,0.45)] hover:shadow-[0_6px_24px_rgba(91,46,232,0.65)] active:scale-95 flex items-center gap-2"
+              className="px-4 lg:px-6 py-2 lg:py-2.5 rounded-full bg-[#5B2EE8] hover:bg-[#6C3DF5] text-white text-xs lg:text-sm font-bold tracking-wide transition-all shadow-[0_4px_18px_rgba(91,46,232,0.45)] hover:shadow-[0_6px_24px_rgba(91,46,232,0.65)] active:scale-95 flex items-center gap-1.5 lg:gap-2"
             >
               <span>Let&apos;s Talk</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
             </Link>
           </div>
 
