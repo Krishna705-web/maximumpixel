@@ -303,7 +303,7 @@ export default function HomePage() {
                 onClick={() => setSelectedWork(work)}
                 className="group relative rounded-2xl bg-[#111113] border border-white/[0.08] overflow-hidden transition-all duration-300 hover:border-white/25 hover:-translate-y-1 shadow-lg flex flex-col cursor-pointer"
               >
-                {/* Image Container with Tag Badge and Top Gradient Isolation */}
+                {/* Image Container with Top Gradient Isolation */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40">
                   <Image
                     src={work.image}
@@ -313,15 +313,6 @@ export default function HomePage() {
                   />
                   {/* Subtle top scrim */}
                   <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/75 via-black/30 to-transparent pointer-events-none" />
-
-                  {/* Category Pill Tag */}
-                  <div className="absolute top-3.5 left-3.5 z-10">
-                    <span
-                      className={`px-2.5 py-1 rounded-md ${work.tagColor} text-white text-xs font-bold tracking-wider uppercase shadow-lg backdrop-blur-md border border-white/10`}
-                    >
-                      {work.tag}
-                    </span>
-                  </div>
 
                   {/* Hover Play Button Overlay */}
                   <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
@@ -378,7 +369,7 @@ export default function HomePage() {
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Left Side: 9:16 Video Player or Image Container */}
+              {/* Left Side: 9:16 Video Player or Image Container (Zero Text Overlaid) */}
               <div className="relative w-full md:w-[320px] aspect-[9/16] bg-black flex items-center justify-center overflow-hidden shrink-0">
                 {selectedWork.videoUrl ? (
                   <video
@@ -398,25 +389,12 @@ export default function HomePage() {
                     className="object-cover"
                   />
                 )}
-                <div className="absolute top-3 left-3 flex items-center gap-2 pointer-events-none z-20">
-                  <span
-                    className={`px-2.5 py-0.5 rounded-md ${selectedWork.tagColor} text-white text-[10px] font-black tracking-wider uppercase shadow-md`}
-                  >
-                    {selectedWork.tag}
-                  </span>
-                </div>
               </div>
 
               {/* Right Side: Description, Credits & Action Panel */}
               <div className="p-5 sm:p-7 md:p-8 flex-1 flex flex-col justify-between space-y-4 bg-[#141416]">
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between text-xs text-[#A0A0A0] pr-8">
-                    <span className="font-bold text-[#A78BFA] uppercase tracking-wider">
-                      {selectedWork.tag}
-                    </span>
-                  </div>
-
-                  <div>
+                  <div className="pr-8">
                     <h3 className="font-display font-black text-xl sm:text-2xl text-white leading-tight">
                       {selectedWork.title}
                     </h3>

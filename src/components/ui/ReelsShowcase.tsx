@@ -64,15 +64,6 @@ export const ReelsShowcase: React.FC = () => {
               {/* Dark Ambient Scrim Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/60 to-black/20 pointer-events-none" />
 
-              {/* Top Tag */}
-              <div className="absolute top-4 left-4 z-10">
-                <span
-                  className={`h-6 px-2.5 rounded-md ${reel.tagColor} text-white text-[10px] sm:text-xs font-bold tracking-wider uppercase shadow-md flex items-center justify-center whitespace-nowrap`}
-                >
-                  {reel.category}
-                </span>
-              </div>
-
               {/* Center Play Button with pulse on hover */}
               <div className="absolute inset-0 flex items-center justify-center z-10">
                 <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white group-hover:scale-115 group-hover:bg-[#5B2EE8] transition-all duration-300 shadow-xl">
@@ -124,7 +115,7 @@ export const ReelsShowcase: React.FC = () => {
                   <X className="w-5 h-5" />
                 </button>
 
-                {/* Left Side: 9:16 Video Player Container */}
+                {/* Left Side: 9:16 Video Player Container (Zero Text Overlaid) */}
                 <div className="relative w-full md:w-[320px] aspect-[9/16] bg-black flex items-center justify-center overflow-hidden shrink-0">
                   {activeReel.videoUrl ? (
                     <video
@@ -154,29 +145,13 @@ export const ReelsShowcase: React.FC = () => {
                       </div>
                     </>
                   )}
-
-                  {/* Top Left Tag on Video for Context */}
-                  <div className="absolute top-3 left-3 flex items-center gap-2 pointer-events-none z-20">
-                    <span
-                      className={`px-2.5 py-0.5 rounded-md ${activeReel.tagColor} text-white text-[10px] font-black tracking-wider uppercase shadow-md`}
-                    >
-                      {activeReel.category}
-                    </span>
-                  </div>
                 </div>
 
                 {/* Right Side: Description, Credits & Action Panel */}
                 <div className="p-5 sm:p-7 md:p-8 flex-1 flex flex-col justify-between space-y-4 bg-[#141416]">
                   <div className="space-y-3">
-                    {/* Top Metadata Header */}
-                    <div className="flex items-center justify-between text-xs text-[#A0A0A0] pr-8">
-                      <span className="font-bold text-[#A78BFA] uppercase tracking-wider">
-                        {activeReel.category}
-                      </span>
-                    </div>
-
                     {/* Title & Caption Description */}
-                    <div>
+                    <div className="pr-8">
                       <h3 className="font-display font-black text-xl sm:text-2xl text-white leading-tight">
                         {activeReel.title}
                       </h3>

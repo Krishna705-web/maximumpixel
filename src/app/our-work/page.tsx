@@ -244,19 +244,6 @@ export default function OurWorkPage() {
                     {/* Scrim Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#111113] via-transparent to-black/30 pointer-events-none" />
 
-                    {/* Top Category Badge & Concept Tag */}
-                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-                      <span
-                        className={`px-3 py-1 rounded-md ${project.tagBg} text-white text-xs font-black tracking-wider uppercase shadow-lg border border-white/10`}
-                      >
-                        {project.category}
-                      </span>
-
-                      <span className="px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/15 text-[11px] font-bold text-[#E4E4E7]">
-                        {project.formatBadge}
-                      </span>
-                    </div>
-
                     {/* Hover Play Button */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/35 z-10">
                       <div className="w-14 h-14 rounded-full bg-[#5B2EE8] text-white flex items-center justify-center shadow-2xl transform scale-90 group-hover:scale-100 transition-transform">
@@ -338,7 +325,7 @@ export default function OurWorkPage() {
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Left Side: 9:16 Video Player or Media Container */}
+              {/* Left Side: 9:16 Video Player or Media Container (Zero Text Overlaid) */}
               <div className="relative w-full md:w-[320px] aspect-[9/16] bg-black flex items-center justify-center overflow-hidden shrink-0">
                 {selectedProject.videoUrl ? (
                   <video
@@ -358,28 +345,12 @@ export default function OurWorkPage() {
                     className="object-cover"
                   />
                 )}
-                <div className="absolute top-3 left-3 flex items-center gap-2 pointer-events-none z-20">
-                  <span
-                    className={`px-2.5 py-0.5 rounded-md ${selectedProject.tagBg} text-white text-[10px] font-black tracking-wider uppercase shadow-md`}
-                  >
-                    {selectedProject.category}
-                  </span>
-                  <span className="px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-white text-[10px] font-bold">
-                    {selectedProject.formatBadge}
-                  </span>
-                </div>
               </div>
 
               {/* Right Side: Description, Scope, Credits & Action Panel */}
               <div className="p-5 sm:p-7 md:p-8 flex-1 flex flex-col justify-between space-y-4 bg-[#141416]">
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between text-xs text-[#A0A0A0] pr-8">
-                    <span className="font-bold text-[#A78BFA] uppercase tracking-wider">
-                      Format: {selectedProject.conceptType}
-                    </span>
-                  </div>
-
-                  <div>
+                  <div className="pr-8">
                     <h3 className="font-display font-black text-xl sm:text-2xl text-white leading-tight">
                       {selectedProject.title}
                     </h3>
