@@ -182,13 +182,8 @@ export default function HomePage() {
                   </svg>
                 </div>
 
-                {/* Mobile: Ultra-fast 2D Animated Mascot (Zero WebGL overhead, instant LCP) */}
-                <div className="md:hidden relative z-10 w-full h-full flex items-center justify-center">
-                  <AnimatedMascot className="w-full h-full" />
-                </div>
-
-                {/* Desktop: Interactive 3D Mascot Model with Mouse Tracking */}
-                <div className="hidden md:flex relative z-10 w-full h-full items-center justify-center">
+                {/* Interactive 3D Mascot Model with Mouse Tracking */}
+                <div className="relative z-10 w-full h-full flex items-center justify-center">
                   <Mascot3D className="w-full h-full" />
                 </div>
               </div>

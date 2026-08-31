@@ -17,7 +17,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
   useEffect(() => {
     const container = containerRef.current;
     const canvas = canvasRef.current;
-    if (!canvas || !container || typeof window === "undefined" || window.innerWidth < 768) return;
+    if (!canvas || !container) return;
 
     let isDisposed = false;
     let animationFrameId: number;
