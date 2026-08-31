@@ -17,7 +17,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
   useEffect(() => {
     const container = containerRef.current;
     const canvas = canvasRef.current;
-    if (!canvas || !container) return;
+    if (!canvas || !container || typeof window === "undefined" || window.innerWidth < 768) return;
 
     let isDisposed = false;
     let animationFrameId: number;
@@ -118,19 +118,8 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
             setupModel(gltf.scene);
           },
           undefined,
-          () => {
-            loader.load(
-              "/assets/mascot-3d.glb",
-              (gltfFallback) => {
-                if (isDisposed) return;
-                cachedGLTFScene = gltfFallback.scene;
-                setupModel(gltfFallback.scene);
-              },
-              undefined,
-              (err) => {
-                console.warn("3D mascot load error:", err);
-              }
-            );
+          (err) => {
+            console.warn("3D mascot load error:", err);
           }
         );
       }
