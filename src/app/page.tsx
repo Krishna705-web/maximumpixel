@@ -10,7 +10,6 @@ import { PROCESS_STEPS } from "@/data/process";
 import { ReelsShowcase } from "@/components/ui/ReelsShowcase";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { AnimatedMascot } from "@/components/ui/AnimatedMascot";
 import dynamic from "next/dynamic";
 
 const Mascot3D = dynamic(

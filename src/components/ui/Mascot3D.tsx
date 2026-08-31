@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
@@ -12,7 +11,6 @@ interface Mascot3DProps {
 export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -109,7 +107,6 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         model.position.z = -center.z * autoScale;
 
         mascotGroup.add(model);
-        setIsLoaded(true);
       };
 
       const loader = new GLTFLoader();
@@ -272,27 +269,10 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       ref={containerRef}
       className={`relative w-full h-full min-h-[340px] sm:min-h-[440px] md:min-h-[540px] lg:min-h-[620px] xl:min-h-[680px] aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
     >
-      {/* Instant fallback image while 3D WebGL initializes */}
-      <div
-        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 pointer-events-none ${
-          isLoaded ? "opacity-0" : "opacity-100"
-        }`}
-      >
-        <Image
-          src="/assets/mascot-wave.png"
-          alt="MaximumPixel Mascot"
-          fill
-          priority
-          className="object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,0.7)]"
-        />
-      </div>
-
       {/* Interactive 3D Canvas */}
       <canvas
         ref={canvasRef}
-        className={`w-full h-full object-contain pointer-events-auto transition-opacity duration-700 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        }`}
+        className="w-full h-full object-contain pointer-events-auto"
       />
     </div>
   );
