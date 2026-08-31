@@ -9,11 +9,15 @@
 
 ## 📌 Session Summary & Today's Accomplishments
 
-### 1. ☕ Cafe & Barista Sample Edit Video Productions
-- **Sample Edit 1:** `assets/0825.mp4` $\rightarrow$ [`public/assets/videos/cafe-edit.mp4`](file:///d:/maximumpixel/public/assets/videos/cafe-edit.mp4) (*"Aesthetic Cafe & Coffee Reel"*, tagged as `CAFE EDIT SAMPLE`). Thumbnail: [`public/assets/projects/cafe-reel.jpg`](file:///d:/maximumpixel/public/assets/projects/cafe-reel.jpg).
-- **Sample Edit 2:** `assets/Sample edit 2.mp4` $\rightarrow$ [`public/assets/videos/barista-edit.mp4`](file:///d:/maximumpixel/public/assets/videos/barista-edit.mp4) (*"Artisan Coffee & Barista Edit"*, placed right after Cafe Reel #1, tagged as `CAFE EDIT SAMPLE`). Thumbnail: [`public/assets/projects/barista-reel.jpg`](file:///d:/maximumpixel/public/assets/projects/barista-reel.jpg).
-- **Reels Showcase ([`src/data/reels.ts`](file:///d:/maximumpixel/src/data/reels.ts)):** Ordered as: (1) Aesthetic Cafe Reel, (2) Artisan Barista Edit, (3) Street Food Jaipur, (4) Live Concert.
-- **Portfolio Entry ([`src/data/projects.ts`](file:///d:/maximumpixel/src/data/projects.ts)):** Added *"Espresso Craft & Greenhouse Cafe Edit"* under Video Edit with full modal video player.
+### 1. ☕ Barista & Spec Video Productions & Modal Unification
+- **Section Renamed:** Renamed *"Trending Reels & Shorts"* to **`Sample Video Edits`**.
+- **Removed Old Cafe Edit:** Cleaned up the old cafe edit from both reels and projects, showcasing the high-retention Barista & Coffee spec edit ([`public/assets/videos/barista-edit.mp4`](file:///d:/maximumpixel/public/assets/videos/barista-edit.mp4)) with high-res poster ([`public/assets/projects/barista-reel.jpg`](file:///d:/maximumpixel/public/assets/projects/barista-reel.jpg)).
+- **Removed Fake Views:** Stripped all fake view counters (`views: "340K Views"`, eye icons) from all cards and modals across the site.
+- **Unified Side-by-Side Video Player Modal:**
+  - Modern side-by-side design: Left side features the 9:16 vertical video player / media container; Right side displays format/category tags, title, subtext, detailed description, deliverables/scope, credits, primary CTA, and secondary Close button.
+  - High-contrast floating close button (`X`) in top-right corner.
+  - Keyboard `Escape` key listener on all modals to close immediately.
+  - Consistent across `ReelsShowcase`, `Latest Work` on Homepage, and `/our-work` portfolio page.
 
 ### 2. 🧹 Header & Navigation Streamlining
 - **Removed "Get App" Button:** Removed duplicate ghost utility button from header and mobile navigation drawer, leaving a single primary conversion path (*"Let's Talk"*).
