@@ -6,6 +6,7 @@ import { SERVICES, ServiceItem } from "@/data/services";
 import { ConfettiAccent } from "@/components/ui/ConfettiAccent";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
+import { PricingSection } from "@/components/ui/PricingSection";
 import {
   Video,
   Clapperboard,
@@ -243,10 +244,10 @@ export default function ServicesPage() {
                   {/* Action CTA Link */}
                   <div className="pt-6 mt-6 border-t border-white/10">
                     <Link
-                      href={service.href}
+                      href="#pricing"
                       className="inline-flex items-center justify-between w-full px-4 py-3 rounded-xl bg-white/[0.05] hover:bg-[#5B2EE8] text-white text-xs sm:text-sm font-bold transition-all duration-300 shadow-md group/btn"
                     >
-                      <span>Book This Service</span>
+                      <span>View Pricing &amp; Packages</span>
                       <ChevronRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
                     </Link>
                   </div>
@@ -256,6 +257,11 @@ export default function ServicesPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          INTERACTIVE PRICING & DIRECT BOOKING SECTION
+          ═══════════════════════════════════════════════════════ */}
+      <PricingSection />
 
       {/* ═══════════════════════════════════════════════════════
           PRODUCTION WORKFLOW SECTION

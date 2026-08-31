@@ -44,6 +44,36 @@ export default function ContactPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const srv = params.get("service");
+      const price = params.get("price");
+
+      if (srv) {
+        const matched = SERVICES_OPTIONS.find(
+          (opt) =>
+            srv.toLowerCase().includes(opt.toLowerCase()) ||
+            opt.toLowerCase().includes(srv.toLowerCase())
+        );
+        if (matched) {
+          setSelectedService(matched);
+        }
+        setFormData((prev) => {
+          if (!prev.message) {
+            return {
+              ...prev,
+              message: `Hi! I'm interested in booking the "${srv}" package ${
+                price ? `(${price})` : ""
+              } for my business in Jaipur.`,
+            };
+          }
+          return prev;
+        });
+      }
+    }
+  }, []);
+
   const triggerBrandConfetti = () => {
     try {
       confetti({
