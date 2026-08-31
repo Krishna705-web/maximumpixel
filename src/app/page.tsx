@@ -18,9 +18,9 @@ const Mascot3D = dynamic(
 );
 
 const ROTATING_WORDS = [
-  { text: "VIDEO SHOOT", color: "text-[#1E7FE0]", shadow: "rgba(30,127,224,0.45)" },
-  { text: "VIDEO EDIT", color: "text-[#FF7A1A]", shadow: "rgba(255,122,26,0.45)" },
-  { text: "SHOOT + EDIT", color: "text-[#5B2EE8]", shadow: "rgba(91,46,232,0.45)" },
+  { text: "SHOOTS", color: "text-[#5B2EE8]", shadow: "rgba(91,46,232,0.45)" },
+  { text: "EDITS", color: "text-[#FF7A1A]", shadow: "rgba(255,122,26,0.45)" },
+  { text: "REELS", color: "text-[#1E7FE0]", shadow: "rgba(30,127,224,0.45)" },
 ];
 
 export default function HomePage() {
