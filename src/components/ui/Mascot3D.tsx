@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
@@ -8,11 +9,10 @@ interface Mascot3DProps {
   className?: string;
 }
 
-let cachedGLTFScene: THREE.Group | null = null;
-
 export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -27,27 +27,26 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       // 1. Scene setup
       const scene = new THREE.Scene();
 
-      // 2. Camera setup - Generous framing to prevent any cutting or clipping
+      // 2. Camera setup
       const getContainerDims = () => {
-        const width = window.innerWidth || 1200;
+        const width = typeof window !== "undefined" ? window.innerWidth : 1200;
         const w = container.clientWidth || (width < 640 ? 340 : width < 1024 ? 480 : width < 1440 ? 600 : 700);
         const h = container.clientHeight || (width < 640 ? 400 : width < 1024 ? 560 : width < 1440 ? 700 : 800);
         return { w: Math.max(w, 260), h: Math.max(h, 320) };
       };
 
       const { w: initWidth, h: initHeight } = getContainerDims();
-      const screenWidth = window.innerWidth || 1200;
+      const screenWidth = typeof window !== "undefined" ? window.innerWidth : 1200;
       const isMobile = screenWidth < 640;
       const isTablet = screenWidth >= 640 && screenWidth < 1024;
       const isLaptop = screenWidth >= 1024 && screenWidth < 1440;
-      
-      // Expanded FOV & camera distance so character has full clearance with ZERO cutting
+
       const fov = isMobile ? 41 : isTablet ? 41 : isLaptop ? 42 : 42;
       const camera = new THREE.PerspectiveCamera(fov, initWidth / initHeight, 0.1, 100);
       const camZ = isMobile ? 3.55 : isTablet ? 3.75 : isLaptop ? 3.95 : 4.1;
       camera.position.set(0, 0.04, camZ);
 
-      // 3. Renderer setup
+      // 3. WebGL Renderer
       renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
@@ -55,7 +54,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         powerPreference: "high-performance",
       });
       renderer.setSize(initWidth, initHeight, false);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setPixelRatio(Math.min(typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1, 2));
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.2;
@@ -86,45 +85,58 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       const mascotGroup = new THREE.Group();
       scene.add(mascotGroup);
 
-      // 6. Direct GLTF Loader (Scaled for prominent visual impact)
+      // 6. Model Attachment Logic
       const setupModel = (model: THREE.Group) => {
         if (isDisposed) return;
-        const cloned = model.clone(true);
+        model.traverse((child) => {
+          if ((child as THREE.Mesh).isMesh) {
+            const mesh = child as THREE.Mesh;
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+          }
+        });
 
-        const box = new THREE.Box3().setFromObject(cloned);
+        const box = new THREE.Box3().setFromObject(model);
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
 
         const targetHeight = 2.45;
         const autoScale = targetHeight / (size.y || 1);
-        cloned.scale.set(autoScale, autoScale, autoScale);
+        model.scale.set(autoScale, autoScale, autoScale);
 
-        cloned.position.x = -center.x * autoScale;
-        cloned.position.y = groundLevel - box.min.y * autoScale;
-        cloned.position.z = -center.z * autoScale;
+        model.position.x = -center.x * autoScale;
+        model.position.y = groundLevel - box.min.y * autoScale;
+        model.position.z = -center.z * autoScale;
 
-        mascotGroup.add(cloned);
+        mascotGroup.add(model);
+        setIsLoaded(true);
       };
 
-      if (cachedGLTFScene) {
-        setupModel(cachedGLTFScene);
-      } else {
-        const loader = new GLTFLoader();
-        loader.load(
-          "/assets/mascot-3d-fast.glb",
-          (gltf) => {
-            if (isDisposed) return;
-            cachedGLTFScene = gltf.scene;
-            setupModel(gltf.scene);
-          },
-          undefined,
-          (err) => {
-            console.warn("3D mascot load error:", err);
-          }
-        );
-      }
+      const loader = new GLTFLoader();
+      loader.load(
+        "/assets/mascot-3d-fast.glb",
+        (gltf) => {
+          if (isDisposed) return;
+          setupModel(gltf.scene);
+        },
+        undefined,
+        () => {
+          // Fallback to standard GLB if fast fails
+          loader.load(
+            "/assets/mascot-3d.glb",
+            (gltfFallback) => {
+              if (isDisposed) return;
+              setupModel(gltfFallback.scene);
+            },
+            undefined,
+            (err) => {
+              console.warn("3D mascot load error:", err);
+            }
+          );
+        }
+      );
 
-      // 7. Interactive Cursor Tracking (Mouse & Touch)
+      // 7. Cursor / Touch Tracking
       let targetRotY = 0;
       let targetRotX = 0;
       let isInteracting = false;
@@ -169,17 +181,9 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
 
       const handleTouchMove = (e: TouchEvent) => {
         if (!isInteracting || e.touches.length === 0) return;
-        const currentX = e.touches[0].clientX;
-        const deltaX = currentX - prevPointerX;
-        prevPointerX = currentX;
-        dragRotY += deltaX * 0.015;
-
-        const windowWidth = window.innerWidth || 360;
-        const windowHeight = window.innerHeight || 640;
-        const normX = (currentX / windowWidth) * 2 - 1;
-        const normY = (e.touches[0].clientY / windowHeight) * 2 - 1;
-        targetRotY = normX * 0.45;
-        targetRotX = normY * 0.18;
+        const deltaX = e.touches[0].clientX - prevPointerX;
+        prevPointerX = e.touches[0].clientX;
+        dragRotY += deltaX * 0.012;
       };
 
       window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -191,9 +195,9 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       window.addEventListener("touchend", handleTouchEnd);
       container.addEventListener("touchmove", handleTouchMove, { passive: true });
 
-      // 8. Responsive Resize Observer with generous clearances
+      // 8. Responsive Window & Container Resize
       const handleResize = () => {
-        if (!container || !renderer || !camera) return;
+        if (!container || !renderer || isDisposed) return;
         const { w: newWidth, h: newHeight } = getContainerDims();
         if (newWidth > 0 && newHeight > 0) {
           const width = window.innerWidth || 1200;
@@ -216,7 +220,7 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       window.addEventListener("resize", handleResize);
       window.addEventListener("orientationchange", handleResize);
 
-      // 9. 60 FPS Render Loop
+      // 9. Render Loop
       const animate = () => {
         if (isDisposed) return;
         animationFrameId = requestAnimationFrame(animate);
@@ -268,9 +272,27 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       ref={containerRef}
       className={`relative w-full h-full min-h-[340px] sm:min-h-[440px] md:min-h-[540px] lg:min-h-[620px] xl:min-h-[680px] aspect-[4/5] flex items-center justify-center select-none cursor-grab active:cursor-grabbing touch-pan-y ${className}`}
     >
+      {/* Instant fallback image while 3D WebGL initializes */}
+      <div
+        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 pointer-events-none ${
+          isLoaded ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <Image
+          src="/assets/mascot-wave.png"
+          alt="MaximumPixel Mascot"
+          fill
+          priority
+          className="object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,0.7)]"
+        />
+      </div>
+
+      {/* Interactive 3D Canvas */}
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-contain pointer-events-auto"
+        className={`w-full h-full object-contain pointer-events-auto transition-opacity duration-700 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        }`}
       />
     </div>
   );
