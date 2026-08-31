@@ -56,7 +56,7 @@ export const ReelsShowcase: React.FC = () => {
               {/* Top Tag & Views Counter */}
               <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
                 <span
-                  className={`h-6 px-2.5 rounded-md ${reel.tagColor} text-white text-xs font-bold tracking-wider uppercase shadow-md flex items-center justify-center`}
+                  className={`h-6 px-2.5 rounded-md ${reel.tagColor} text-white text-[10px] sm:text-xs font-bold tracking-wider uppercase shadow-md flex items-center justify-center whitespace-nowrap`}
                 >
                   {reel.category}
                 </span>

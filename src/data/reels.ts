@@ -14,7 +14,7 @@ export const REELS: ReelItem[] = [
   {
     id: "reel-cafe-aesthetic",
     title: "Aesthetic Cafe & Coffee Reel",
-    category: "HOSPITALITY",
+    category: "CAFE EDIT SAMPLE",
     tagColor: "bg-[#C2410C]",
     views: "340K Views",
     thumbnail: "/assets/projects/cafe-reel.jpg",
@@ -25,8 +25,8 @@ export const REELS: ReelItem[] = [
   {
     id: "reel-barista-latte",
     title: "Artisan Coffee & Barista Edit",
-    category: "HOSPITALITY",
-    tagColor: "bg-[#D97706]",
+    category: "CAFE EDIT SAMPLE",
+    tagColor: "bg-[#C2410C]",
     views: "295K Views",
     thumbnail: "/assets/projects/barista-reel.jpg",
     videoUrl: "/assets/videos/barista-edit.mp4",
