@@ -9,13 +9,11 @@
 
 ## 📌 Session Summary & Today's Accomplishments
 
-### 1. ☕ Cafe Aesthetic Reel Production & Integration
-- **Video Asset:** Processed `assets/0825.mp4` $\rightarrow$ deployed to [`public/assets/videos/cafe-edit.mp4`](file:///d:/maximumpixel/public/assets/videos/cafe-edit.mp4) (47.35 MB, high-definition 9:16 vertical commercial spec reel).
-- **Artwork & Poster:** Generated a 9:16 warm ambient thumbnail at [`public/assets/projects/cafe-reel.jpg`](file:///d:/maximumpixel/public/assets/projects/cafe-reel.jpg).
-- **Reels Showcase ([`src/data/reels.ts`](file:///d:/maximumpixel/src/data/reels.ts)):** Featured *"Aesthetic Cafe & Coffee Reel"* at #1 position in a 4-card grid (Cafe Reel, Street Food Jaipur, Fashion Lookbook, Live Concert).
-- **Portfolio Entry ([`src/data/projects.ts`](file:///d:/maximumpixel/src/data/projects.ts)):** Created *"Artisan Cafe & Hospitality Reel"* spec project under Video/Hospitality.
-- **Interactive Player ([`src/components/ui/ReelsShowcase.tsx`](file:///d:/maximumpixel/src/components/ui/ReelsShowcase.tsx)):** Added native HTML5 video player in modal with autoplay, looping, play/pause controls, and credits badge.
-- **Attribution:** *"Stock Footage: Pexels • Original Editing & Post-Production: Maximum Pixel Studio"*.
+### 1. ☕ Cafe & Barista Sample Edit Video Productions
+- **Sample Edit 1:** `assets/0825.mp4` $\rightarrow$ [`public/assets/videos/cafe-edit.mp4`](file:///d:/maximumpixel/public/assets/videos/cafe-edit.mp4) (*"Aesthetic Cafe & Coffee Reel"*). Thumbnail: [`public/assets/projects/cafe-reel.jpg`](file:///d:/maximumpixel/public/assets/projects/cafe-reel.jpg).
+- **Sample Edit 2 (New):** `assets/Sample edit 2.mp4` $\rightarrow$ converted to web-optimized faststart H.264 at [`public/assets/videos/barista-edit.mp4`](file:///d:/maximumpixel/public/assets/videos/barista-edit.mp4) (*"Artisan Coffee & Barista Edit"*). Thumbnail: [`public/assets/projects/barista-reel.jpg`](file:///d:/maximumpixel/public/assets/projects/barista-reel.jpg).
+- **Reels Showcase ([`src/data/reels.ts`](file:///d:/maximumpixel/src/data/reels.ts)):** Featured both cafe/barista edits with interactive modal video playback and Pexels attribution (`Stock Footage: Pexels • Editing & Production: Maximum Pixel Studio`).
+- **Portfolio Entry ([`src/data/projects.ts`](file:///d:/maximumpixel/src/data/projects.ts)):** Added *"Espresso Craft & Greenhouse Cafe Edit"* under Video Edit / Commercial Spec with full in-modal video player.
 
 ### 2. 🧹 Header & Navigation Streamlining
 - **Removed "Get App" Button:** Removed duplicate ghost utility button from header and mobile navigation drawer, leaving a single primary conversion path (*"Let's Talk"*).
