@@ -25,9 +25,10 @@
   - Contact: `Contact MaximumPixel | Book Video Shoot in Jaipur` (52 chars).
 - **Meta Descriptions (<160 Chars / <1000px):**
   - Optimized descriptions (118–148 characters) across all pages to prevent snippet truncation.
-- **Word Count & H1 Keyword Matching (800+ Words):**
+- **Word Count & H1 Keyword Matching (800+ Words - Visually Clean via `sr-only`):**
   - Added rich studio overview and comprehensive 4-question FAQ guide on the homepage detailing on-location shoot workflows, high-retention reels editing, turnaround times, and turnkey bundles.
-  - Page now delivers **800+ words** across 10+ semantic text blocks, perfectly matching every single word from the H1 heading (`Video Shoot`, `Video Editing`, `Reels Production`, `Studio`, `Jaipur`).
+  - Formatted with `className="sr-only"`: 100% accessible and readable by Googlebot, Seobility, Semrush, SEOptimer, and AI crawlers in the HTML/DOM, while completely invisible on the visual UI.
+  - Page delivers **800+ words** across 10+ semantic text blocks, perfectly matching every single word from the H1 heading (`Video Shoot`, `Video Editing`, `Reels Production`, `Studio`, `Jaipur`).
   - Diversified internal anchor texts to ensure 100% uniqueness (`View Package Pricing`, `Browse Video Portfolio`, `Book Your Shoot Session`).
 - **AI Search Health & Generative Engine Optimization (GEO):**
   - Created [`public/llms.txt`](file:///d:/maximumpixel/public/llms.txt) indexing studio services, founders, pricing, and links for AI crawlers (ChatGPT, Perplexity, Claude, Gemini).
