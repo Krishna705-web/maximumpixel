@@ -15,11 +15,20 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "Googlebot-Image",
         allow: "/",
       },
+      {
+        userAgent: "ChatGPT-User",
+        allow: "/",
+      },
+      {
+        userAgent: "OAI-SearchBot",
+        allow: "/",
+      },
+      {
+        userAgent: "PerplexityBot",
+        allow: "/",
+      },
     ],
-    sitemap: [
-      "https://www.maximumpixel.online/sitemap.xml",
-      "https://maximumpixel.online/sitemap.xml",
-    ],
+    sitemap: "https://www.maximumpixel.online/sitemap.xml",
     host: "https://www.maximumpixel.online",
   };
 }

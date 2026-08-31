@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Book Video Shoot & Reel Editing in Jaipur | Contact MaximumPixel",
+  title: "Contact MaximumPixel | Book Video Shoot in Jaipur",
   description:
-    "Book a 4K video shoot or viral reel edit in Jaipur with MaximumPixel. Direct WhatsApp booking at +91 78787 36798 or send an instant project inquiry.",
+    "Book a 4K video shoot or viral reel edit in Jaipur with MaximumPixel. Direct WhatsApp at +91 78787 36798 or submit your project inquiry.",
   keywords: [
     "Book Video Shoot Jaipur",
     "Hire Reels Editor Jaipur",
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Book Video Shoot & Reel Editing in Jaipur | Contact MaximumPixel",
+    title: "Contact MaximumPixel | Book Video Shoot in Jaipur",
     description:
-      "Book a 4K video shoot or viral reel edit in Jaipur with MaximumPixel. Direct WhatsApp booking at +91 78787 36798 or send an instant inquiry.",
+      "Book a 4K video shoot or viral reel edit in Jaipur with MaximumPixel. Direct WhatsApp at +91 78787 36798 or submit your project inquiry.",
     url: "https://www.maximumpixel.online/contact",
   },
 };

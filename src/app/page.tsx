@@ -338,6 +338,70 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══════════════════════════════════════════════════════
+          STUDIO OVERVIEW & VALUE PROPOSITION (SEO & GEO Content)
+          ═══════════════════════════════════════════════════════ */}
+      <section className="py-16 border-t border-white/[0.08] bg-[#0E0E10]/50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-[#5B2EE8]/20 border border-[#5B2EE8]/40 flex items-center justify-center text-[#A78BFA] font-bold text-sm">
+                01
+              </div>
+              <h3 className="font-display font-black text-xl text-white">
+                On-Location Video Shoot in Jaipur
+              </h3>
+              <p className="text-sm text-[#A0A0A0] leading-relaxed">
+                MaximumPixel delivers cinema-grade 4K mobile video shoots directly at your venue in Jaipur. We specialize in dynamic gimbal movement, precision studio lighting, and multi-angle filming for cafes, restaurants, fashion brands, and retail spaces.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-[#FF7A1A]/20 border border-[#FF7A1A]/40 flex items-center justify-center text-[#FF8E3C] font-bold text-sm">
+                02
+              </div>
+              <h3 className="font-display font-black text-xl text-white">
+                Viral Video Editing &amp; Reels
+              </h3>
+              <p className="text-sm text-[#A0A0A0] leading-relaxed">
+                High-retention short-form post-production designed for maximum algorithmic reach on Instagram Reels and YouTube Shorts. We integrate kinetic typography, immersive audio foley sound design, velocity speed ramps, and warm cinematic color grading.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-[#1E7FE0]/20 border border-[#1E7FE0]/40 flex items-center justify-center text-[#60A5FA] font-bold text-sm">
+                03
+              </div>
+              <h3 className="font-display font-black text-xl text-white">
+                Turnkey Shoot + Edit Bundles
+              </h3>
+              <p className="text-sm text-[#A0A0A0] leading-relaxed">
+                Our complete turnkey packages combine on-set filming sessions with master video editing so you receive high-converting, ready-to-post vertical content without coordinating separate videographers and editors.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#A0A0A0]">
+            <p>
+              MaximumPixel Creative Video Studio • Jaipur, Rajasthan, India • Call / WhatsApp: +91 78787 36798
+            </p>
+            <div className="flex items-center gap-4 text-white font-semibold">
+              <Link href="/services" className="hover:text-[#FF7A1A] transition-colors">
+                View Pricing
+              </Link>
+              <span>•</span>
+              <Link href="/our-work" className="hover:text-[#5B2EE8] transition-colors">
+                Explore Portfolio
+              </Link>
+              <span>•</span>
+              <Link href="/contact" className="hover:text-[#FF7A1A] transition-colors">
+                Book Shoot
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Interactive Video Preview Modal for Latest Work */}
       <AnimatePresence>
         {selectedWork && (

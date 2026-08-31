@@ -28,11 +28,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "MaximumPixel | Video Shoot, Video Edit & Reels Production in Jaipur",
-    template: "%s | MaximumPixel Studio Jaipur",
+    default: "MaximumPixel | Video Shoot, Edit & Reels in Jaipur",
+    template: "%s | MaximumPixel Jaipur",
   },
   description:
-    "MaximumPixel is Jaipur's dedicated creative video studio specializing in on-location Video Shoots, Viral Video Editing, and Turnkey Shoot + Edit productions for cafes, restaurants, fashion brands, and creators.",
+    "Jaipur's video studio for 4K on-location video shoots, viral reels editing, and turnkey video productions for brands and creators.",
   keywords: [
     "Video Shoot in Jaipur",
     "Video Editing in Jaipur",
@@ -83,9 +83,9 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://www.maximumpixel.online",
     siteName: "MaximumPixel Creative Video Studio",
-    title: "MaximumPixel | Video Shoot, Video Edit & Reels Production in Jaipur",
+    title: "MaximumPixel | Video Shoot, Edit & Reels in Jaipur",
     description:
-      "Specialized Jaipur studio for on-location Video Shoots, high-retention Video Editing, and Shoot + Edit bundles for cafes, brands, and businesses.",
+      "Jaipur's video studio for 4K on-location video shoots, viral reels editing, and turnkey video productions for brands and creators.",
     images: [
       {
         url: "/og-image.jpg",
@@ -97,9 +97,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MaximumPixel | Video Shoot, Video Edit & Reels Production in Jaipur",
+    title: "MaximumPixel | Video Shoot, Edit & Reels in Jaipur",
     description:
-      "Specialized Jaipur studio for on-location Video Shoots, high-retention Video Editing, and Shoot + Edit bundles.",
+      "Jaipur's video studio for 4K on-location video shoots, viral reels editing, and turnkey video productions for brands and creators.",
     images: ["/og-image.jpg"],
     creator: "@maximumpixel",
   },

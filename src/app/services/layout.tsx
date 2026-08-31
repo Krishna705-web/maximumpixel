@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Video Shoot, Video Edit & Shoot + Edit Pricing in Jaipur | MaximumPixel",
+  title: "Video Shoot & Edit Pricing in Jaipur | MaximumPixel",
   description:
-    "Explore transparent video production & reels packages in Jaipur: Single Reel Edit (₹499), On-Location Shoot (₹1,499), and Shoot + Edit Turnkey Bundles (₹2,499). Book directly on WhatsApp.",
+    "Transparent video shoot & editing packages in Jaipur from ₹499. On-location filming, viral reels & turnkey bundles for brands.",
   keywords: [
     "Video Shoot in Jaipur",
     "Video Editing Services Jaipur",
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     canonical: "/services",
   },
   openGraph: {
-    title: "Video Shoot, Video Edit & Shoot + Edit Pricing in Jaipur | MaximumPixel",
+    title: "Video Shoot & Edit Pricing in Jaipur | MaximumPixel",
     description:
-      "Explore transparent video production & reels packages in Jaipur: Single Reel Edit (₹499), On-Location Shoot (₹1,499), and Shoot + Edit Turnkey Bundles (₹2,499).",
+      "Transparent video shoot & editing packages in Jaipur from ₹499. On-location filming, viral reels & turnkey bundles for brands.",
     url: "https://www.maximumpixel.online/services",
   },
 };

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Our Studio & Creative Team in Jaipur | MaximumPixel",
+  title: "About MaximumPixel | Video Studio in Jaipur",
   description:
-    "Meet MaximumPixel, Jaipur's passionate video production and reels editing studio founded by Krishna Rajak, Vishwajeet Barman & Rahul Gyanchandani, dedicated to 4K mobile cinematography and viral storytelling.",
+    "Meet MaximumPixel, Jaipur's video production and reels editing studio founded by Krishna Rajak, Vishwajeet Barman & Rahul Gyanchandani.",
   keywords: [
     "About MaximumPixel",
     "Video Production Team Jaipur",
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Our Studio & Creative Team in Jaipur | MaximumPixel",
+    title: "About MaximumPixel | Video Studio in Jaipur",
     description:
-      "Meet the creative team behind MaximumPixel: an energetic Jaipur studio dedicated to on-location video shoots, master video editing, and turnkey content.",
+      "Meet the creative team behind MaximumPixel: an energetic Jaipur studio dedicated to on-location video shoots, video editing, and turnkey content.",
     url: "https://www.maximumpixel.online/about",
   },
 };

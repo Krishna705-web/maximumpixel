@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Commercial Video Portfolio & Reels Showcase | MaximumPixel Jaipur",
+  title: "Video Portfolio & Reels Showcase | MaximumPixel",
   description:
-    "Explore 4K commercial films, cafe & restaurant shoots, and viral Instagram reels crafted by MaximumPixel Creative Studio in Jaipur.",
+    "Explore 4K commercial videos, brand shoots, and viral reels edited by MaximumPixel Studio in Jaipur. View our work.",
   keywords: [
     "Video Shoot Portfolio Jaipur",
     "Instagram Reels Portfolio Jaipur",
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     canonical: "/our-work",
   },
   openGraph: {
-    title: "Commercial Video Portfolio & Reels Showcase | MaximumPixel Jaipur",
+    title: "Video Portfolio & Reels Showcase | MaximumPixel",
     description:
-      "Explore 4K commercial films, cafe & restaurant shoots, and viral Instagram reels crafted by MaximumPixel in Jaipur.",
+      "Explore 4K commercial videos, brand shoots, and viral reels edited by MaximumPixel Studio in Jaipur. View our work.",
     url: "https://www.maximumpixel.online/our-work",
   },
 };
