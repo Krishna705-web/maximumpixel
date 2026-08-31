@@ -36,7 +36,7 @@ export const NAV_ITEMS: NavItem[] = [
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "Instagram",
-    url: "https://www.instagram.com/maximumpixel.reels/",
+    url: "https://www.instagram.com/maximumpixel.jaipur",
     icon: "instagram",
     bgColor: "bg-gradient-to-tr from-[#FD1D1D] via-[#E1306C] to-[#833AB4]",
   },

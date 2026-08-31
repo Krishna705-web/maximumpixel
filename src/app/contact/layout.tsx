@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Hire Video Production & Content Creators in Jaipur",
+  title: "Book Video Shoot & Reel Editing in Jaipur | Contact MaximumPixel",
   description:
-    "Ready to create cinematic videos and viral content? Get in touch with MaximumPixel creative studio in Jaipur for project quotes and creative collaboration.",
+    "Book a 4K video shoot or viral reel edit in Jaipur with MaximumPixel. Direct WhatsApp booking at +91 78787 36798 or send an instant project inquiry.",
   keywords: [
-    "Contact MaximumPixel",
-    "Hire Video Production Agency Jaipur",
-    "Book Commercial Shoot Jaipur",
-    "Creative Studio Jaipur Contact",
-    "MaximumPixel Phone Number",
-    "MaximumPixel Email",
+    "Book Video Shoot Jaipur",
+    "Hire Reels Editor Jaipur",
+    "Contact MaximumPixel Jaipur",
+    "Video Studio WhatsApp Jaipur",
+    "Shoot and Edit Booking Jaipur",
+    "MaximumPixel Contact Number",
+    "Video Production Consultation Jaipur",
   ],
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact Us | Hire Video Production & Content Creators in Jaipur | MaximumPixel",
+    title: "Book Video Shoot & Reel Editing in Jaipur | Contact MaximumPixel",
     description:
-      "Ready to create cinematic videos and viral content? Get in touch with MaximumPixel studio in Jaipur for a free project quote and consultation.",
+      "Book a 4K video shoot or viral reel edit in Jaipur with MaximumPixel. Direct WhatsApp booking at +91 78787 36798 or send an instant inquiry.",
     url: "https://www.maximumpixel.online/contact",
   },
 };
@@ -31,19 +32,27 @@ export default function ContactLayout({
   const contactSchema = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    "name": "Contact MaximumPixel",
-    "description": "Contact MaximumPixel creative studio in Jaipur for video production, reels, and photography services.",
+    "name": "Contact MaximumPixel Video Studio",
+    "description": "Contact MaximumPixel creative video studio in Jaipur for video shoots, reels editing, and pricing.",
     "url": "https://www.maximumpixel.online/contact",
     "mainEntity": {
-      "@type": "ProfessionalService",
+      "@type": ["LocalBusiness", "ProfessionalService"],
       "name": "MaximumPixel",
       "telephone": "+917878736798",
       "email": "info@maximumpixel.online",
+      "priceRange": "₹499 - ₹9999",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Jaipur",
         "addressRegion": "Rajasthan",
         "addressCountry": "IN",
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+917878736798",
+        "contactType": "Customer Support & Direct Booking",
+        "areaServed": "Jaipur, Rajasthan, India",
+        "availableLanguage": ["English", "Hindi"],
       },
     },
   };
@@ -58,3 +67,4 @@ export default function ContactLayout({
     </>
   );
 }
+

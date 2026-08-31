@@ -1,25 +1,28 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Video Shoot, Video Edit & Shoot + Edit Services | MaximumPixel Jaipur",
+  title: "Video Shoot, Video Edit & Shoot + Edit Pricing in Jaipur | MaximumPixel",
   description:
-    "Explore professional video production services at MaximumPixel: Video Shoot, Video Edit, and Turnkey Shoot + Edit productions in Jaipur.",
+    "Explore transparent video production & reels packages in Jaipur: Single Reel Edit (₹499), On-Location Shoot (₹1,499), and Shoot + Edit Turnkey Bundles (₹2,499). Book directly on WhatsApp.",
   keywords: [
-    "Video Shoot Studio in Jaipur",
-    "Video Shoot and Editing Jaipur",
-    "Video Editing Agency India",
-    "Instagram Reels Editor Jaipur",
-    "Shoot and Edit Video Agency",
-    "Commercial Video Production Jaipur",
+    "Video Shoot in Jaipur",
+    "Video Editing Services Jaipur",
+    "Shoot and Edit Packages Jaipur",
+    "Instagram Reels Video Shoot Jaipur",
+    "Cafe Shoot Packages Jaipur",
+    "Restaurant Video Shoot Cost Jaipur",
+    "Affordable Video Production Jaipur",
+    "Mobile Cinematographer Rates Jaipur",
+    "Reel Editing Charges Jaipur",
     "MaximumPixel Services",
   ],
   alternates: {
     canonical: "/services",
   },
   openGraph: {
-    title: "Video Shoot, Video Edit & Shoot + Edit Services | MaximumPixel",
+    title: "Video Shoot, Video Edit & Shoot + Edit Pricing in Jaipur | MaximumPixel",
     description:
-      "Specialized creative studio for Video Shoot, Video Edit, and Shoot + Edit in Jaipur.",
+      "Explore transparent video production & reels packages in Jaipur: Single Reel Edit (₹499), On-Location Shoot (₹1,499), and Shoot + Edit Turnkey Bundles (₹2,499).",
     url: "https://www.maximumpixel.online/services",
   },
 };
@@ -32,11 +35,13 @@ export default function ServicesLayout({
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "serviceType": "Video Production & Editing",
+    "serviceType": "Video Production & Reels Post-Production",
     "provider": {
-      "@type": "ProfessionalService",
+      "@type": ["LocalBusiness", "ProfessionalService"],
       "name": "MaximumPixel",
       "url": "https://www.maximumpixel.online",
+      "telephone": "+917878736798",
+      "priceRange": "₹499 - ₹9999",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Jaipur",
@@ -51,30 +56,39 @@ export default function ServicesLayout({
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "MaximumPixel Video Services",
+      "name": "MaximumPixel Video Services Jaipur",
       "itemListElement": [
         {
           "@type": "Offer",
+          "name": "Video Edit Only (Single to Monthly)",
+          "price": "499",
+          "priceCurrency": "INR",
           "itemOffered": {
             "@type": "Service",
-            "name": "Video Shoot",
-            "description": "Professional 4K on-location & studio cinematography with camera crews, gimbal operations, and lighting.",
+            "name": "Video Editing & Reels Post-Production",
+            "description": "High-retention video editing with kinetic subtitles, sound effects, pacing, and color polish starting at ₹499.",
           },
         },
         {
           "@type": "Offer",
+          "name": "Video Shoot Only (1-2h to Full Day)",
+          "price": "1499",
+          "priceCurrency": "INR",
           "itemOffered": {
             "@type": "Service",
-            "name": "Video Edit",
-            "description": "High-retention video editing, dynamic kinetic captions, sound design, sound mastering, and color polish.",
+            "name": "On-Location Video Shoot in Jaipur",
+            "description": "4K mobile cinematography with stabilized angles for cafes, restaurants, gyms, and stores in Jaipur starting at ₹1,499.",
           },
         },
         {
           "@type": "Offer",
+          "name": "Shoot + Edit Turnkey Bundles",
+          "price": "2499",
+          "priceCurrency": "INR",
           "itemOffered": {
             "@type": "Service",
-            "name": "Shoot + Edit",
-            "description": "Full end-to-end turnkey video production from concept and filming to color grading and master delivery.",
+            "name": "Turnkey Shoot + Edit Bundles",
+            "description": "Dedicated single shoot session on location in Jaipur plus master edited reels delivered ready to post starting at ₹2,499.",
           },
         },
       ],
@@ -91,4 +105,5 @@ export default function ServicesLayout({
     </>
   );
 }
+
 

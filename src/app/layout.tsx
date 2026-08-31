@@ -192,7 +192,7 @@ export default function RootLayout({
       },
     ],
     "sameAs": [
-      "https://www.instagram.com/maximumpixel.reels/",
+      "https://www.instagram.com/maximumpixel.jaipur",
       "https://youtube.com/@maximumpixel",
       "https://linkedin.com/company/maximumpixel",
     ],
