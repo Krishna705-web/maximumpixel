@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Portfolio & Case Studies | MaximumPixel Jaipur",
+  title: "Commercial Video Portfolio & Reels Showcase | MaximumPixel Jaipur",
   description:
-    "Watch commercial films, brand campaigns, live concert recaps, and viral social media reels crafted by MaximumPixel Creative Studio in Jaipur.",
+    "Explore 4K commercial films, cafe & restaurant shoots, and viral Instagram reels crafted by MaximumPixel Creative Studio in Jaipur.",
   keywords: [
+    "Video Shoot Portfolio Jaipur",
+    "Instagram Reels Portfolio Jaipur",
+    "Commercial Video Maker Jaipur",
+    "Cafe Video Shoot Jaipur",
+    "Restaurant Reel Showcase",
+    "Jaipur Video Editor Case Studies",
     "MaximumPixel Portfolio",
-    "Video Production Case Studies Jaipur",
-    "Commercial Films Portfolio",
-    "Instagram Reels Portfolio",
-    "Event Videographer Jaipur",
-    "Brand Film Production Studio India",
-    "Creative Work Jaipur",
   ],
   alternates: {
     canonical: "/our-work",
   },
   openGraph: {
-    title: "Portfolio & Case Studies | MaximumPixel Creative Studio Jaipur",
+    title: "Commercial Video Portfolio & Reels Showcase | MaximumPixel Jaipur",
     description:
-      "Explore cinematic video projects, commercial campaigns, and viral social content produced by MaximumPixel.",
+      "Explore 4K commercial films, cafe & restaurant shoots, and viral Instagram reels crafted by MaximumPixel in Jaipur.",
     url: "https://www.maximumpixel.online/our-work",
   },
 };

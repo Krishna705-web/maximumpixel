@@ -28,34 +28,40 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Maximum Pixel | Video Shoot, Video Editing & Graphic Design Studio Jaipur",
-    template: "%s | Maximum Pixel Creative Studio",
+    default: "MaximumPixel | Video Shoot, Video Edit & Reels Production in Jaipur",
+    template: "%s | MaximumPixel Studio Jaipur",
   },
   description:
-    "Maximum Pixel is Jaipur's premier studio for Video Shoots, Video Shoot + Edit, Video Post-Production, Social Media Posts, Carousels, High-CTR Thumbnails, and Brand Logo Design.",
+    "MaximumPixel is Jaipur's dedicated creative video studio specializing in on-location Video Shoots, Viral Video Editing, and Turnkey Shoot + Edit productions for cafes, restaurants, fashion brands, and creators.",
   keywords: [
-    "Maximum Pixel",
-    "Video Shoot Jaipur",
-    "Video Shoot and Edit Jaipur",
-    "Video Editing Agency Jaipur",
+    "Video Shoot in Jaipur",
+    "Video Editing in Jaipur",
+    "Shoot and Edit in Jaipur",
     "Instagram Reels Editor Jaipur",
-    "Social Media Carousel Design",
-    "YouTube Thumbnail Designer Jaipur",
-    "Brand Logo Design Jaipur",
-    "Motion Graphics Rajasthan",
+    "Reels Video Shoot Jaipur",
+    "Cafe Video Shoot Jaipur",
+    "Restaurant Shoot Jaipur",
+    "Commercial Videographer Jaipur",
+    "Product Video Shoot Jaipur",
+    "Mobile Cinematography Jaipur",
+    "Video Production Studio Jaipur",
+    "Short Form Video Agency India",
+    "MaximumPixel",
+    "Maximum Pixel",
+    "MaximumPixel Jaipur",
     "Krishna Rajak",
   ],
-  authors: [{ name: "Krishna Rajak" }, { name: "Maximum Pixel Team" }],
-  creator: "Maximum Pixel",
-  publisher: "Maximum Pixel Media",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://maximumpixel.online"),
+  authors: [{ name: "Krishna Rajak" }, { name: "MaximumPixel Team" }],
+  creator: "MaximumPixel",
+  publisher: "MaximumPixel Media",
+  metadataBase: new URL("https://www.maximumpixel.online"),
   alternates: {
-    canonical: "/",
+    canonical: "https://www.maximumpixel.online",
   },
-  applicationName: "Maximum Pixel Creative Studio",
+  applicationName: "MaximumPixel Studio",
   appleWebApp: {
     capable: true,
-    title: "Maximum Pixel",
+    title: "MaximumPixel",
     statusBarStyle: "black-translucent",
   },
   verification: {
@@ -75,25 +81,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://maximumpixel.online",
-    siteName: "Maximum Pixel Creative Studio",
-    title: "Maximum Pixel | Creative Content & Video Production Studio in Jaipur",
+    url: "https://www.maximumpixel.online",
+    siteName: "MaximumPixel Creative Video Studio",
+    title: "MaximumPixel | Video Shoot, Video Edit & Reels Production in Jaipur",
     description:
-      "Maximum Pixel is Jaipur's top creative studio for cinematic video production, commercial photography, viral reels, event coverage, and brand design.",
+      "Specialized Jaipur studio for on-location Video Shoots, high-retention Video Editing, and Shoot + Edit bundles for cafes, brands, and businesses.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Maximum Pixel Creative Content & Video Production Studio Jaipur",
+        alt: "MaximumPixel Video Shoot & Video Edit Studio Jaipur",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maximum Pixel | Creative Content & Video Production Studio in Jaipur",
+    title: "MaximumPixel | Video Shoot, Video Edit & Reels Production in Jaipur",
     description:
-      "Maximum Pixel is Jaipur's top creative studio for cinematic video production, commercial photography, viral reels, event coverage, and brand design.",
+      "Specialized Jaipur studio for on-location Video Shoots, high-retention Video Editing, and Shoot + Edit bundles.",
     images: ["/og-image.jpg"],
     creator: "@maximumpixel",
   },
@@ -115,26 +121,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Rich Structured Data Schema (JSON-LD) for Google Search Engine Logo & Sitelinks
+  // Rich Structured Data Schema (JSON-LD) for Google Search Engine Logo & LocalBusiness
   const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Maximum Pixel",
+    "@type": ["LocalBusiness", "ProfessionalService"],
+    "name": "MaximumPixel",
     "alternateName": [
-      "MaximumPixel",
+      "Maximum Pixel",
       "Maximum Pixel Studio",
       "MaximumPixel Creative Studio",
       "Maximum Pixel Jaipur",
-      "MaximumPixel Media"
+      "MaximumPixel Video Production",
     ],
-    "url": "https://maximumpixel.online",
-    "logo": "https://maximumpixel.online/assets/logo.png",
-    "image": "https://maximumpixel.online/og-image.jpg",
+    "url": "https://www.maximumpixel.online",
+    "logo": "https://www.maximumpixel.online/assets/logo.png",
+    "image": "https://www.maximumpixel.online/og-image.jpg",
     "description":
-      "Maximum Pixel is Jaipur's premier creative media agency providing video production, commercial photography, event coverage, viral reels, and branding design.",
+      "MaximumPixel is Jaipur's dedicated video studio providing professional on-location video shoots, viral Instagram reels editing, and turnkey shoot + edit bundles for cafes, restaurants, fashion brands, and creators.",
     "telephone": "+917878736798",
     "email": "info@maximumpixel.online",
-    "priceRange": "₹₹",
+    "priceRange": "₹499 - ₹9999",
+    "currenciesAccepted": "INR",
+    "paymentAccepted": "Cash, UPI, Net Banking",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Creative Hub",
@@ -148,6 +156,11 @@ export default function RootLayout({
       "latitude": "26.9124",
       "longitude": "75.7873",
     },
+    "areaServed": [
+      { "@type": "City", "name": "Jaipur" },
+      { "@type": "State", "name": "Rajasthan" },
+      { "@type": "Country", "name": "India" },
+    ],
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": [
@@ -159,13 +172,13 @@ export default function RootLayout({
         "Saturday",
       ],
       "opens": "10:00",
-      "closes": "18:00",
+      "closes": "19:00",
     },
     "founders": [
       {
         "@type": "Person",
         "name": "Krishna Rajak",
-        "jobTitle": "Founder & Creative Lead",
+        "jobTitle": "Founder & Creative Director",
       },
       {
         "@type": "Person",
@@ -185,54 +198,30 @@ export default function RootLayout({
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Creative Studio Services",
+      "name": "MaximumPixel Video Services Jaipur",
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Video Shoot",
-            "description": "Professional 4K on-location and studio cinematography with camera crew and lighting.",
+            "name": "Video Shoot in Jaipur",
+            "description": "On-location 4K mobile cinematography with stabilized angles for cafes, restaurants, gyms, and stores in Jaipur starting at ₹1,499.",
           },
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Video Shoot + Edit",
-            "description": "Turnkey video production from concept and shooting to master color-graded delivery.",
+            "name": "Video Editing & Reels Post-Production",
+            "description": "High-retention vertical video editing with dynamic subtitles, sound effects, and color grading starting at ₹499.",
           },
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Video Editing & Post-Production",
-            "description": "High-retention reel editing, dynamic kinetic captions, pacing, sound design, and color grading.",
-          },
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Social Posts, Carousels & Stories",
-            "description": "High-engagement swipeable carousels, single creative posts, and interactive story graphics.",
-          },
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "High-CTR Video Thumbnails",
-            "description": "Click-optimized custom video and YouTube thumbnails designed for maximum CTR.",
-          },
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Logo & Brand Identity",
-            "description": "Custom vector logo design, visual style guidelines, and digital brand identity systems.",
+            "name": "Shoot + Edit Turnkey Video Bundles",
+            "description": "Complete on-location filming session plus edited master 4K reels delivered ready to post starting at ₹2,499.",
           },
         },
       ],
@@ -248,10 +237,10 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "MaximumPixel",
-    "url": "https://maximumpixel.online",
+    "url": "https://www.maximumpixel.online",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://maximumpixel.online/our-work?q={search_term_string}",
+      "target": "https://www.maximumpixel.online/our-work?q={search_term_string}",
       "query-input": "required name=search_term_string",
     },
   };
@@ -262,43 +251,50 @@ export default function RootLayout({
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What is Maximum Pixel (MaximumPixel)?",
+        "name": "What is MaximumPixel in Jaipur?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Maximum Pixel (MaximumPixel) is Jaipur's premier creative content, video production, 3D animation, and digital media studio specializing in commercial brand films, viral Instagram reels, event coverage, and visual storytelling.",
+          "text": "MaximumPixel is Jaipur's dedicated creative video studio specializing in on-location 4K video shoots, viral Instagram reels editing, and turnkey Shoot + Edit bundles for cafes, restaurants, retail brands, and content creators.",
         },
       },
       {
         "@type": "Question",
-        "name": "What services does Maximum Pixel offer in Jaipur?",
+        "name": "How much does a video shoot or reel edit cost in Jaipur with MaximumPixel?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Maximum Pixel provides professional Video Shoot cinematography, high-retention Video Edit post-production, and turnkey Shoot + Edit commercial video production in Jaipur and across India.",
+          "text": "MaximumPixel offers transparent starter pricing in Jaipur: Single Reel Edits start at ₹499, On-Location Video Shoots start at ₹1,499, and full Shoot + Edit Turnkey Bundles start at ₹2,499.",
         },
       },
       {
         "@type": "Question",
-        "name": "Where is Maximum Pixel located?",
+        "name": "What services does MaximumPixel offer in Jaipur?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Maximum Pixel (MaximumPixel) is headquartered in Jaipur, Rajasthan, India, delivering creative media production for clients across India and worldwide.",
+          "text": "MaximumPixel specializes in three core video services: (1) On-location Video Shoots, (2) High-retention Video Editing, and (3) Turnkey Shoot + Edit production packages.",
         },
       },
       {
         "@type": "Question",
-        "name": "Who founded Maximum Pixel?",
-
+        "name": "Can MaximumPixel shoot on location for cafes and businesses in Jaipur?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Maximum Pixel was founded by Krishna Rajak, leading creative direction and commercial production in Jaipur.",
+          "text": "Yes! MaximumPixel provides dedicated on-location shoot sessions across Jaipur for cafes, restaurants, fashion boutiques, gyms, salons, and brand spaces.",
         },
       },
       {
         "@type": "Question",
-        "name": "How to contact Maximum Pixel (MaximumPixel)?",
+        "name": "How fast does MaximumPixel deliver edited videos?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can contact Maximum Pixel via official email at info@maximumpixel.online, phone/WhatsApp at +91 78787 36798, or through the official website at https://maximumpixel.online/contact.",
+          "text": "MaximumPixel provides rapid turnaround times: 24–48 hours for Single Reel Edits and 48–72 hours for Shoot + Edit bundles.",
+        },
+      },
+      {
+        "@type": "Question",
+        "name": "How can I contact or book a video shoot with MaximumPixel?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can book directly via WhatsApp at +91 78787 36798, email at info@maximumpixel.online, or through the official website at https://www.maximumpixel.online/contact.",
         },
       },
     ],

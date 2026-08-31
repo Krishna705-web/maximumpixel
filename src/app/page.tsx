@@ -120,6 +120,9 @@ export default function HomePage() {
                     </motion.span>
                   </AnimatePresence>
                 </div>
+                <span className="sr-only">
+                  - Video Shoot, Video Editing &amp; Reels Production Studio in Jaipur
+                </span>
               </h1>
 
               {/* Sub-headline */}
@@ -129,7 +132,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="text-[#FF7A1A] font-semibold text-xs sm:text-base md:text-xl lg:text-2xl pt-0.5 sm:pt-1 leading-snug"
               >
-                Jaipur Creative Content Studio
+                Jaipur Video Shoot &amp; Reels Production Studio
               </motion.p>
 
               {/* Body Description */}
@@ -139,7 +142,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.65 }}
                 className="text-[#A0A0A0] text-xs sm:text-sm md:text-base lg:text-lg max-w-md leading-relaxed"
               >
-                Video Shoot • Video Edit • Shoot + Edit — Cinematic production and high-retention post-production in Jaipur.
+                Video Shoot • Video Edit • Shoot + Edit — On-location 4K mobile cinematography and high-retention video editing in Jaipur.
               </motion.p>
 
               {/* CTA Button */}
