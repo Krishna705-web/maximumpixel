@@ -56,7 +56,7 @@ export function PricingSection() {
           {/* Guarantee Pill */}
           <div className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-2xl bg-white/[0.04] border border-[#22B14C]/30 text-[#22B14C] text-xs font-semibold">
             <ShieldCheck className="w-4 h-4 shrink-0 text-[#22B14C]" />
-            <span>100% Quality &amp; Free Revision Guarantee on Every Project</span>
+            <span>Dedicated Single Shoot Sessions &amp; Up to 2–4 Free Revisions</span>
           </div>
         </div>
 
