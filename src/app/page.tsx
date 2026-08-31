@@ -43,17 +43,18 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
+  // Close modal on Escape key
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedWork(null);
+    };
+    if (selectedWork) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedWork]);
+
   const latestWorkPreviews = [
-    {
-      title: "Artisan Cafe Commercial Reel",
-      tag: "SHOOT + EDIT",
-      tagColor: "bg-[#5B2EE8]",
-      image: "/assets/projects/cafe-reel.jpg",
-      videoUrl: "/assets/videos/cafe-edit.mp4",
-      subtext: "4K 9:16 Vertical • Full On-Location Shoot + Master Post-Production",
-      credits: "Stock Footage: Pexels (Free Commercial License) • Editing, Sound Design & Color Grading: Maximum Pixel Studio",
-      description: "A rich, sensory commercial capturing artisan pour-over brewing, warm ambient seating, and barista craft. Produced from storyboard to final master cut.",
-    },
     {
       title: "Cinematic Brand Commercial",
       tag: "VIDEO SHOOT",
@@ -73,6 +74,15 @@ export default function HomePage() {
       subtext: "Kinetic Velocity Pacing • Warm Color Grading & Audio Foley",
       credits: "Stock Footage: Sourced from Pexels (Commercial Creative Commons License) • Post-Production, Velocity Editing, Audio Mastering & Grade: MaximumPixel Studio",
       description: "A rhythmic, sensory hospitality commercial edit capturing iced espresso preparation, barista artistry, and modern sunlit cafe ambiance with rich sound design.",
+    },
+    {
+      title: "High-Retention Reel Post-Production",
+      tag: "VIDEO EDIT",
+      tagColor: "bg-[#FF7A1A]",
+      image: "/assets/projects/social-content.jpg",
+      subtext: "Kinetic Subtitles & SFX • High-Retention Vertical Cutdowns",
+      credits: "Post-Production, Motion Typography & Algorithm Retention Strategy: MaximumPixel Studio",
+      description: "Fast-paced, high-retention vertical editing engineered specifically for organic reach, algorithm engagement, and viral retention on Instagram and YouTube Shorts.",
     },
   ];
 
@@ -345,29 +355,30 @@ export default function HomePage() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setSelectedWork(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto"
             role="dialog"
             aria-modal="true"
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              initial={{ opacity: 0, scale: 0.9, y: 25 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              exit={{ opacity: 0, scale: 0.9, y: 25 }}
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-2xl rounded-3xl bg-[#141416] border border-white/15 overflow-hidden shadow-2xl my-8"
+              className="relative w-full max-w-2xl sm:max-w-3xl rounded-3xl bg-[#141416] border border-white/20 overflow-hidden shadow-2xl flex flex-col md:flex-row my-auto"
             >
-              {/* Close Button */}
+              {/* Prominent High-Contrast Close Button in Top-Right */}
               <button
                 onClick={() => setSelectedWork(null)}
-                className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/70 text-white hover:bg-black/90 flex items-center justify-center transition-colors border border-white/10"
+                className="absolute top-3.5 right-3.5 z-30 w-9 h-9 rounded-full bg-black/80 text-white hover:bg-white hover:text-black flex items-center justify-center transition-all border border-white/25 shadow-xl cursor-pointer"
                 aria-label="Close preview"
+                title="Close (Esc)"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Large Media Header (Video or Image) */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-black flex items-center justify-center">
+              {/* Left Side: 9:16 Video Player or Image Container */}
+              <div className="relative w-full md:w-[320px] aspect-[9/16] bg-black flex items-center justify-center overflow-hidden shrink-0">
                 {selectedWork.videoUrl ? (
                   <video
                     src={selectedWork.videoUrl}
@@ -376,7 +387,7 @@ export default function HomePage() {
                     autoPlay
                     playsInline
                     loop
-                    className="w-full h-full object-contain bg-black"
+                    className="w-full h-full object-cover"
                   />
                 ) : (
                   <Image
@@ -386,39 +397,46 @@ export default function HomePage() {
                     className="object-cover"
                   />
                 )}
-                <div className="absolute top-4 left-4 flex items-center gap-2 pointer-events-none z-10">
+                <div className="absolute top-3 left-3 flex items-center gap-2 pointer-events-none z-20">
                   <span
-                    className={`px-3 py-1 rounded-md ${selectedWork.tagColor} text-white text-xs font-black tracking-wider uppercase shadow-lg`}
+                    className={`px-2.5 py-0.5 rounded-md ${selectedWork.tagColor} text-white text-[10px] font-black tracking-wider uppercase shadow-md`}
                   >
                     {selectedWork.tag}
                   </span>
                 </div>
               </div>
 
-              {/* Modal Body */}
-              <div className="p-6 sm:p-8 space-y-4">
-                <div>
-                  <h3 className="font-display font-black text-2xl text-white">
-                    {selectedWork.title}
-                  </h3>
-                  <p className="text-sm text-[#FF7A1A] font-semibold mt-1">
-                    {selectedWork.subtext}
-                  </p>
-                </div>
-
-                {selectedWork.description && (
-                  <p className="text-sm text-[#CCCCCC] leading-relaxed">
-                    {selectedWork.description}
-                  </p>
-                )}
-
-                {/* Credits Badge */}
-                {selectedWork.credits && (
-                  <div className="flex items-start gap-2 p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs text-[#A0A0A0]">
-                    <Sparkles className="w-4 h-4 text-[#FFC72C] shrink-0 mt-0.5" />
-                    <span>{selectedWork.credits}</span>
+              {/* Right Side: Description, Credits & Action Panel */}
+              <div className="p-5 sm:p-7 md:p-8 flex-1 flex flex-col justify-between space-y-4 bg-[#141416]">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between text-xs text-[#A0A0A0] pr-8">
+                    <span className="font-bold text-[#A78BFA] uppercase tracking-wider">
+                      {selectedWork.tag}
+                    </span>
                   </div>
-                )}
+
+                  <div>
+                    <h3 className="font-display font-black text-xl sm:text-2xl text-white leading-tight">
+                      {selectedWork.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#FF7A1A] font-semibold mt-1">
+                      {selectedWork.subtext}
+                    </p>
+                  </div>
+
+                  {selectedWork.description && (
+                    <p className="text-xs sm:text-sm text-[#CCCCCC] leading-relaxed">
+                      {selectedWork.description}
+                    </p>
+                  )}
+
+                  {selectedWork.credits && (
+                    <div className="flex items-start gap-2 p-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-xs text-[#A0A0A0] leading-relaxed">
+                      <Sparkles className="w-4 h-4 text-[#FFC72C] shrink-0 mt-0.5" />
+                      <span>{selectedWork.credits}</span>
+                    </div>
+                  )}
+                </div>
 
                 {/* Action Buttons */}
                 <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3">
@@ -428,13 +446,13 @@ export default function HomePage() {
                     size="md"
                     showArrow
                     fullWidth
-                    className="py-3.5 font-bold shadow-lg"
+                    className="py-3 font-bold shadow-lg"
                   >
                     Discuss Similar Project
                   </Button>
                   <button
                     onClick={() => setSelectedWork(null)}
-                    className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-sm font-semibold transition-colors"
+                    className="w-full sm:w-auto px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-bold transition-colors cursor-pointer"
                   >
                     Close
                   </button>

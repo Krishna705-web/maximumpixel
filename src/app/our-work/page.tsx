@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { PROJECTS, CATEGORIES, CategoryFilter, ProjectItem } from "@/data/projects";
@@ -17,6 +17,7 @@ import {
   Video,
   Palette,
   MapPin,
+  Play,
 } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 
@@ -61,6 +62,17 @@ const cardVariants: Variants = {
 export default function OurWorkPage() {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("ALL");
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedProject(null);
+    };
+    if (selectedProject) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedProject]);
 
   const filteredProjects =
     activeCategory === "ALL"
@@ -173,37 +185,31 @@ export default function OurWorkPage() {
         </motion.div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          CATEGORY FILTER PILLS
-          ═══════════════════════════════════════════════════════ */}
+      {/* Category Filter Pills */}
       <section className="pb-6">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-3 overflow-x-auto pb-3 sm:pb-0 scrollbar-none">
-            {CATEGORIES.map((category) => {
-              const isActive = activeCategory === category;
+            {CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat;
               return (
-                <motion.button
-                  key={category}
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.96 }}
-                  onClick={() => setActiveCategory(category)}
-                  className={`relative px-4 py-2 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`relative px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${
                     isActive
-                      ? "bg-[#5B2EE8] text-white shadow-[0_2px_15px_rgba(91,46,232,0.5)] border border-[#5B2EE8]"
-                      : "bg-white/[0.04] text-[#A0A0A0] hover:text-white hover:bg-white/[0.08] border border-white/10"
+                      ? "text-white shadow-lg shadow-[#5B2EE8]/20 bg-[#5B2EE8]"
+                      : "text-[#A0A0A0] bg-white/[0.04] border border-white/[0.08] hover:text-white hover:border-white/20"
                   }`}
                 >
-                  {category}
-                </motion.button>
+                  {cat}
+                </button>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          PROJECTS GRID (Staggered Animation)
-          ═══════════════════════════════════════════════════════ */}
+      {/* Portfolio Projects Grid */}
       <section className="py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -216,74 +222,80 @@ export default function OurWorkPage() {
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project) => (
                 <motion.div
-                  layout
                   key={project.id}
+                  layout
                   variants={cardVariants}
                   initial="hidden"
                   animate="visible"
                   exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                  whileHover={{ y: -6 }}
                   onClick={() => setSelectedProject(project)}
-                  className="group relative rounded-3xl bg-gradient-to-b from-white/[0.05] to-white/[0.02] border border-white/10 hover:border-[#5B2EE8]/50 overflow-hidden transition-colors duration-300 shadow-xl flex flex-col cursor-pointer"
+                  className="group relative rounded-3xl bg-[#111113] border border-white/[0.08] overflow-hidden shadow-xl hover:border-white/25 hover:shadow-2xl transition-all duration-300 flex flex-col cursor-pointer"
                 >
-                  {/* Image Container with Dynamic Badges */}
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/60">
+                  {/* Media Header Container */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/50">
                     <Image
                       src={project.imageUrl}
                       alt={project.title}
                       fill
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                      className="object-cover transition-transform duration-700 group-hover:scale-108"
                     />
 
-                    {/* Top Badges */}
-                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                    {/* Scrim Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#111113] via-transparent to-black/30 pointer-events-none" />
+
+                    {/* Top Category Badge & Concept Tag */}
+                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
                       <span
-                        className={`px-3 py-1 rounded-lg ${project.tagBg} text-white text-xs font-black tracking-wider uppercase shadow-md`}
+                        className={`px-3 py-1 rounded-md ${project.tagBg} text-white text-xs font-black tracking-wider uppercase shadow-lg border border-white/10`}
                       >
                         {project.category}
                       </span>
-                      <span className="px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-md border border-white/15 text-white text-[11px] font-bold">
+
+                      <span className="px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/15 text-[11px] font-bold text-[#E4E4E7]">
                         {project.formatBadge}
                       </span>
                     </div>
 
-                    {/* Hover Inspect Indicator */}
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="px-4 py-2 rounded-full bg-[#5B2EE8] text-white text-xs font-bold flex items-center gap-1.5 shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        <span>View Concept Details</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </span>
+                    {/* Hover Play Button */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/35 z-10">
+                      <div className="w-14 h-14 rounded-full bg-[#5B2EE8] text-white flex items-center justify-center shadow-2xl transform scale-90 group-hover:scale-100 transition-transform">
+                        <Play className="w-6 h-6 fill-white ml-0.5" />
+                      </div>
                     </div>
-
-                    {/* Subtle Gradient Shadow */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F12] via-transparent to-transparent opacity-90 pointer-events-none" />
                   </div>
 
-                  {/* Card Content */}
-                  <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <div className="flex items-center justify-between text-xs text-[#A0A0A0] mb-1">
+                  {/* Card Body */}
+                  <div className="p-6 flex flex-col justify-between flex-1 space-y-4">
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between text-xs text-[#A0A0A0] font-semibold">
                         <span>{project.conceptType}</span>
-                        <span className="text-[#A78BFA] font-semibold">{project.status}</span>
                       </div>
-                      <h3 className="font-display font-black text-lg sm:text-xl text-white group-hover:text-[#5B2EE8] transition-colors leading-tight">
+
+                      <h3 className="font-display font-black text-xl text-white group-hover:text-[#FF7A1A] transition-colors leading-tight">
                         {project.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-[#CCCCCC] mt-2 line-clamp-2 leading-relaxed">
+
+                      <p className="text-xs text-[#CCCCCC] leading-relaxed line-clamp-2">
                         {project.description}
                       </p>
                     </div>
 
-                    {/* Deliverables Chip Tags */}
-                    <div className="pt-3 border-t border-white/10 flex flex-wrap gap-1.5">
-                      {project.deliverables.slice(0, 3).map((deliv) => (
+                    {/* Key Deliverables Tag List */}
+                    <div className="pt-2 border-t border-white/[0.08] flex flex-wrap gap-1.5">
+                      {project.deliverables.slice(0, 2).map((d) => (
                         <span
-                          key={deliv}
-                          className="px-2.5 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.08] text-[10px] sm:text-[11px] text-[#A0A0A0] group-hover:border-white/20 transition-colors"
+                          key={d}
+                          className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-[11px] text-[#A0A0A0]"
                         >
-                          {deliv}
+                          {d}
                         </span>
                       ))}
+                      {project.deliverables.length > 2 && (
+                        <span className="px-2 py-0.5 rounded-md bg-white/[0.04] text-[11px] text-[#FF7A1A] font-semibold">
+                          +{project.deliverables.length - 2} more
+                        </span>
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -294,7 +306,7 @@ export default function OurWorkPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          PROJECT DETAIL LIGHTBOX MODAL (Spring Pop)
+          PROJECT DETAIL LIGHTBOX MODAL (Side-by-Side Layout)
           ═══════════════════════════════════════════════════════ */}
       <AnimatePresence>
         {selectedProject && (
@@ -304,29 +316,30 @@ export default function OurWorkPage() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto"
             role="dialog"
             aria-modal="true"
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              initial={{ opacity: 0, scale: 0.9, y: 25 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              exit={{ opacity: 0, scale: 0.9, y: 25 }}
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-2xl rounded-3xl bg-[#141416] border border-white/15 overflow-hidden shadow-2xl my-8"
+              className="relative w-full max-w-2xl sm:max-w-3xl rounded-3xl bg-[#141416] border border-white/20 overflow-hidden shadow-2xl flex flex-col md:flex-row my-auto"
             >
-              {/* Close Button */}
+              {/* Prominent High-Contrast Close Button in Top-Right */}
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/70 text-white hover:bg-black/90 flex items-center justify-center transition-colors border border-white/10"
+                className="absolute top-3.5 right-3.5 z-30 w-9 h-9 rounded-full bg-black/80 text-white hover:bg-white hover:text-black flex items-center justify-center transition-all border border-white/25 shadow-xl cursor-pointer"
                 aria-label="Close concept preview"
+                title="Close (Esc)"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Large Media Header (Video or Image) */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-black flex items-center justify-center">
+              {/* Left Side: 9:16 Video Player or Media Container */}
+              <div className="relative w-full md:w-[320px] aspect-[9/16] bg-black flex items-center justify-center overflow-hidden shrink-0">
                 {selectedProject.videoUrl ? (
                   <video
                     src={selectedProject.videoUrl}
@@ -335,7 +348,7 @@ export default function OurWorkPage() {
                     autoPlay
                     playsInline
                     loop
-                    className="w-full h-full object-contain bg-black"
+                    className="w-full h-full object-cover"
                   />
                 ) : (
                   <Image
@@ -345,78 +358,82 @@ export default function OurWorkPage() {
                     className="object-cover"
                   />
                 )}
-                <div className="absolute top-4 left-4 flex items-center gap-2 pointer-events-none z-10">
+                <div className="absolute top-3 left-3 flex items-center gap-2 pointer-events-none z-20">
                   <span
-                    className={`px-3 py-1 rounded-md ${selectedProject.tagBg} text-white text-xs font-black tracking-wider uppercase shadow-lg`}
+                    className={`px-2.5 py-0.5 rounded-md ${selectedProject.tagBg} text-white text-[10px] font-black tracking-wider uppercase shadow-md`}
                   >
                     {selectedProject.category}
                   </span>
-                  <span className="px-3 py-1 rounded-md bg-black/70 backdrop-blur-md text-white text-xs font-bold">
+                  <span className="px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-white text-[10px] font-bold">
                     {selectedProject.formatBadge}
                   </span>
                 </div>
               </div>
 
-              {/* Modal Body */}
-              <div className="p-6 sm:p-8 space-y-5">
-                <div>
-                  <div className="flex items-center justify-between text-xs text-[#A0A0A0] uppercase tracking-wider mb-1">
-                    <span>Format: {selectedProject.conceptType}</span>
-                    <span className="text-[#A78BFA] font-bold">{selectedProject.status}</span>
+              {/* Right Side: Description, Scope, Credits & Action Panel */}
+              <div className="p-5 sm:p-7 md:p-8 flex-1 flex flex-col justify-between space-y-4 bg-[#141416]">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between text-xs text-[#A0A0A0] pr-8">
+                    <span className="font-bold text-[#A78BFA] uppercase tracking-wider">
+                      Format: {selectedProject.conceptType}
+                    </span>
                   </div>
-                  <h3 className="font-display font-black text-2xl sm:text-3xl text-white">
-                    {selectedProject.title}
-                  </h3>
-                  <p className="text-sm text-[#FF7A1A] font-semibold mt-1">
-                    {selectedProject.subtitle}
-                  </p>
-                </div>
 
-                <p className="text-sm text-[#CCCCCC] leading-relaxed">
-                  {selectedProject.description}
-                </p>
-
-                {/* Credits Badge */}
-                {selectedProject.credits && (
-                  <div className="flex items-start gap-2 p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs text-[#A0A0A0]">
-                    <Sparkles className="w-4 h-4 text-[#FFC72C] shrink-0 mt-0.5" />
-                    <span>{selectedProject.credits}</span>
+                  <div>
+                    <h3 className="font-display font-black text-xl sm:text-2xl text-white leading-tight">
+                      {selectedProject.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#FF7A1A] font-semibold mt-1">
+                      {selectedProject.subtitle}
+                    </p>
                   </div>
-                )}
 
-                {/* Deliverables List */}
-                <div className="pt-2">
-                  <p className="text-xs font-bold text-[#A0A0A0] uppercase tracking-wider mb-2">
-                    Production Scope &amp; Deliverables:
+                  <p className="text-xs sm:text-sm text-[#CCCCCC] leading-relaxed">
+                    {selectedProject.description}
                   </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {selectedProject.deliverables.map((d) => (
-                      <div
-                        key={d}
-                        className="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08]"
-                      >
-                        <CheckCircle2 className="w-4 h-4 text-[#5B2EE8] shrink-0" />
-                        <span className="text-xs text-white font-medium">{d}</span>
-                      </div>
-                    ))}
+
+                  {/* Credits Badge */}
+                  {selectedProject.credits && (
+                    <div className="flex items-start gap-2 p-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-xs text-[#A0A0A0] leading-relaxed">
+                      <Sparkles className="w-4 h-4 text-[#FFC72C] shrink-0 mt-0.5" />
+                      <span>{selectedProject.credits}</span>
+                    </div>
+                  )}
+
+                  {/* Deliverables List */}
+                  <div className="pt-1">
+                    <p className="text-[11px] font-bold text-[#A0A0A0] uppercase tracking-wider mb-2">
+                      Scope &amp; Deliverables:
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                      {selectedProject.deliverables.map((d) => (
+                        <div
+                          key={d}
+                          className="flex items-center gap-1.5 p-2 rounded-xl bg-white/[0.04] border border-white/[0.08]"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#5B2EE8] shrink-0" />
+                          <span className="text-[11px] text-white font-medium">{d}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3">
+                <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3">
                   <Button
                     href={`/contact?service=${encodeURIComponent(selectedProject.category)}`}
                     variant="primary"
                     size="md"
                     showArrow
                     fullWidth
-                    className="py-3.5 font-bold shadow-lg"
+                    className="py-3 font-bold shadow-lg"
                   >
                     Discuss Similar Project
                   </Button>
                   <button
                     onClick={() => setSelectedProject(null)}
-                    className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-sm font-semibold transition-colors"
+                    className="w-full sm:w-auto px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-bold transition-colors cursor-pointer"
                   >
                     Close
                   </button>

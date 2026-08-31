@@ -27,24 +27,6 @@ export type CategoryFilter = (typeof CATEGORIES)[number];
 
 export const PROJECTS: ProjectItem[] = [
   {
-    id: "cafe-aesthetic-reel",
-    title: "Artisan Cafe Commercial Reel",
-    subtitle: "Complete On-Location Shoot + Master Edit",
-    category: "Shoot + Edit",
-    conceptType: "End-to-End Hospitality Commercial",
-    tagColor: "#FFFFFF",
-    tagBg: "bg-[#5B2EE8]",
-    status: "Studio Concept",
-    imageUrl: "/assets/projects/cafe-reel.jpg",
-    videoUrl: "/assets/videos/cafe-edit.mp4",
-    credits: "Concept, Shooting Direction & Post-Production: MaximumPixel Studio",
-    featured: true,
-    formatBadge: "9:16 4K Vertical",
-    deliverables: ["Full-Day On-Location Filming", "9:16 Vertical Master", "Atmospheric Sound Design", "Warm Tone Color Grade"],
-    description:
-      "A rich, sensory commercial capturing artisan pour-over brewing, warm ambient seating, and barista craft. Produced from storyboard and on-set filming to final master cut.",
-  },
-  {
     id: "barista-coffee-edit",
     title: "Espresso Craft & Greenhouse Cafe Edit",
     subtitle: "Rhythmic Flow, Color Grading & Sensory Sound Design",

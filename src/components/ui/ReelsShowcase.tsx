@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { REELS, ReelItem } from "@/data/reels";
-import { Play, Eye, X, Flame, Sparkles } from "lucide-react";
+import { Play, X, Flame, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 
@@ -64,18 +64,13 @@ export const ReelsShowcase: React.FC = () => {
               {/* Dark Ambient Scrim Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/60 to-black/20 pointer-events-none" />
 
-              {/* Top Tag & Views Counter */}
-              <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+              {/* Top Tag */}
+              <div className="absolute top-4 left-4 z-10">
                 <span
                   className={`h-6 px-2.5 rounded-md ${reel.tagColor} text-white text-[10px] sm:text-xs font-bold tracking-wider uppercase shadow-md flex items-center justify-center whitespace-nowrap`}
                 >
                   {reel.category}
                 </span>
-
-                <div className="h-6 flex items-center gap-1.5 bg-[#18181B] px-2.5 rounded-full text-xs font-bold text-white border border-white/20">
-                  <Eye className="w-3.5 h-3.5 text-[#FFC72C]" />
-                  <span>{reel.views}</span>
-                </div>
               </div>
 
               {/* Center Play Button with pulse on hover */}
@@ -178,10 +173,6 @@ export const ReelsShowcase: React.FC = () => {
                       <span className="font-bold text-[#A78BFA] uppercase tracking-wider">
                         {activeReel.category}
                       </span>
-                      <div className="flex items-center gap-1 text-white font-bold bg-white/[0.06] px-2 py-0.5 rounded-full border border-white/10">
-                        <Eye className="w-3 h-3 text-[#FFC72C]" />
-                        <span>{activeReel.views}</span>
-                      </div>
                     </div>
 
                     {/* Title & Caption Description */}
