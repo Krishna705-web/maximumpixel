@@ -300,7 +300,7 @@ export default function HomePage() {
                   <h3 className="font-display font-black text-lg text-white mb-1 min-h-[3.25rem] flex items-start">
                     {work.title}
                   </h3>
-                  <p className="text-xs text-[#A0A0A0] mt-auto">{work.subtext}</p>
+                  <p className="text-xs text-[#CCCCCC] mt-auto">{work.subtext}</p>
                 </div>
               </motion.div>
             ))}

@@ -303,7 +303,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${archivoBlack.variable} dark`} suppressHydrationWarning>
       <head>
-        <link rel="preload" href="/assets/mascot-3d-fast.glb" as="fetch" crossOrigin="anonymous" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />

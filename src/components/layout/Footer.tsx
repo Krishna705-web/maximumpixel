@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
           {/* Col 1: Brand & Blurb */}
           <div className="md:col-span-5 lg:col-span-5 space-y-4">
             <Logo size="md" />
-            <p className="text-sm text-[#A0A0A0] leading-relaxed max-w-sm">
+            <p className="text-sm text-[#CCCCCC] leading-relaxed max-w-sm">
               {COMPANY_INFO.shortDesc}
             </p>
           </div>
@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
             <h4 className="font-display font-black text-white text-sm tracking-wider uppercase">
               CONTACT
             </h4>
-            <ul className="space-y-2.5 text-sm text-[#A0A0A0]">
+            <ul className="space-y-2.5 text-sm text-[#CCCCCC]">
               <li className="flex items-center gap-2.5 group">
                 <MapPin className="w-4 h-4 text-[#5B2EE8] shrink-0" />
                 <a
@@ -98,7 +98,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-[#A0A0A0]">
+        <div className="pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-[#B5B5B5]">
           <p>© {COMPANY_INFO.copyrightYear} MaximumPixel. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link

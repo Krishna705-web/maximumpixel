@@ -140,7 +140,7 @@ export function PricingSection() {
                       </span>
                     </div>
 
-                    <p className="text-xs text-[#A0A0A0] leading-relaxed min-h-[2.5rem] mb-4">
+                    <p className="text-xs text-[#B5B5B5] leading-relaxed min-h-[2.5rem] mb-4">
                       {plan.tagline}
                     </p>
 
@@ -150,7 +150,7 @@ export function PricingSection() {
                         <span className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight">
                           ₹{plan.price.toLocaleString("en-IN")}
                         </span>
-                        <span className="text-sm line-through text-[#666666] font-semibold">
+                        <span className="text-sm line-through text-[#9E9E9E] font-semibold">
                           ₹{plan.originalPrice.toLocaleString("en-IN")}
                         </span>
                       </div>
@@ -162,7 +162,7 @@ export function PricingSection() {
 
                     {/* Features checklist */}
                     <div className="space-y-2.5 mb-6">
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-[#A0A0A0]">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-[#B5B5B5]">
                         What&apos;s Included:
                       </p>
                       {plan.features.map((feat) => (
