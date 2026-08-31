@@ -162,7 +162,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="text-[#FF7A1A] font-semibold text-xs sm:text-base md:text-xl lg:text-2xl pt-0.5 sm:pt-1 leading-snug"
               >
-                Video Shoot, Video Editing &amp; Reels Production Studio in Jaipur
+                Jaipur Video Shoot &amp; Reels Production Studio
               </motion.p>
 
               {/* Body Description */}
@@ -172,7 +172,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.65 }}
                 className="text-[#A0A0A0] text-xs sm:text-sm md:text-base lg:text-lg max-w-md leading-relaxed"
               >
-                MaximumPixel delivers on-location 4K video shoots, high-retention video editing, and turnkey shoot + edit production bundles for cafes, restaurants, fashion brands, and creators in Jaipur.
+                Video Shoot • Video Edit • Shoot + Edit — On-location 4K mobile cinematography and high-retention video editing in Jaipur.
               </motion.p>
 
               {/* CTA Button */}
@@ -339,9 +339,9 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          STUDIO OVERVIEW & VALUE PROPOSITION (SEO & GEO Content)
+          STUDIO OVERVIEW & VALUE PROPOSITION (SEO & GEO Content - DOM Crawlable / Screen-Reader Only)
           ═══════════════════════════════════════════════════════ */}
-      <section className="py-16 border-t border-white/[0.08] bg-[#0E0E10]/50">
+      <section className="sr-only" aria-label="Studio Overview & Video Production FAQ">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-left mb-10 space-y-2">
             <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">
