@@ -72,6 +72,8 @@ export const PROJECTS: ProjectItem[] = [
     tagBg: "bg-[#1E7FE0]",
     status: "Studio Concept",
     imageUrl: "/assets/projects/brand-film.jpg",
+    videoUrl: "/assets/videos/barista-edit.mp4",
+    credits: "Stock Footage: Sourced from Pexels (Commercial Creative Commons License) • Editing, Cinematography Direction & Grade: MaximumPixel Studio",
     featured: true,
     formatBadge: "4K Cinema / 10-Bit",
     deliverables: ["Multi-Angle Cinema Rigging", "Precision Studio Lighting", "Gimbal & Motion Tracking", "Raw ProRes Deliverables"],

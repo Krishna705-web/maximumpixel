@@ -8,7 +8,7 @@ import { ConfettiAccent } from "@/components/ui/ConfettiAccent";
 import { ProcessBadge } from "@/components/ui/ProcessBadge";
 import { PROCESS_STEPS } from "@/data/process";
 import { ReelsShowcase } from "@/components/ui/ReelsShowcase";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Play, X } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
 
@@ -25,6 +25,16 @@ const ROTATING_WORDS = [
 
 export default function HomePage() {
   const [currentWordIndex, setCurrentWordIndex] = React.useState(0);
+  const [selectedWork, setSelectedWork] = React.useState<{
+    title: string;
+    tag: string;
+    tagColor: string;
+    image: string;
+    videoUrl?: string;
+    subtext: string;
+    credits?: string;
+    description?: string;
+  } | null>(null);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -39,21 +49,30 @@ export default function HomePage() {
       tag: "SHOOT + EDIT",
       tagColor: "bg-[#5B2EE8]",
       image: "/assets/projects/cafe-reel.jpg",
+      videoUrl: "/assets/videos/cafe-edit.mp4",
       subtext: "4K 9:16 Vertical • Full On-Location Shoot + Master Post-Production",
+      credits: "Stock Footage: Pexels (Free Commercial License) • Editing, Sound Design & Color Grading: Maximum Pixel Studio",
+      description: "A rich, sensory commercial capturing artisan pour-over brewing, warm ambient seating, and barista craft. Produced from storyboard to final master cut.",
     },
     {
       title: "Cinematic Brand Commercial",
       tag: "VIDEO SHOOT",
       tagColor: "bg-[#1E7FE0]",
       image: "/assets/projects/brand-film.jpg",
+      videoUrl: "/assets/videos/barista-edit.mp4",
       subtext: "4K Cinema & Lighting • Multi-Angle Production Rigging",
+      credits: "Stock Footage: Sourced from Pexels (Commercial Creative Commons License) • Editing, Cinematography Direction & Grade: MaximumPixel Studio",
+      description: "High-dynamic-range cinematography crafted with precision lighting, fluid camera movement, and dedicated director monitoring tailored for luxury brands.",
     },
     {
-      title: "High-Retention Reel Post-Production",
+      title: "Espresso Craft & Greenhouse Cafe Edit",
       tag: "VIDEO EDIT",
       tagColor: "bg-[#FF7A1A]",
-      image: "/assets/projects/social-content.jpg",
-      subtext: "Kinetic Subtitles & SFX • High-Retention Vertical Cutdowns",
+      image: "/assets/projects/barista-reel.jpg",
+      videoUrl: "/assets/videos/barista-edit.mp4",
+      subtext: "Kinetic Velocity Pacing • Warm Color Grading & Audio Foley",
+      credits: "Stock Footage: Sourced from Pexels (Commercial Creative Commons License) • Post-Production, Velocity Editing, Audio Mastering & Grade: MaximumPixel Studio",
+      description: "A rhythmic, sensory hospitality commercial edit capturing iced espresso preparation, barista artistry, and modern sunlit cafe ambiance with rich sound design.",
     },
   ];
 
@@ -270,7 +289,8 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.12, duration: 0.5 }}
-                className="group relative rounded-2xl bg-[#111113] border border-white/[0.08] overflow-hidden transition-all duration-300 hover:border-white/25 hover:-translate-y-1 shadow-lg flex flex-col"
+                onClick={() => setSelectedWork(work)}
+                className="group relative rounded-2xl bg-[#111113] border border-white/[0.08] overflow-hidden transition-all duration-300 hover:border-white/25 hover:-translate-y-1 shadow-lg flex flex-col cursor-pointer"
               >
                 {/* Image Container with Tag Badge and Top Gradient Isolation */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40">
@@ -291,13 +311,21 @@ export default function HomePage() {
                       {work.tag}
                     </span>
                   </div>
+
+                  {/* Hover Play Button Overlay */}
+                  <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                    <div className="w-12 h-12 rounded-full bg-[#5B2EE8] text-white flex items-center justify-center shadow-xl transform scale-90 group-hover:scale-100 transition-transform">
+                      <Play className="w-5 h-5 fill-white ml-0.5" />
+                    </div>
+                  </div>
+
                   {/* Dark subtle bottom gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#111113] via-transparent to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#111113] via-transparent to-transparent opacity-80 pointer-events-none" />
                 </div>
 
                 {/* Card Body with Consistent Vertical Spacing */}
                 <div className="p-4 sm:p-5 flex flex-col justify-between flex-1">
-                  <h3 className="font-display font-black text-lg text-white mb-1 min-h-[3.25rem] flex items-start">
+                  <h3 className="font-display font-black text-lg text-white mb-1 min-h-[3.25rem] flex items-start group-hover:text-[#FF7A1A] transition-colors">
                     {work.title}
                   </h3>
                   <p className="text-xs text-[#CCCCCC] mt-auto">{work.subtext}</p>
@@ -307,6 +335,115 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Interactive Video Preview Modal for Latest Work */}
+      <AnimatePresence>
+        {selectedWork && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setSelectedWork(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto"
+            role="dialog"
+            aria-modal="true"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              transition={{ type: "spring", stiffness: 350, damping: 25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-2xl rounded-3xl bg-[#141416] border border-white/15 overflow-hidden shadow-2xl my-8"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedWork(null)}
+                className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/70 text-white hover:bg-black/90 flex items-center justify-center transition-colors border border-white/10"
+                aria-label="Close preview"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Large Media Header (Video or Image) */}
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-black flex items-center justify-center">
+                {selectedWork.videoUrl ? (
+                  <video
+                    src={selectedWork.videoUrl}
+                    poster={selectedWork.image}
+                    controls
+                    autoPlay
+                    playsInline
+                    loop
+                    className="w-full h-full object-contain bg-black"
+                  />
+                ) : (
+                  <Image
+                    src={selectedWork.image}
+                    alt={selectedWork.title}
+                    fill
+                    className="object-cover"
+                  />
+                )}
+                <div className="absolute top-4 left-4 flex items-center gap-2 pointer-events-none z-10">
+                  <span
+                    className={`px-3 py-1 rounded-md ${selectedWork.tagColor} text-white text-xs font-black tracking-wider uppercase shadow-lg`}
+                  >
+                    {selectedWork.tag}
+                  </span>
+                </div>
+              </div>
+
+              {/* Modal Body */}
+              <div className="p-6 sm:p-8 space-y-4">
+                <div>
+                  <h3 className="font-display font-black text-2xl text-white">
+                    {selectedWork.title}
+                  </h3>
+                  <p className="text-sm text-[#FF7A1A] font-semibold mt-1">
+                    {selectedWork.subtext}
+                  </p>
+                </div>
+
+                {selectedWork.description && (
+                  <p className="text-sm text-[#CCCCCC] leading-relaxed">
+                    {selectedWork.description}
+                  </p>
+                )}
+
+                {/* Credits Badge */}
+                {selectedWork.credits && (
+                  <div className="flex items-start gap-2 p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs text-[#A0A0A0]">
+                    <Sparkles className="w-4 h-4 text-[#FFC72C] shrink-0 mt-0.5" />
+                    <span>{selectedWork.credits}</span>
+                  </div>
+                )}
+
+                {/* Action Buttons */}
+                <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3">
+                  <Button
+                    href={`/contact?service=${encodeURIComponent(selectedWork.tag)}&project=${encodeURIComponent(selectedWork.title)}`}
+                    variant="primary"
+                    size="md"
+                    showArrow
+                    fullWidth
+                    className="py-3.5 font-bold shadow-lg"
+                  >
+                    Discuss Similar Project
+                  </Button>
+                  <button
+                    onClick={() => setSelectedWork(null)}
+                    className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-sm font-semibold transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
