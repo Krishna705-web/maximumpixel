@@ -8,6 +8,8 @@ import { ConfettiAccent } from "@/components/ui/ConfettiAccent";
 import { ProcessBadge } from "@/components/ui/ProcessBadge";
 import { PROCESS_STEPS } from "@/data/process";
 import { ReelsShowcase } from "@/components/ui/ReelsShowcase";
+import { StudioHighlights } from "@/components/ui/StudioHighlights";
+import { FAQSection } from "@/components/ui/FAQSection";
 import { ArrowRight, Sparkles, Play, X } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
@@ -339,129 +341,14 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          STUDIO OVERVIEW & VALUE PROPOSITION (SEO & GEO Content - DOM Crawlable / Screen-Reader Only)
+          STUDIO HIGHLIGHTS & CAPABILITIES (Visible SEO & AI Overview Optimized)
           ═══════════════════════════════════════════════════════ */}
-      <section className="sr-only" aria-label="Studio Overview & Video Production FAQ">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-left mb-10 space-y-2">
-            <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">
-              Jaipur&apos;s Dedicated Video Shoot, Video Editing &amp; Reels Production Studio
-            </h2>
-            <p className="text-sm sm:text-base text-[#A0A0A0] max-w-3xl leading-relaxed">
-              MaximumPixel is a specialized creative studio helping Jaipur businesses, hospitality brands, cafes, restaurants, fashion labels, and creators scale their visual presence through high-impact short-form video content.
-            </p>
-          </div>
+      <StudioHighlights />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-            <div className="p-6 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#5B2EE8]/20 border border-[#5B2EE8]/40 flex items-center justify-center text-[#A78BFA] font-bold text-sm">
-                01
-              </div>
-              <h3 className="font-display font-black text-xl text-white">
-                On-Location Video Shoot in Jaipur
-              </h3>
-              <p className="text-sm text-[#A0A0A0] leading-relaxed">
-                MaximumPixel delivers cinema-grade 4K mobile video shoots directly at your venue in Jaipur. We specialize in dynamic gimbal movement, precision studio lighting, and multi-angle filming for cafes, restaurants, fashion brands, and retail spaces.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#FF7A1A]/20 border border-[#FF7A1A]/40 flex items-center justify-center text-[#FF8E3C] font-bold text-sm">
-                02
-              </div>
-              <h3 className="font-display font-black text-xl text-white">
-                Viral Video Editing &amp; Reels Production
-              </h3>
-              <p className="text-sm text-[#A0A0A0] leading-relaxed">
-                High-retention short-form post-production designed for maximum algorithmic reach on Instagram Reels and YouTube Shorts. We integrate kinetic typography, immersive audio foley sound design, velocity speed ramps, and warm cinematic color grading.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#1E7FE0]/20 border border-[#1E7FE0]/40 flex items-center justify-center text-[#60A5FA] font-bold text-sm">
-                03
-              </div>
-              <h3 className="font-display font-black text-xl text-white">
-                Turnkey Shoot + Edit Bundles
-              </h3>
-              <p className="text-sm text-[#A0A0A0] leading-relaxed">
-                Our complete turnkey packages combine on-set filming sessions with master video editing so you receive high-converting, ready-to-post vertical content without coordinating separate videographers and editors.
-              </p>
-            </div>
-          </div>
-
-          {/* ═══════════════════════════════════════════════════════
-              FREQUENTLY ASKED QUESTIONS (FAQ & Knowledge Guide)
-              ═══════════════════════════════════════════════════════ */}
-          <div className="mt-16 pt-12 border-t border-white/[0.08]">
-            <div className="text-left mb-8 space-y-2">
-              <h2 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tight">
-                Frequently Asked Questions About Our Video Services in Jaipur
-              </h2>
-              <p className="text-xs sm:text-sm text-[#A0A0A0]">
-                Everything you need to know about our filming workflow, pricing, turnaround times, and delivery.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-left">
-              <div className="p-5 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-2">
-                <h3 className="font-display font-bold text-base text-white">
-                  How does an on-location video shoot in Jaipur work?
-                </h3>
-                <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                  Our production crew arrives on location in Jaipur with cinema-grade mobile rigs, stabilized gimbals, and dedicated lighting setups. We capture dynamic multi-angle 4K footage of your cafe, restaurant, fashion line, or product workflow following a planned storyboard to highlight your brand&apos;s unique atmosphere.
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-2">
-                <h3 className="font-display font-bold text-base text-white">
-                  What style of video editing and reels production do you specialize in?
-                </h3>
-                <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                  We engineer high-retention vertical edits built for organic reach on Instagram Reels, YouTube Shorts, and TikTok. Every edit features rhythmic velocity pacing, kinetic subtitles, immersive sound design (ambient foley and punchy SFX), and cinematic color grading tailored to your brand aesthetic.
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-2">
-                <h3 className="font-display font-bold text-base text-white">
-                  What is included in a turnkey Shoot + Edit production bundle?
-                </h3>
-                <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                  Our turnkey bundle is an all-in-one production solution. We handle the entire creative pipeline in Jaipur: from creative direction and on-set 4K filming to post-production editing, motion graphics, audio mastering, and final exports ready for immediate social publishing.
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#141416] border border-white/[0.08] space-y-2">
-                <h3 className="font-display font-bold text-base text-white">
-                  What is the turnaround time for video editing and completed projects?
-                </h3>
-                <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                  For standard single reels and short-form edits, our studio delivers within 24 to 48 hours. Turnkey multi-video shoots and monthly retainer packages typically deliver master cuts within 3 to 5 business days with revision cycles included.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#A0A0A0]">
-            <p>
-              MaximumPixel Creative Video Studio • Jaipur, Rajasthan, India • Direct WhatsApp: +91 78787 36798
-            </p>
-            <div className="flex items-center gap-4 text-white font-semibold">
-              <Link href="/services" className="hover:text-[#FF7A1A] transition-colors">
-                View Package Pricing
-              </Link>
-              <span>•</span>
-              <Link href="/our-work" className="hover:text-[#5B2EE8] transition-colors">
-                Browse Video Portfolio
-              </Link>
-              <span>•</span>
-              <Link href="/contact" className="hover:text-[#FF7A1A] transition-colors">
-                Book Your Shoot Session
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ═══════════════════════════════════════════════════════
+          FREQUENTLY ASKED QUESTIONS (Visible Interactive FAQ & Schema Grounding)
+          ═══════════════════════════════════════════════════════ */}
+      <FAQSection />
 
       {/* Interactive Video Preview Modal for Latest Work */}
       <AnimatePresence>

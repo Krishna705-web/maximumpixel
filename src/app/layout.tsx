@@ -300,6 +300,46 @@ export default function RootLayout({
     ],
   };
 
+  const videoObjectSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "VideoObject",
+        "name": "Artisan Cafe & Coffee Commercial Reel",
+        "description": "4K vertical commercial video shoot and high-retention reel edit for cafe in Jaipur by MaximumPixel.",
+        "thumbnailUrl": "https://www.maximumpixel.online/assets/projects/cafe-reel.jpg",
+        "uploadDate": "2026-08-30T10:00:00+05:30",
+        "contentUrl": "https://www.maximumpixel.online/assets/videos/cafe-edit.mp4",
+        "embedUrl": "https://www.maximumpixel.online/our-work",
+        "publisher": {
+          "@type": "Organization",
+          "name": "MaximumPixel",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.maximumpixel.online/assets/logo.png",
+          },
+        },
+      },
+      {
+        "@type": "VideoObject",
+        "name": "Artisan Coffee & Barista Edit",
+        "description": "Cinematic espresso preparation and barista artistry hospitality commercial edit by MaximumPixel in Jaipur.",
+        "thumbnailUrl": "https://www.maximumpixel.online/assets/projects/barista-reel.jpg",
+        "uploadDate": "2026-08-30T10:00:00+05:30",
+        "contentUrl": "https://www.maximumpixel.online/assets/videos/barista-edit.mp4",
+        "embedUrl": "https://www.maximumpixel.online/our-work",
+        "publisher": {
+          "@type": "Organization",
+          "name": "MaximumPixel",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.maximumpixel.online/assets/logo.png",
+          },
+        },
+      },
+    ],
+  };
+
   return (
     <html lang="en" className={`${inter.variable} ${archivoBlack.variable} dark`} suppressHydrationWarning>
       <head>
@@ -321,6 +361,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(videoObjectSchema) }}
         />
       </head>
       <body className="min-h-screen bg-[#0A0A0A] text-white flex flex-col antialiased selection:bg-[#5B2EE8] selection:text-white">

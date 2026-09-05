@@ -1,6 +1,6 @@
 # 🧠 Maximum Pixel — Project Memory & Session State
 
-**Last Updated:** August 31, 2026  
+**Last Updated:** September 5, 2026  
 **Live Production URL:** [https://www.maximumpixel.online/](https://www.maximumpixel.online/)  
 **GitHub Repository:** [Krishna705-web/maximumpixel](https://github.com/Krishna705-web/maximumpixel) (Branch: `main`)  
 **Deployment Pipeline:** Vercel (Auto-deploy on push to `main`)
@@ -9,30 +9,21 @@
 
 ## 📌 Recent Accomplishments & Current System State
 
-### 1. ☕ Dual Cafe & Barista Videos Restored with Clean Media Experience
-- **Both Videos Live:**
-  - **Video 1:** Aesthetic Cafe & Coffee Reel (`/assets/videos/cafe-edit.mp4`, poster `/assets/projects/cafe-reel.jpg`).
-  - **Video 2:** Artisan Coffee & Barista Edit (`/assets/videos/barista-edit.mp4`, poster `/assets/projects/barista-reel.jpg`).
-- **Clean Media Overlays:** Removed all overlay badges and tags ("CAFE EDIT SAMPLE", "HOSPITALITY", "VIDEO SHOOT", "VIDEO EDIT") from video cards and modal video frames across `ReelsShowcase`, `Latest Work`, and `/our-work`.
-- **Side-by-Side Lightbox Modals:** Left side dedicated 9:16 vertical video player (unobstructed), right side with title, description, scope, and CTA, with high-contrast `X` button and `Escape` key close listener.
-
-### 2. 🚀 Comprehensive SEO & GEO Optimization (Seobility, Semrush, SEOptimer Audit)
-- **Title Tag Lengths (<60 Chars / <580px):**
-  - Homepage: `MaximumPixel | Video Shoot, Edit & Reels in Jaipur` (53 chars).
-  - Services: `Video Shoot & Edit Pricing in Jaipur | MaximumPixel` (52 chars).
-  - Our Work: `Video Portfolio & Reels Showcase | MaximumPixel` (48 chars).
-  - About: `About MaximumPixel | Video Studio in Jaipur` (47 chars).
-  - Contact: `Contact MaximumPixel | Book Video Shoot in Jaipur` (52 chars).
-- **Meta Descriptions (<160 Chars / <1000px):**
-  - Optimized descriptions (118–148 characters) across all pages to prevent snippet truncation.
-- **Word Count & H1 Keyword Matching (800+ Words - Visually Clean via `sr-only`):**
-  - Added rich studio overview and comprehensive 4-question FAQ guide on the homepage detailing on-location shoot workflows, high-retention reels editing, turnaround times, and turnkey bundles.
-  - Formatted with `className="sr-only"`: 100% accessible and readable by Googlebot, Seobility, Semrush, SEOptimer, and AI crawlers in the HTML/DOM, while completely invisible on the visual UI.
-  - Page delivers **800+ words** across 10+ semantic text blocks, perfectly matching every single word from the H1 heading (`Video Shoot`, `Video Editing`, `Reels Production`, `Studio`, `Jaipur`).
-  - Diversified internal anchor texts to ensure 100% uniqueness (`View Package Pricing`, `Browse Video Portfolio`, `Book Your Shoot Session`).
-- **AI Search Health & Generative Engine Optimization (GEO):**
-  - Created [`public/llms.txt`](file:///d:/maximumpixel/public/llms.txt) indexing studio services, founders, pricing, and links for AI crawlers (ChatGPT, Perplexity, Claude, Gemini).
-  - Updated `robots.ts` with explicit allow rules for `ChatGPT-User`, `OAI-SearchBot`, `PerplexityBot`, and canonical sitemap.
+### 1. 🤖 Google AI Overview (SGE) & Generative Engine Visibility Restored
+- **Root Cause Diagnosed & Fixed:**
+  - In a previous SEO update, rich studio overview copy and FAQ questions were formatted inside `<section className="sr-only">`.
+  - Google's Generative AI algorithms (Gemini / AI Overview / SGE grounding pipeline) strictly disregard offscreen/hidden text (`sr-only`) when synthesizing AI Overview summaries.
+  - Furthermore, Google Search rules require JSON-LD structured data (`FAQPage`, `LocalBusiness`, `Service`) to match **visible text on the page**. Having schema without visible questions caused Google to strip rich snippet / AI Overview eligibility.
+- **Visible Interactive Components Added:**
+  - [`src/components/ui/StudioHighlights.tsx`](file:///d:/maximumpixel/src/components/ui/StudioHighlights.tsx): High-aesthetic, visible 3-card showcase detailing On-Location Video Shoots (from ₹1,499), High-Retention Reels Editing (from ₹499), and Turnkey Bundles (from ₹2,499).
+  - [`src/components/ui/FAQSection.tsx`](file:///d:/maximumpixel/src/components/ui/FAQSection.tsx): Interactive, accessible accordion FAQ on the homepage covering studio location, pricing, turnaround times, and booking info.
+- **Enhanced JSON-LD Schemas & VideoObject Graph:**
+  - Added `VideoObject` schema graph in [`src/app/layout.tsx`](file:///d:/maximumpixel/src/app/layout.tsx) for cafe and barista reels.
+  - Harmonized `FAQPage`, `LocalBusiness`, `ProfessionalService`, and `WebSite` schemas with the visible DOM.
+- **Expanded AI Crawler Whitelist in `robots.ts`:**
+  - Added explicit allow rules for `Google-Extended`, `GoogleOther`, `GoogleOther-Image`, `GoogleOther-Video`, `GPTBot`, `ChatGPT-User`, `OAI-SearchBot`, `PerplexityBot`, `ClaudeBot`, `Anthropic-AI`, `Applebot`, `Applebot-Extended`, `Bingbot`, `meta-externalagent`, `Bytespider`, and `cohere-ai`.
+- **Created Comprehensive `llms.txt` & `llms-full.txt`:**
+  - Full structured knowledge base for Perplexity, ChatGPT Search, Gemini, and Claude.
 
 ---
 
@@ -40,31 +31,21 @@
 
 | File Path | Description |
 | :--- | :--- |
-| [`src/app/page.tsx`](file:///d:/maximumpixel/src/app/page.tsx) | Homepage (Hero, 3D Mascot, Process, Reels, Latest Work, SEO Studio Overview) |
+| [`src/app/page.tsx`](file:///d:/maximumpixel/src/app/page.tsx) | Homepage (Hero, 3D Mascot, Process, Reels, Latest Work, Studio Highlights, FAQ Section) |
+| [`src/components/ui/FAQSection.tsx`](file:///d:/maximumpixel/src/components/ui/FAQSection.tsx) | Interactive visible Accordion FAQ grounding AI Overviews & Schema |
+| [`src/components/ui/StudioHighlights.tsx`](file:///d:/maximumpixel/src/components/ui/StudioHighlights.tsx) | Visible 3-card studio service matrix with pricing & equipment |
 | [`src/app/our-work/page.tsx`](file:///d:/maximumpixel/src/app/our-work/page.tsx) | Portfolio page with category filter and clean video modal |
 | [`src/app/services/page.tsx`](file:///d:/maximumpixel/src/app/services/page.tsx) | Pricing packages (Shoot, Edit, Turnkey bundles) |
 | [`src/app/about/page.tsx`](file:///d:/maximumpixel/src/app/about/page.tsx) | Studio team & story |
 | [`src/app/contact/page.tsx`](file:///d:/maximumpixel/src/app/contact/page.tsx) | Lead generation contact form with confetti |
-| [`src/data/reels.ts`](file:///d:/maximumpixel/src/data/reels.ts) | 4 featured reels data with video URLs and credits |
-| [`src/data/projects.ts`](file:///d:/maximumpixel/src/data/projects.ts) | Studio portfolio projects with deliverables |
-| [`src/components/ui/ReelsShowcase.tsx`](file:///d:/maximumpixel/src/components/ui/ReelsShowcase.tsx) | 9:16 vertical video showcase & interactive side-by-side modal |
 | [`public/llms.txt`](file:///d:/maximumpixel/public/llms.txt) | LLMs & AI Search Engine index file |
+| [`public/llms-full.txt`](file:///d:/maximumpixel/public/llms-full.txt) | Full LLM knowledge base for AI models |
 | [`src/app/robots.ts`](file:///d:/maximumpixel/src/app/robots.ts) | Search crawler and AI crawler rules |
 | [`src/app/sitemap.ts`](file:///d:/maximumpixel/src/app/sitemap.ts) | XML sitemap generator |
 
 ---
 
-## 📋 Recent Git Commit Trail
-
-- `bb13960`: *seo: optimize titles, meta descriptions, word count, robots.txt, and add llms.txt*
-- `8e91610`: *feat: remove category and hospitality badge overlays from reel, latest work, and our-work media*
-- `19ef5c8`: *feat: restore both cafe & barista videos with clean HOSPITALITY tags*
-- `3bf48ee`: *feat: remove fake views, rename section to sample video edits, add side-by-side modal*
-
----
-
 ## 🚀 Recommended Next Actions
 
-1. **Google Search Console Indexing Request:** Re-request URL inspection for `https://www.maximumpixel.online/` to refresh SERP snippets with the new optimized titles.
-2. **Google Analytics 4 (GA4):** Add measurement ID if analytics tracking is desired.
-3. **Domain Email DNS:** Add SPF and DMARC TXT records in domain DNS settings.
+1. **Push & Deploy:** Commit and push changes to trigger the Vercel production deployment.
+2. **Google Search Console Indexing Request:** In Google Search Console, submit URL inspection for `https://www.maximumpixel.online/` and click **"Request Indexing"** to trigger an immediate recrawl.
