@@ -46,12 +46,27 @@
 
 ---
 
-## 🚀 Recovery Protocol: Immediate Next Actions
+## 🚀 Recovery Protocol & Live Milestones Achieved (Sept 7)
 
-1. **Commit & Push:** Deploy the 4 modified files to `origin/main` so Vercel builds and publishes the clean build.
-2. **Google Search Console Live URL Inspection & Recrawl Request:**
-   - Go to [Google Search Console](https://search.google.com/search-console).
-   - Enter `https://www.maximumpixel.online/` in the top search bar.
-   - Click **"Test Live URL"** to verify that Googlebot renders the page without any security/spam issues.
-   - Click **"Request Indexing"** to force Google's priority crawl queue to fetch the clean version.
-   - Do the same for `https://www.maximumpixel.online/services` and `https://www.maximumpixel.online/our-work`.
+1. **Clean Production Deployed:** Commit `213fd7b` and `ddb2392` live on `origin/main` and Vercel.
+2. **Google Business Profile (GBP) Created & Live:**
+   - **Name:** `MaximumPixel - Video Shoot & Creative Studio`
+   - **Category:** `Video production service`
+   - **Service Area:** `Jaipur and nearby areas`
+   - **Website Linked:** `https://www.maximumpixel.online/`
+   - **Status:** Verified and appearing in Google Search with active management dashboard.
+3. **Google Search Re-Indexing Verified:**
+   - Homepage ranking #1 for brand query `maximumpixel` with full meta description populated.
+   - Sitelink ranking #2 for `/our-work`.
+
+---
+
+## 🏆 Startup SEO Blueprint: Roadmap to 100%
+
+| Pillar | Current Score | Status & Remaining Actions to Hit 100% |
+| :--- | :---: | :--- |
+| **1. Target Low-Hanging Keywords** | **70%** | **Current:** Long-tail keywords in metadata, schema, FAQ, and Studio Highlights.<br>**To Reach 100%:** Build dedicated niche landing pages for `/services/cafe-restaurant-shoots`, `/services/real-estate-video-shoots`, and `/services/hospital-clinic-videos`. |
+| **2. Build Topical Authority (Hub-and-Spoke)** | **30%** | **Current:** Hub pages exist (`/services`, `/our-work`).<br>**To Reach 100%:** Add 3–5 hyper-targeted Jaipur spoke guides/case studies linking back to service packages (e.g. *"How Jaipur Cafes Scale with 4K Reels"*, *"Video Editing Cost Guide in Jaipur 2026"*). |
+| **3. Nail On-Page Optimization** | **100%** | **Completed:** Perfect title tags (<60 chars), clean H1 without hidden spans, high-CTR meta descriptions, rich JSON-LD schemas (`LocalBusiness`, `Service`, `FAQPage`, `VideoObject`). |
+| **4. Technical Foundation** | **100%** | **Completed:** 100% static prerendering, mobile-first responsive design, fast load times, canonical tag consistency, clean robots.txt, and sitemap.xml normalized. |
+| **5. Earn Trust & Authority (Off-Page)** | **50%** | **Current:** Google Business Profile live; social sameAs schemas active.<br>**To Reach 100%:**<br>• Collect first 3–5 five-star reviews on Google Business Profile.<br>• Build local NAP citations on Justdial, Sulekha, and IndiaMART.<br>• Client portfolio tags & social backlinks. |
