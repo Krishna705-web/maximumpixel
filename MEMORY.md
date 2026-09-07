@@ -70,3 +70,18 @@
 | **3. Nail On-Page Optimization** | **100%** | **Completed:** Perfect title tags (<60 chars), clean H1 without hidden spans, high-CTR meta descriptions, rich JSON-LD schemas (`LocalBusiness`, `Service`, `FAQPage`, `VideoObject`). |
 | **4. Technical Foundation** | **100%** | **Completed:** 100% static prerendering, mobile-first responsive design, fast load times, canonical tag consistency, clean robots.txt, and sitemap.xml normalized. |
 | **5. Earn Trust & Authority (Off-Page)** | **50%** | **Current:** Google Business Profile live; social sameAs schemas active.<br>**To Reach 100%:**<br>• Collect first 3–5 five-star reviews on Google Business Profile.<br>• Build local NAP citations on Justdial, Sulekha, and IndiaMART.<br>• Client portfolio tags & social backlinks. |
+
+---
+
+## ⚡ Mobile Performance & PWA Banner Cleanup (Sept 7)
+
+- **Removed PWA "Download App" Notification:**
+  - Deleted `public/manifest.json` and removed `<link rel="manifest">` & `appleWebApp` metadata from `layout.tsx`.
+  - Deleted unused `GetAppButton.tsx`.
+  - Mobile browsers (Chrome/Safari) will no longer show "Install App" or "Add to Home Screen" banners.
+- **Eliminated Mobile Scroll Lag & Stutter:**
+  - **Lenis Conflict Resolved:** Bypassed virtual scroll on touch devices in [`SmoothScroll.tsx`](file:///d:/maximumpixel/src/components/layout/SmoothScroll.tsx). Phones and tablets now use native 120Hz/60Hz GPU-composited momentum scrolling with zero latency.
+  - **CSS Smooth Conflict Removed:** Removed `scroll-behavior: smooth` from `globals.css` to eliminate double-smoothing jitter.
+  - **WebGL Mascot Paused Offscreen:** Added `IntersectionObserver` in [`Mascot3D.tsx`](file:///d:/maximumpixel/src/components/ui/Mascot3D.tsx) to freeze the 3D rendering loop when scrolled past the hero section, saving 100% GPU bandwidth.
+  - **Frictionless Touch:** Removed touchmove listeners on Mascot3D that previously intercepted thumb swipes over the hero area.
+  - **Hardware Acceleration:** Added `transform-gpu` to Header and ScrollProgress.

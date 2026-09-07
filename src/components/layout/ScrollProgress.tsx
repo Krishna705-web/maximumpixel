@@ -14,7 +14,7 @@ export const ScrollProgress: React.FC = () => {
   return (
     <motion.div
       style={{ scaleX }}
-      className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#5B2EE8] via-[#FF7A1A] to-[#22B14C] origin-left z-[100] pointer-events-none shadow-[0_0_8px_rgba(91,46,232,0.8)]"
+      className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#5B2EE8] via-[#FF7A1A] to-[#22B14C] origin-left z-[100] pointer-events-none shadow-[0_0_8px_rgba(91,46,232,0.8)] transform-gpu"
       aria-hidden="true"
     />
   );

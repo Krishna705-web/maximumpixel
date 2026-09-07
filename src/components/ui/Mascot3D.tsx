@@ -45,14 +45,16 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       camera.position.set(0, 0.04, camZ);
 
       // 3. WebGL Renderer
+      const isMobileDevice = screenWidth < 768 || (typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0));
       renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
-        antialias: true,
+        antialias: !isMobileDevice, // Disable expensive antialiasing on mobile GPU
         powerPreference: "high-performance",
       });
       renderer.setSize(initWidth, initHeight, false);
-      renderer.setPixelRatio(Math.min(typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1, 2));
+      // Cap pixel ratio to 1 on mobile to prevent GPU fill-rate throttling
+      renderer.setPixelRatio(isMobileDevice ? 1 : Math.min(typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1, 1.5));
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.2;
@@ -89,8 +91,8 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         model.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
             const mesh = child as THREE.Mesh;
-            mesh.castShadow = true;
-            mesh.receiveShadow = true;
+            mesh.castShadow = !isMobileDevice;
+            mesh.receiveShadow = !isMobileDevice;
           }
         });
 
@@ -133,12 +135,13 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         }
       );
 
-      // 7. Cursor / Touch Tracking
+      // 7. Cursor / Idle Motion Tracking
       let targetRotY = 0;
       let targetRotX = 0;
       let isInteracting = false;
       let prevPointerX = 0;
       let dragRotY = 0;
+      let idleTime = 0;
 
       const handleMouseMove = (e: MouseEvent) => {
         const windowWidth = window.innerWidth || 1920;
@@ -165,32 +168,13 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         dragRotY += deltaX * 0.012;
       };
 
-      const handleTouchStart = (e: TouchEvent) => {
-        if (e.touches.length > 0) {
-          isInteracting = true;
-          prevPointerX = e.touches[0].clientX;
-        }
-      };
-
-      const handleTouchEnd = () => {
-        isInteracting = false;
-      };
-
-      const handleTouchMove = (e: TouchEvent) => {
-        if (!isInteracting || e.touches.length === 0) return;
-        const deltaX = e.touches[0].clientX - prevPointerX;
-        prevPointerX = e.touches[0].clientX;
-        dragRotY += deltaX * 0.012;
-      };
-
-      window.addEventListener("mousemove", handleMouseMove, { passive: true });
-      window.addEventListener("mouseup", handleMouseUp);
-      container.addEventListener("mousedown", handleMouseDown);
-      window.addEventListener("mousemove", handleMouseDrag, { passive: true });
-
-      container.addEventListener("touchstart", handleTouchStart, { passive: true });
-      window.addEventListener("touchend", handleTouchEnd);
-      container.addEventListener("touchmove", handleTouchMove, { passive: true });
+      // Only attach desktop pointer events; do NOT block native touch momentum on mobile
+      if (!isMobileDevice) {
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
+        window.addEventListener("mouseup", handleMouseUp);
+        container.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("mousemove", handleMouseDrag, { passive: true });
+      }
 
       // 8. Responsive Window & Container Resize
       const handleResize = () => {
@@ -217,10 +201,24 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
       window.addEventListener("resize", handleResize);
       window.addEventListener("orientationchange", handleResize);
 
-      // 9. Render Loop
+      // 9. Intersection Observer (Freeze 3D render loop when offscreen!)
+      // Saves 100% of GPU rendering while user is reading the rest of the site!
+      let isVisible = true;
+      let isAnimating = false;
+
       const animate = () => {
-        if (isDisposed) return;
+        if (isDisposed || !isVisible) {
+          isAnimating = false;
+          return;
+        }
         animationFrameId = requestAnimationFrame(animate);
+
+        // Gentle auto-breathing motion for mobile / idle
+        if (isMobileDevice) {
+          idleTime += 0.018;
+          targetRotY = Math.sin(idleTime) * 0.22;
+          targetRotX = Math.cos(idleTime * 0.7) * 0.06;
+        }
 
         mascotGroup.rotation.y = THREE.MathUtils.lerp(
           mascotGroup.rotation.y,
@@ -238,22 +236,57 @@ export const Mascot3D: React.FC<Mascot3DProps> = ({ className = "" }) => {
         }
       };
 
-      animate();
+      const startAnimate = () => {
+        if (!isAnimating && !isDisposed && isVisible) {
+          isAnimating = true;
+          animate();
+        }
+      };
+
+      const stopAnimate = () => {
+        isAnimating = false;
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+      };
+
+      let visibilityObserver: IntersectionObserver | null = null;
+      if (typeof IntersectionObserver !== "undefined") {
+        visibilityObserver = new IntersectionObserver(
+          (entries) => {
+            const entry = entries[0];
+            if (entry) {
+              isVisible = entry.isIntersecting;
+              if (isVisible) {
+                startAnimate();
+              } else {
+                stopAnimate();
+              }
+            }
+          },
+          { threshold: 0.05 }
+        );
+        visibilityObserver.observe(container);
+      } else {
+        startAnimate();
+      }
 
       return () => {
         isDisposed = true;
-        cancelAnimationFrame(animationFrameId);
-        window.removeEventListener("mousemove", handleMouseMove);
-        window.removeEventListener("mouseup", handleMouseUp);
-        container.removeEventListener("mousedown", handleMouseDown);
-        window.removeEventListener("mousemove", handleMouseDrag);
-        container.removeEventListener("touchstart", handleTouchStart);
-        window.removeEventListener("touchend", handleTouchEnd);
-        container.removeEventListener("touchmove", handleTouchMove);
+        stopAnimate();
+        if (!isMobileDevice) {
+          window.removeEventListener("mousemove", handleMouseMove);
+          window.removeEventListener("mouseup", handleMouseUp);
+          container.removeEventListener("mousedown", handleMouseDown);
+          window.removeEventListener("mousemove", handleMouseDrag);
+        }
         window.removeEventListener("resize", handleResize);
         window.removeEventListener("orientationchange", handleResize);
         if (resizeObserver) {
           resizeObserver.disconnect();
+        }
+        if (visibilityObserver) {
+          visibilityObserver.disconnect();
         }
         if (renderer) {
           renderer.dispose();

@@ -54,7 +54,7 @@ export const Header: React.FC = () => {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        className={`sticky top-0 z-50 w-full transition-all duration-300 transform-gpu ${
           scrolled
             ? "bg-[#0A0A0A]/95 backdrop-blur-md border-b border-white/[0.08] py-2 shadow-lg"
             : "bg-[#0A0A0A] py-2 sm:py-2.5 md:py-3"

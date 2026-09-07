@@ -59,15 +59,9 @@ export const metadata: Metadata = {
     canonical: "https://www.maximumpixel.online",
   },
   applicationName: "MaximumPixel Studio",
-  appleWebApp: {
-    capable: true,
-    title: "MaximumPixel",
-    statusBarStyle: "black-translucent",
-  },
   verification: {
     google: "k5pYJ-ctLiw362ugrGOEYiTYqQDSlKw8ewmp7iQn7d8",
   },
-  manifest: "/manifest.json",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -346,7 +340,6 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#5B2EE8" />
         <meta name="google-site-verification" content="k5pYJ-ctLiw362ugrGOEYiTYqQDSlKw8ewmp7iQn7d8" />
 
