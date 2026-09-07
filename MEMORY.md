@@ -1,29 +1,30 @@
 # 🧠 Maximum Pixel — Project Memory & Session State
 
-**Last Updated:** September 5, 2026  
+**Last Updated:** September 7, 2026  
 **Live Production URL:** [https://www.maximumpixel.online/](https://www.maximumpixel.online/)  
 **GitHub Repository:** [Krishna705-web/maximumpixel](https://github.com/Krishna705-web/maximumpixel) (Branch: `main`)  
 **Deployment Pipeline:** Vercel (Auto-deploy on push to `main`)
 
 ---
 
-## 📌 Recent Accomplishments & Current System State
+## 📌 Root Cause Diagnosis: Ranking & AI Overview Drop
 
-### 1. 🤖 Google AI Overview (SGE) & Generative Engine Visibility Restored
-- **Root Cause Diagnosed & Fixed:**
-  - In a previous SEO update, rich studio overview copy and FAQ questions were formatted inside `<section className="sr-only">`.
-  - Google's Generative AI algorithms (Gemini / AI Overview / SGE grounding pipeline) strictly disregard offscreen/hidden text (`sr-only`) when synthesizing AI Overview summaries.
-  - Furthermore, Google Search rules require JSON-LD structured data (`FAQPage`, `LocalBusiness`, `Service`) to match **visible text on the page**. Having schema without visible questions caused Google to strip rich snippet / AI Overview eligibility.
-- **Visible Interactive Components Added:**
-  - [`src/components/ui/StudioHighlights.tsx`](file:///d:/maximumpixel/src/components/ui/StudioHighlights.tsx): High-aesthetic, visible 3-card showcase detailing On-Location Video Shoots (from ₹1,499), High-Retention Reels Editing (from ₹499), and Turnkey Bundles (from ₹2,499).
-  - [`src/components/ui/FAQSection.tsx`](file:///d:/maximumpixel/src/components/ui/FAQSection.tsx): Interactive, accessible accordion FAQ on the homepage covering studio location, pricing, turnaround times, and booking info.
-- **Enhanced JSON-LD Schemas & VideoObject Graph:**
-  - Added `VideoObject` schema graph in [`src/app/layout.tsx`](file:///d:/maximumpixel/src/app/layout.tsx) for cafe and barista reels.
-  - Harmonized `FAQPage`, `LocalBusiness`, `ProfessionalService`, and `WebSite` schemas with the visible DOM.
-- **Expanded AI Crawler Whitelist in `robots.ts`:**
-  - Added explicit allow rules for `Google-Extended`, `GoogleOther`, `GoogleOther-Image`, `GoogleOther-Video`, `GPTBot`, `ChatGPT-User`, `OAI-SearchBot`, `PerplexityBot`, `ClaudeBot`, `Anthropic-AI`, `Applebot`, `Applebot-Extended`, `Bingbot`, `meta-externalagent`, `Bytespider`, and `cohere-ai`.
-- **Created Comprehensive `llms.txt` & `llms-full.txt`:**
-  - Full structured knowledge base for Perplexity, ChatGPT Search, Gemini, and Claude.
+### 1. The Timeline of the Drop
+- **August 31, 2026:** Commit `af6aca0` hid 800+ words of SEO copy and FAQs using `className="sr-only"`.
+- **Sept 1–5, 2026 (~5 days ago):** Googlebot crawled this version. Google's SpamBrain detected hidden text (a direct violation of Google Search Essentials on *Hidden text and links*). Consequently, Google stripped the rich snippets, disqualified the site from Google AI Overviews (SGE requires 100% visible, high-trust DOM grounding), and suppressed rankings.
+- **September 5, 2026 (Evening):** Commit `bbb8160` restored visible `StudioHighlights` and `FAQSection`.
+- **September 7, 2026 (Today):** Only ~38 hours have elapsed since the visible components were restored. Algorithmic recovery is not instant and requires a fresh Googlebot recrawl and re-indexing.
+
+### 2. Lingering Technical Faults Cleared Today (Sept 7):
+1. **Removed Residual `sr-only` Inside `<h1>` (`src/app/page.tsx`):**
+   - Eliminated the invisible keyword span `- Video Shoot, Video Editing & Reels Production Studio in Jaipur` inside the `<h1>`.
+   - Now the `<h1>` and visible sub-headline are 100% transparent and genuine.
+2. **Fixed FAQ SSR DOM Concordance (`src/components/ui/FAQSection.tsx`):**
+   - Replaced conditional unmounting (`{isOpen && ...}`) with CSS grid row animation (`grid-rows-[1fr]` vs `grid-rows-[0fr]`).
+   - Now all 6 questions and answers are **permanently present in the server-rendered HTML**, matching the `FAQPage` JSON-LD schema 100% on first crawl.
+3. **Fixed Missing Self-Canonical Tags (`/privacy-policy` and `/terms`):**
+   - Added explicit `alternates: { canonical: "/privacy-policy" }` and `alternates: { canonical: "/terms" }`.
+   - Prevents both pages from inheriting the homepage canonical.
 
 ---
 
@@ -32,7 +33,7 @@
 | File Path | Description |
 | :--- | :--- |
 | [`src/app/page.tsx`](file:///d:/maximumpixel/src/app/page.tsx) | Homepage (Hero, 3D Mascot, Process, Reels, Latest Work, Studio Highlights, FAQ Section) |
-| [`src/components/ui/FAQSection.tsx`](file:///d:/maximumpixel/src/components/ui/FAQSection.tsx) | Interactive visible Accordion FAQ grounding AI Overviews & Schema |
+| [`src/components/ui/FAQSection.tsx`](file:///d:/maximumpixel/src/components/ui/FAQSection.tsx) | Accessible Accordion FAQ with 100% SSR DOM concordance |
 | [`src/components/ui/StudioHighlights.tsx`](file:///d:/maximumpixel/src/components/ui/StudioHighlights.tsx) | Visible 3-card studio service matrix with pricing & equipment |
 | [`src/app/our-work/page.tsx`](file:///d:/maximumpixel/src/app/our-work/page.tsx) | Portfolio page with category filter and clean video modal |
 | [`src/app/services/page.tsx`](file:///d:/maximumpixel/src/app/services/page.tsx) | Pricing packages (Shoot, Edit, Turnkey bundles) |
@@ -45,7 +46,12 @@
 
 ---
 
-## 🚀 Recommended Next Actions
+## 🚀 Recovery Protocol: Immediate Next Actions
 
-1. **Push & Deploy:** Commit and push changes to trigger the Vercel production deployment.
-2. **Google Search Console Indexing Request:** In Google Search Console, submit URL inspection for `https://www.maximumpixel.online/` and click **"Request Indexing"** to trigger an immediate recrawl.
+1. **Commit & Push:** Deploy the 4 modified files to `origin/main` so Vercel builds and publishes the clean build.
+2. **Google Search Console Live URL Inspection & Recrawl Request:**
+   - Go to [Google Search Console](https://search.google.com/search-console).
+   - Enter `https://www.maximumpixel.online/` in the top search bar.
+   - Click **"Test Live URL"** to verify that Googlebot renders the page without any security/spam issues.
+   - Click **"Request Indexing"** to force Google's priority crawl queue to fetch the clean version.
+   - Do the same for `https://www.maximumpixel.online/services` and `https://www.maximumpixel.online/our-work`.

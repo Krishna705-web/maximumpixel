@@ -4,8 +4,11 @@ import { ArrowLeft, Mail, Phone, MapPin } from "lucide-react";
 import { COMPANY_INFO } from "@/data/company";
 
 export const metadata = {
-  title: "Privacy Policy",
+  title: "Privacy Policy | MaximumPixel",
   description: "Privacy Policy for MaximumPixel Media Studio in Jaipur, Rajasthan, India.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {

@@ -152,9 +152,6 @@ export default function HomePage() {
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <span className="sr-only">
-                  - Video Shoot, Video Editing &amp; Reels Production Studio in Jaipur
-                </span>
               </h1>
 
               {/* Sub-headline */}

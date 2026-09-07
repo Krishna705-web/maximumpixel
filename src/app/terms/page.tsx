@@ -4,8 +4,11 @@ import { ArrowLeft, Mail, Phone, MapPin } from "lucide-react";
 import { COMPANY_INFO } from "@/data/company";
 
 export const metadata = {
-  title: "Terms of Use",
+  title: "Terms of Use | MaximumPixel",
   description: "Website Terms of Use for MaximumPixel Media Studio in Jaipur, Rajasthan, India.",
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 export default function TermsPage() {
