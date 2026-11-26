@@ -2,92 +2,85 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Logo } from "@/components/ui/Logo";
 import { NAV_ITEMS, COMPANY_INFO } from "@/data/company";
-import { Menu, X, ArrowRight, Phone, Mail } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
-
-  // Preload all main routes immediately so page switches are instant 0ms
-  useEffect(() => {
-    NAV_ITEMS.forEach((item) => {
-      try {
-        router.prefetch(item.href);
-      } catch (e) {
-        // Ignore prefetch error
-      }
-    });
-    router.prefetch("/contact");
-  }, [router]);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 12);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
   }, [isMobileMenuOpen]);
 
-  // Close mobile menu on route change
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMobileMenuOpen(false);
+    };
+    if (isMobileMenuOpen) {
+      window.addEventListener("keydown", onKeyDown);
+    }
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isMobileMenuOpen]);
+
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
+  const isRouteActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full transition-all duration-300 transform-gpu ${
+        className={`sticky top-0 z-50 w-full transition-colors duration-200 border-b ${
           scrolled
-            ? "bg-[#0A0A0A]/95 backdrop-blur-md border-b border-white/[0.08] py-2 shadow-lg"
-            : "bg-[#0A0A0A] py-2 sm:py-2.5 md:py-3"
+            ? "bg-[#F4F3EF]/95 backdrop-blur-sm border-[#DAD8D1]"
+            : "bg-[#F4F3EF] border-[#DAD8D1]/70"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo */}
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 h-16 sm:h-20 flex items-center justify-between gap-6">
           <div className="shrink-0">
-            <Logo size="md" />
+            <Logo variant="light" />
           </div>
 
-          {/* Desktop & Tablet Navigation */}
-          <nav className="hidden md:flex items-center gap-4 lg:gap-7" aria-label="Main Navigation">
+          <nav
+            className="hidden md:flex items-center gap-7 lg:gap-9"
+            aria-label="Primary Navigation"
+          >
             {NAV_ITEMS.map((item) => {
-              const isActive = pathname === item.href;
+              const active = isRouteActive(item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  prefetch={true}
-                  onMouseEnter={() => router.prefetch(item.href)}
-                  className={`text-xs lg:text-sm font-semibold tracking-wide transition-colors relative py-1 px-1 ${
-                    isActive
-                      ? "text-white font-bold"
-                      : "text-[#D4D4D8] hover:text-white"
+                  className={`relative py-1 text-xs font-medium uppercase tracking-[0.14em] transition-colors ${
+                    active
+                      ? "text-[#171717]"
+                      : "text-[#777873] hover:text-[#171717]"
                   }`}
                 >
                   {item.label}
-                  {isActive && (
-                    <motion.span
-                      layoutId="header-active-tab"
-                      className="absolute bottom-0 left-0 w-full h-[2px] bg-[#5B2EE8] rounded-full"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  {active && (
+                    <span
+                      className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#A78B70]"
+                      aria-hidden="true"
                     />
                   )}
                 </Link>
@@ -95,118 +88,89 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          {/* Desktop & Tablet Right: CTA */}
-          <div className="hidden md:flex items-center gap-3 shrink-0">
+          <div className="hidden md:flex items-center shrink-0">
             <Link
               href="/contact"
-              prefetch={true}
-              onMouseEnter={() => router.prefetch("/contact")}
-              className="px-4 lg:px-6 py-2 lg:py-2.5 rounded-full bg-[#5B2EE8] hover:bg-[#6C3DF5] text-white text-xs lg:text-sm font-bold tracking-wide transition-all shadow-[0_4px_18px_rgba(91,46,232,0.45)] hover:shadow-[0_6px_24px_rgba(91,46,232,0.65)] active:scale-95 flex items-center gap-1.5 lg:gap-2"
+              className="group inline-flex items-center gap-2 px-4 py-2.5 border border-[#171717] bg-[#171717] text-[#F4F3EF] hover:bg-transparent hover:text-[#171717] text-[11px] font-medium uppercase tracking-[0.14em] rounded-[2px] transition-colors duration-200"
             >
-              <span>Let&apos;s Talk</span>
-              <ArrowRight className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+              <span>Start a Project</span>
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
 
-          {/* Mobile Right: Hamburger Button */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center">
             <button
               type="button"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-white hover:text-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B2EE8] rounded-lg"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              className="p-2 -mr-2 text-[#171717] hover:text-[#777873] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78B70] rounded-[2px]"
+              aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? (
-                <X className="w-7 h-7 text-white" />
+                <X className="w-6 h-6" />
               ) : (
-                <Menu className="w-7 h-7 text-white" />
+                <Menu className="w-6 h-6" />
               )}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Animated Mobile Navigation Drawer */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl md:hidden flex flex-col pt-24 px-6 pb-8"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Mobile Navigation"
-          >
-            <div className="flex flex-col space-y-3 my-auto">
-              {NAV_ITEMS.map((item, idx) => {
-                const isActive = pathname === item.href;
-                return (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.06 + 0.1, duration: 0.3 }}
-                  >
-                    <Link
-                      href={item.href}
-                      prefetch={true}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`text-2xl font-display font-black tracking-wide py-2.5 transition-colors flex items-center justify-between border-b border-white/10 ${
-                        isActive
-                          ? "text-[#5B2EE8]"
-                          : "text-white hover:text-[#FF7A1A]"
-                      }`}
-                    >
-                      <span>{item.label}</span>
-                      {isActive && (
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#5B2EE8]" />
-                      )}
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </div>
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-[#F4F3EF] md:hidden flex flex-col justify-between pt-24 pb-8 px-6 overflow-y-auto"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile Navigation"
+        >
+          <nav className="flex flex-col border-t border-[#DAD8D1]" aria-label="Mobile Menu">
+            {NAV_ITEMS.map((item, idx) => {
+              const active = isRouteActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center justify-between py-4 border-b border-[#DAD8D1] font-display text-2xl font-semibold tracking-tight transition-colors ${
+                    active ? "text-[#171717]" : "text-[#777873] hover:text-[#171717]"
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  <span className="text-xs font-sans font-medium tracking-[0.14em] text-[#A78B70]">
+                    0{idx + 1}
+                  </span>
+                </Link>
+              );
+            })}
+          </nav>
 
-            {/* Mobile Menu Footer Info */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="pt-6 border-t border-white/10 space-y-3"
+          <div className="space-y-5 pt-8">
+            <Link
+              href="/contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="w-full py-3.5 px-6 bg-[#171717] text-[#F4F3EF] text-xs font-medium uppercase tracking-[0.14em] rounded-[2px] flex items-center justify-center gap-2"
             >
-              <a
-                href={`mailto:${COMPANY_INFO.email}`}
-                className="flex items-center gap-3 text-sm text-[#A0A0A0] hover:text-white"
-              >
-                <Mail className="w-4 h-4 text-[#5B2EE8]" />
-                <span>{COMPANY_INFO.email}</span>
+              <span>Start a Project</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+
+            <div className="flex flex-col gap-1.5 text-xs text-[#777873]">
+              <a href={`mailto:${COMPANY_INFO.email}`} className="hover:text-[#171717]">
+                {COMPANY_INFO.email}
               </a>
               <a
                 href={`tel:${COMPANY_INFO.phone.replace(/\s+/g, "")}`}
-                className="flex items-center gap-3 text-sm text-[#A0A0A0] hover:text-white"
+                className="hover:text-[#171717]"
               >
-                <Phone className="w-4 h-4 text-[#22B14C]" />
-                <span>{COMPANY_INFO.phone}</span>
+                {COMPANY_INFO.phone}
               </a>
-
-              <div className="pt-2 space-y-2.5">
-                <Link
-                  href="/contact"
-                  prefetch={true}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full py-3.5 rounded-full bg-[#5B2EE8] text-white font-bold text-center flex items-center justify-center gap-2 shadow-lg"
-                >
-                  <span>Get Started Now</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <p className="pt-1 uppercase tracking-[0.12em] text-[10px]">
+                {COMPANY_INFO.location}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

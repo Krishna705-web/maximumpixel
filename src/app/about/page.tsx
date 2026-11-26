@@ -1,324 +1,217 @@
-"use client";
-
 import React from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
-import { FOUNDERS, ABOUT_MISSION, ABOUT_STATS } from "@/data/founders";
-import { ConfettiAccent } from "@/components/ui/ConfettiAccent";
+import { FOUNDERS, STUDIO_PHILOSOPHY } from "@/data/founders";
+import { STUDIO_GEAR } from "@/data/pricing";
+import { COMPANY_INFO } from "@/data/company";
 import { Button } from "@/components/ui/Button";
-import { Logo } from "@/components/ui/Logo";
-import {
-  Zap,
-  Users,
-  Box,
-  ArrowRight,
-  Sparkles,
-  Target,
-  HeartHandshake,
-  Camera,
-  Film,
-  Layers,
-  CheckCircle2,
-} from "lucide-react";
-import { motion, type Variants } from "framer-motion";
-import Link from "next/link";
+import { FinalCTA } from "@/components/sections/FinalCTA";
 
-const CORE_VALUES = [
-  {
-    icon: Target,
-    title: "Attention to Detail",
-    desc: "Every cut, frame transition, color tone, and sound element is refined with genuine care.",
-    color: "text-[#5B2EE8]",
-    border: "hover:border-[#5B2EE8]/50",
+export const metadata: Metadata = {
+  title: "About | Maximum Pixel Studio Jaipur",
+  description:
+    "Meet Krishna Rajak, Vishwajeet Barman and Rahul Gyanchandani—the founders behind Maximum Pixel, an independent video production and editing studio in Jaipur.",
+  alternates: {
+    canonical: "/about",
   },
-  {
-    icon: Sparkles,
-    title: "Creative Storytelling",
-    desc: "We focus on visuals that tell an authentic story and connect directly with your audience.",
-    color: "text-[#FF7A1A]",
-    border: "hover:border-[#FF7A1A]/50",
-  },
-  {
-    icon: HeartHandshake,
-    title: "Direct Collaboration",
-    desc: "No middlemen or corporate layers. You collaborate directly with the creators working on your project.",
-    color: "text-[#22B14C]",
-    border: "hover:border-[#22B14C]/50",
-  },
-  {
-    icon: Zap,
-    title: "Fast & Agile",
-    desc: "As an energetic, nimble startup team, we move quickly, communicate clearly, and deliver on time.",
-    color: "text-[#1E7FE0]",
-    border: "hover:border-[#1E7FE0]/50",
-  },
-];
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.45, ease: [0.21, 0.47, 0.32, 0.98] },
+  openGraph: {
+    title: "About | Maximum Pixel",
+    description:
+      "Independent video production and post-production studio in Jaipur founded by Krishna Rajak, Vishwajeet Barman and Rahul Gyanchandani.",
+    url: `${COMPANY_INFO.siteUrl}/about`,
   },
 };
 
 export default function AboutPage() {
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About Maximum Pixel",
+    description:
+      "Independent video production and post-production studio in Jaipur, Rajasthan.",
+    url: `${COMPANY_INFO.siteUrl}/about`,
+    mainEntity: {
+      "@type": ["LocalBusiness", "ProfessionalService"],
+      name: COMPANY_INFO.name,
+      foundingLocation: {
+        "@type": "City",
+        name: "Jaipur",
+      },
+      founders: FOUNDERS.map((f) => ({
+        "@type": "Person",
+        name: f.name,
+        jobTitle: f.role,
+      })),
+    },
+  };
+
   return (
-    <div className="relative overflow-hidden bg-[#0A0A0A] text-white pb-16">
-      {/* Ambient Breathing Background Glows */}
-      <motion.div
-        animate={{ scale: [1, 1.1, 1], opacity: [0.12, 0.18, 0.12] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-0 right-1/4 w-96 h-96 bg-[#5B2EE8]/20 rounded-full blur-3xl pointer-events-none"
+    <div className="bg-[#F4F3EF] text-[#171717]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
       />
-      <motion.div
-        animate={{ scale: [1.1, 1, 1.1], opacity: [0.1, 0.16, 0.1] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/3 left-10 w-96 h-96 bg-[#FF7A1A]/20 rounded-full blur-3xl pointer-events-none"
-      />
-      <ConfettiAccent variant="hero-about" />
 
-      {/* ═══════════════════════════════════════════════════════
-          ABOUT HERO SECTION
-          ═══════════════════════════════════════════════════════ */}
-      <section className="relative pt-8 pb-8 md:pt-14 md:pb-12 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#5B2EE8]/15 border border-[#5B2EE8]/30 mb-3"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-[#FFC72C] animate-spin" style={{ animationDuration: "6s" }} />
-          <span className="text-xs font-bold uppercase tracking-wider text-[#A78BFA]">
-            Our Story &amp; Team
-          </span>
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight uppercase leading-[1.05]"
-        >
-          THREE CREATORS. <br />
-          <span className="text-[#5B2EE8] drop-shadow-[0_0_25px_rgba(91,46,232,0.4)]">
-            ONE VISION.
-          </span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-[#A0A0A0] text-sm sm:text-base md:text-lg max-w-2xl mx-auto mt-3 leading-relaxed"
-        >
-          We are Krishna, Vishwajeet, and Rahul — three friends and creators starting our journey in Jaipur. We love visual storytelling and crafting clean, engaging content for brands and people.
-        </motion.p>
-
-        {/* Authentic Studio Quick Facts */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-3 gap-3 sm:gap-4 mt-8 pt-6 border-t border-white/10 max-w-3xl mx-auto"
-        >
-          {ABOUT_STATS.map((stat, idx) => (
-            <motion.div
-              key={idx}
-              variants={itemVariants}
-              whileHover={{ y: -4, scale: 1.02 }}
-              className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm text-center"
-            >
-              <p className="font-display font-black text-lg sm:text-xl text-white">
-                {stat.label}
-              </p>
-              <p className="text-[11px] sm:text-xs text-[#A0A0A0] uppercase tracking-wider mt-0.5">
-                {stat.sublabel}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          THE FOUNDERS SECTION
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-10 border-t border-white/[0.08]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <h2 className="font-display font-black text-2xl sm:text-3xl text-white uppercase tracking-wider">
-              MEET THE TEAM
-            </h2>
-            <p className="text-xs sm:text-sm text-[#A0A0A0] mt-1">
-              The creative founders behind MaximumPixel
+      {/* Studio Intro */}
+      <section className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-12 sm:pt-16 pb-16 border-b border-[#DAD8D1]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
+          <div className="lg:col-span-7 space-y-5">
+            <p className="editorial-label text-[#A78B70]">About the Studio · Jaipur, India</p>
+            <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl tracking-[-0.03em] leading-[1.03]">
+              GOOD VISUALS START WITH GOOD THINKING.
+            </h1>
+            <p className="text-base sm:text-lg text-[#777873] leading-relaxed max-w-2xl">
+              Maximum Pixel is an independent video production and post-production studio in Jaipur. Founded by three creators—Krishna Rajak, Vishwajeet Barman and Rahul Gyanchandani—we work directly with businesses, handicraft and product labels, and creators from the first frame to the final cut.
             </p>
           </div>
 
-          {/* Founder Cards Grid */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
-            {FOUNDERS.map((founder) => (
-              <motion.div
-                key={founder.id}
-                variants={itemVariants}
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.25 }}
-                className="group relative rounded-3xl bg-gradient-to-b from-white/[0.05] to-white/[0.02] border border-white/10 p-6 flex flex-col items-center text-center transition-all duration-300 hover:border-white/30 hover:shadow-[0_10px_35px_rgba(0,0,0,0.6)] overflow-hidden"
-              >
-                {/* Accent Color Line on Top */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-1.5 opacity-80"
-                  style={{ backgroundColor: founder.accentColor }}
-                />
+          <div className="lg:col-span-5">
+            <div className="bg-[#171717] text-[#F4F3EF] p-8 sm:p-10 rounded-[2px] border border-[#2D2D2A] space-y-4">
+              <span className="editorial-label text-[#A78B70]">Studio Principle</span>
+              <p className="font-display font-semibold text-2xl sm:text-3xl tracking-[-0.02em] leading-[1.12]">
+                IDEAS INTO VISUALS.
+                <br />
+                STORIES INTO IMPACT.
+              </p>
+              <p className="text-xs uppercase tracking-[0.14em] text-[#B8B6AF] pt-2 border-t border-[#2D2D2A]">
+                From the first frame to the final cut · Jaipur, India
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                {/* Avatar */}
-                <div
-                  className={`w-28 h-28 sm:w-32 sm:h-32 rounded-2xl ${founder.avatarBg} shrink-0 overflow-hidden relative shadow-lg group-hover:scale-105 transition-transform duration-300 flex items-center justify-center mb-4 mt-2 border-2 border-white/10`}
-                >
+      {/* Philosophy */}
+      <section className="bg-[#FFFFFF] border-b border-[#DAD8D1]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-20 space-y-10">
+          <div className="space-y-2">
+            <p className="editorial-label text-[#A78B70]">Brand Philosophy</p>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl tracking-[-0.02em]">
+              How We Approach Every Shoot
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-[#DAD8D1] pt-10">
+            {STUDIO_PHILOSOPHY.map((item) => (
+              <div key={item.number} className="space-y-3">
+                <span className="editorial-label text-[#A78B70]">{item.number}</span>
+                <h3 className="font-display font-semibold text-xl text-[#171717]">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-[#777873] leading-relaxed">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Founders */}
+      <section className="bg-[#F4F3EF] border-b border-[#DAD8D1]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24 space-y-12">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#DAD8D1] pb-6">
+            <div className="space-y-2">
+              <p className="editorial-label text-[#A78B70]">Founding Team</p>
+              <h2 className="font-display font-bold text-3xl sm:text-4xl tracking-[-0.02em]">
+                Three Founders. Direct Collaboration.
+              </h2>
+            </div>
+            <p className="text-sm text-[#777873] max-w-sm">
+              You collaborate directly with the people directing, shooting and editing your project.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {FOUNDERS.map((founder) => (
+              <div key={founder.id} className="space-y-4">
+                <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#171717] border border-[#DAD8D1] rounded-[2px]">
                   <Image
-                    src={founder.avatarPlaceholder}
-                    alt={founder.name}
-                    width={160}
-                    height={160}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    src={founder.imageUrl}
+                    alt={`${founder.name} — ${founder.role}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
                   />
                 </div>
-
-                {/* Details */}
-                <div className="space-y-1.5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="font-display font-black text-xl text-white tracking-wide">
+                <div className="space-y-1.5 border-b border-[#DAD8D1] pb-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-display font-semibold text-xl text-[#171717]">
                       {founder.name}
                     </h3>
-                    <p
-                      className="text-xs font-bold uppercase tracking-wider mt-0.5"
-                      style={{ color: founder.accentColor }}
-                    >
-                      {founder.role}
-                    </p>
-                    <p className="text-xs sm:text-sm text-[#CCCCCC] leading-relaxed pt-2.5">
-                      {founder.bio}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 mt-3 border-t border-white/10 w-full flex items-center justify-between text-[11px]">
-                    <span
-                      className="px-2.5 py-0.5 rounded-md font-bold uppercase tracking-wider text-[10px]"
-                      style={{
-                        backgroundColor: `${founder.accentColor}20`,
-                        color: founder.accentColor,
-                      }}
-                    >
-                      {founder.tagline}
-                    </span>
-                    <span className="text-[#A0A0A0] text-[11px] font-medium">
-                      {founder.specialty}
+                    <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#A78B70]">
+                      {founder.designation}
                     </span>
                   </div>
+                  <p className="text-xs font-medium uppercase tracking-[0.12em] text-[#777873]">
+                    {founder.role} · {founder.focus}
+                  </p>
+                  <p className="text-sm text-[#777873] leading-relaxed pt-2">
+                    {founder.bio}
+                  </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          STUDIO VALUES SECTION
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-12 border-t border-white/[0.08]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <h2 className="font-display font-black text-2xl sm:text-3xl text-white uppercase tracking-wider">
-              OUR VALUES
-            </h2>
-            <p className="text-xs sm:text-sm text-[#A0A0A0] mt-1">
-              How we approach every single project
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {CORE_VALUES.map((val) => {
-              const Icon = val.icon;
-              return (
-                <motion.div
-                  key={val.title}
-                  whileHover={{ y: -4 }}
-                  className={`p-6 rounded-3xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 ${val.border} transition-all duration-300 flex flex-col justify-between`}
-                >
-                  <div>
-                    <div className="w-11 h-11 rounded-xl bg-white/[0.06] flex items-center justify-center mb-4">
-                      <Icon className={`w-5 h-5 ${val.color}`} />
-                    </div>
-                    <h3 className="font-display font-black text-lg text-white mb-2">
-                      {val.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                      {val.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          BOTTOM CTA SECTION
-          ═══════════════════════════════════════════════════════ */}
-      <section className="pt-8">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl bg-gradient-to-r from-[#5B2EE8] to-[#401AA8] p-8 sm:p-10 md:p-12 overflow-hidden shadow-[0_10px_40px_rgba(91,46,232,0.4)] flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-            <div className="space-y-3 max-w-lg">
-              <h2 className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight uppercase leading-[1.05]">
-                LET&apos;S BRING YOUR <br />
-                IDEAS TO LIFE
+      {/* Production Setup & Behind the Scenes */}
+      <section className="bg-[#FFFFFF]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-20 space-y-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <div className="lg:col-span-5 space-y-4">
+              <p className="editorial-label text-[#A78B70]">Production Approach &amp; Gear</p>
+              <h2 className="font-display font-bold text-3xl tracking-[-0.02em]">
+                Practical Gear. Focused Execution.
               </h2>
-              <p className="text-white/80 text-sm sm:text-base">
-                Ready to collaborate with Krishna, Vishwajeet, and Rahul on your next project?
+              <p className="text-sm text-[#777873] leading-relaxed">
+                We keep our production toolkit lean and reliable so budgets go toward preparation, framing, lighting and editing rather than unnecessary overhead.
               </p>
+              <dl className="divide-y divide-[#DAD8D1] border-t border-b border-[#DAD8D1] text-sm pt-1">
+                {STUDIO_GEAR.map((g) => (
+                  <div key={g.category} className="py-3 flex justify-between gap-4">
+                    <dt className="text-[#777873]">{g.category}</dt>
+                    <dd className="font-medium text-[#171717] text-right">{g.tools}</dd>
+                  </div>
+                ))}
+              </dl>
               <div className="pt-2">
-                <Button
-                  href="/contact"
-                  variant="cta"
-                  size="md"
-                  showArrow
-                  className="px-7 py-3.5 font-bold shadow-xl"
-                >
-                  Get In Touch With Us
+                <Button href="/contact" variant="primary" size="md" showArrow>
+                  Discuss a Shoot
                 </Button>
               </div>
             </div>
 
-            <div className="relative z-10 shrink-0">
-              <Image
-                src="/assets/mascot-camera.png"
-                alt="MaximumPixel Mascot"
-                width={240}
-                height={240}
-                className="w-36 h-36 sm:w-48 sm:h-48 md:w-56 md:h-56 object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.6)]"
-              />
+            {/* BTS Placeholder Grid */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <figure className="space-y-2">
+                <div className="aspect-[4/3] w-full bg-[#F4F3EF] border border-dashed border-[#A78B70] rounded-[2px] flex flex-col items-center justify-center p-6 text-center">
+                  <span className="editorial-label text-[#A78B70]">BTS Slot 01</span>
+                  <p className="text-xs text-[#777873] mt-2 max-w-[220px]">
+                    Placeholder for genuine on-location filming photograph (`public/images/behind-the-scenes/`).
+                  </p>
+                </div>
+                <figcaption className="text-xs text-[#777873]">
+                  Reserved for authentic on-set photography.
+                </figcaption>
+              </figure>
+
+              <figure className="space-y-2">
+                <div className="aspect-[4/3] w-full bg-[#F4F3EF] border border-dashed border-[#A78B70] rounded-[2px] flex flex-col items-center justify-center p-6 text-center">
+                  <span className="editorial-label text-[#A78B70]">BTS Slot 02</span>
+                  <p className="text-xs text-[#777873] mt-2 max-w-[220px]">
+                    Placeholder for genuine post-production or studio setup photograph (`public/images/behind-the-scenes/`).
+                  </p>
+                </div>
+                <figcaption className="text-xs text-[#777873]">
+                  Reserved for authentic studio workspace photography.
+                </figcaption>
+              </figure>
             </div>
           </div>
         </div>
       </section>
+
+      <FinalCTA />
     </div>
   );
 }

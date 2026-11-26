@@ -1,6 +1,6 @@
-import type { Config } from "tailwindcss";
+import type { NextConfig } from "next";
 
-const config: Config = {
+const config: NextConfig = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,48 +9,32 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0A0A0A",
-        surface: {
-          DEFAULT: "#121214",
-          card: "#111113",
-          hover: "#18181B",
-        },
-        primary: {
-          purple: "#5B2EE8",
-          purpleDark: "#451EC7",
-          purpleLight: "#7345F5",
-        },
-        accent: {
-          orange: "#FF7A1A",
-          orangeLight: "#FF8E3C",
-          green: "#22B14C",
-          blue: "#1E7FE0",
-          teal: "#14B8A6",
-          lime: "#A3C93A",
-          yellow: "#FFC72C",
-          red: "#E53E3E",
-        },
-        muted: {
-          DEFAULT: "#A0A0A0",
-          light: "#CCCCCC",
-          dark: "#71717A",
-        },
-        border: {
-          subtle: "rgba(255, 255, 255, 0.08)",
-          glow: "rgba(91, 46, 232, 0.3)",
-        },
+        canvas: "#F4F3EF",
+        charcoal: "#171717",
+        ink: "#171717",
+        "muted-grey": "#777873",
+        stone: "#DAD8D1",
+        bronze: "#A78B70",
+        "bronze-dark": "#8C7158",
+        "dark-surface": "#1F1F1D",
+        "dark-border": "#2D2D2A",
       },
       fontFamily: {
-        display: ["var(--font-display)", "Impact", "Arial Black", "sans-serif"],
+        display: ["var(--font-display)", "Manrope", "system-ui", "sans-serif"],
         sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],
       },
-      boxShadow: {
-        purpleGlow: "0 0 25px rgba(91, 46, 232, 0.35)",
-        orangeGlow: "0 0 25px rgba(255, 122, 26, 0.3)",
-        cardGlow: "0 10px 30px -10px rgba(0, 0, 0, 0.8)",
+      borderRadius: {
+        none: "0px",
+        xs: "2px",
+        sm: "4px",
+      },
+      letterSpacing: {
+        editorial: "-0.03em",
+        label: "0.14em",
       },
     },
   },
   plugins: [],
 };
+
 export default config;

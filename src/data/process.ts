@@ -1,52 +1,33 @@
-export interface ProcessStep {
+export interface ProcessStage {
   step: string;
-  badgeColor: string;
   title: string;
   description: string;
-  iconName: "message" | "quote" | "camera" | "edit" | "review" | "deliver";
 }
 
-export const PROCESS_STEPS: ProcessStep[] = [
+export const PROCESS_STAGES: ProcessStage[] = [
   {
     step: "01",
-    badgeColor: "bg-[#1E7FE0]",
-    title: "BRIEF",
-    description: "Tell us what you need.",
-    iconName: "message",
+    title: "Discovery",
+    description: "Understand the business, requirements, audience and goals.",
   },
   {
     step: "02",
-    badgeColor: "bg-[#22B14C]",
-    title: "QUOTE",
-    description: "We plan & price it right.",
-    iconName: "quote",
+    title: "Pre-production",
+    description: "Plan the script, references, schedule and shoot.",
   },
   {
     step: "03",
-    badgeColor: "bg-[#FF7A1A]",
-    title: "SHOOT",
-    description: "Camera & action live.",
-    iconName: "camera",
+    title: "Production",
+    description: "Capture the visuals through professional filming.",
   },
   {
     step: "04",
-    badgeColor: "bg-[#5B2EE8]",
-    title: "EDIT",
-    description: "We craft with detail.",
-    iconName: "edit",
+    title: "Post-production",
+    description: "Editing, sound, colour and final refinements.",
   },
   {
     step: "05",
-    badgeColor: "bg-[#A3C93A]",
-    title: "REVIEW",
-    description: "You review, we refine.",
-    iconName: "review",
-  },
-  {
-    step: "06",
-    badgeColor: "bg-[#1E7FE0]",
-    title: "DELIVER",
-    description: "On time. Every time.",
-    iconName: "deliver",
+    title: "Delivery",
+    description: "Deliver final files in the agreed formats.",
   },
 ];

@@ -1,8 +1,7 @@
 export interface SocialLink {
   name: string;
   url: string;
-  icon: string;
-  bgColor: string;
+  handle: string;
 }
 
 export interface NavItem {
@@ -11,51 +10,52 @@ export interface NavItem {
 }
 
 export const COMPANY_INFO = {
-  name: "MaximumPixel",
-  legalName: "MaximumPixel Media Studio",
-  tagline: "Jaipur-Based Video Shoot & Video Edit Production Studio",
-  shortDesc: "We're a Jaipur-based studio specializing in Video Shoots, Video Edit, and Turnkey Shoot + Edit production.",
+  name: "Maximum Pixel",
+  legalName: "Maximum Pixel Studio",
+  tagline: "IDEAS INTO VISUALS. STORIES INTO IMPACT.",
+  supportingLine: "From the first frame to the final cut.",
+  shortDesc:
+    "Independent video production and post-production studio in Jaipur creating visual stories for brands, businesses and creators.",
   email: "info@maximumpixel.online",
+  secondaryEmail: "hello.maximumpixel@gmail.com",
   phone: "+91 78787 36798",
-  formattedPhone: "+91 78787 36798",
   whatsappNumber: "917878736798",
   location: "Jaipur, Rajasthan, India",
+  cityLabel: "Jaipur, India",
+  siteUrl: "https://www.maximumpixel.online",
   googleMapsUrl: "https://maps.google.com/?q=Jaipur,+Rajasthan,+India",
-  whatsappUrl: "https://wa.me/917878736798?text=Hi%20MaximumPixel%20team,%20I'd%20like%20to%20discuss%20a%20project!",
-  copyrightYear: 2025,
+  whatsappUrl:
+    "https://wa.me/917878736798?text=Hi%20Maximum%20Pixel%20team%2C%20I%27d%20like%20to%20discuss%20a%20project.",
+  copyrightYear: 2026,
 };
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Our Work", href: "/our-work" },
+  { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
-  { label: "Contact", href: "/contact" },
   { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "Instagram",
     url: "https://www.instagram.com/maximumpixel.jaipur",
-    icon: "instagram",
-    bgColor: "bg-gradient-to-tr from-[#FD1D1D] via-[#E1306C] to-[#833AB4]",
+    handle: "@maximumpixel.jaipur",
   },
   {
     name: "YouTube",
     url: "https://youtube.com/@maximumpixel",
-    icon: "youtube",
-    bgColor: "bg-[#FF0000]",
+    handle: "@maximumpixel",
   },
   {
     name: "WhatsApp",
     url: COMPANY_INFO.whatsappUrl,
-    icon: "whatsapp",
-    bgColor: "bg-[#25D366]",
+    handle: "+91 78787 36798",
   },
   {
     name: "LinkedIn",
     url: "https://linkedin.com/company/maximumpixel",
-    icon: "linkedin",
-    bgColor: "bg-[#0A66C2]",
+    handle: "maximumpixel",
   },
 ];

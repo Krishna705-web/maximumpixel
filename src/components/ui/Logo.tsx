@@ -3,54 +3,47 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface LogoProps {
-  showText?: boolean;
+  variant?: "light" | "dark";
+  showMark?: boolean;
   className?: string;
-  size?: "sm" | "md" | "lg";
 }
 
 export const Logo: React.FC<LogoProps> = ({
-  showText = true,
+  variant = "light",
+  showMark = true,
   className = "",
-  size = "md",
 }) => {
-  const iconSizes = {
-    sm: "w-7 h-7",
-    md: "w-9 h-9",
-    lg: "w-12 h-12",
-  };
-
-  const textSizes = {
-    sm: "text-lg",
-    md: "text-xl",
-    lg: "text-2xl",
-  };
+  const textColor = variant === "light" ? "text-[#171717]" : "text-[#FFFFFF]";
+  const subColor = variant === "light" ? "text-[#777873]" : "text-[#A7A7A2]";
 
   return (
     <Link
       href="/"
-      className={`inline-flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B2EE8] rounded-md transition-opacity hover:opacity-95 ${className}`}
-      aria-label="MaximumPixel Homepage"
+      className={`inline-flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A78B70] ${className}`}
+      aria-label="Maximum Pixel Home"
     >
-      {/* High-Resolution Polygonal Logo */}
-      <div className={`relative ${iconSizes[size]} shrink-0 flex items-center justify-center`}>
-        <Image
-          src="/assets/logo.png"
-          alt="MaximumPixel Logo"
-          width={80}
-          height={80}
-          priority
-          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-200"
-        />
-      </div>
-
-      {/* Brand Text */}
-      {showText && (
-        <span
-          className={`font-display font-black tracking-tight text-white ${textSizes[size]} leading-none select-none`}
-        >
-          MAXIMUMPIXEL
+      {showMark && (
+        <span className="relative w-7 h-7 shrink-0 flex items-center justify-center">
+          <Image
+            src="/images/brand/logo.png"
+            alt="Maximum Pixel Mark"
+            width={56}
+            height={56}
+            priority
+            className="w-full h-full object-contain"
+          />
         </span>
       )}
+      <span className="flex flex-col leading-none">
+        <span
+          className={`font-display font-bold text-base sm:text-[17px] tracking-[-0.02em] uppercase ${textColor}`}
+        >
+          Maximum Pixel
+        </span>
+        <span className={`text-[10px] font-medium uppercase tracking-[0.16em] mt-0.5 ${subColor}`}>
+          Production Studio
+        </span>
+      </span>
     </Link>
   );
 };

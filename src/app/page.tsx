@@ -1,265 +1,269 @@
-"use client";
-
 import React from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { COMPANY_INFO } from "@/data/company";
+import { PROJECTS } from "@/data/projects";
+import { CORE_SERVICES } from "@/data/services";
+import { PROCESS_STAGES } from "@/data/process";
+import { FOUNDERS } from "@/data/founders";
 import { Button } from "@/components/ui/Button";
-import { ConfettiAccent } from "@/components/ui/ConfettiAccent";
-import { ProcessBadge } from "@/components/ui/ProcessBadge";
-import { PROCESS_STEPS } from "@/data/process";
-import { ReelsShowcase } from "@/components/ui/ReelsShowcase";
-import { StudioHighlights } from "@/components/ui/StudioHighlights";
-import { FAQSection } from "@/components/ui/FAQSection";
-import { ArrowRight, Sparkles, Play, X } from "lucide-react";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
-import dynamic from "next/dynamic";
+import { Reveal } from "@/components/ui/Reveal";
+import { ProjectCard } from "@/components/work/ProjectCard";
+import { FinalCTA } from "@/components/sections/FinalCTA";
 
-const Mascot3D = dynamic(
-  () => import("@/components/ui/Mascot3D").then((mod) => mod.Mascot3D),
-  { ssr: false }
-);
-
-const ROTATING_WORDS = [
-  { text: "SHOOTS", color: "text-[#5B2EE8]", shadow: "rgba(91,46,232,0.45)" },
-  { text: "EDITS", color: "text-[#FF7A1A]", shadow: "rgba(255,122,26,0.45)" },
-  { text: "REELS", color: "text-[#1E7FE0]", shadow: "rgba(30,127,224,0.45)" },
-];
+export const metadata: Metadata = {
+  title: "Maximum Pixel | Video Production & Editing Studio in Jaipur",
+  description:
+    "Maximum Pixel is a Jaipur-based video production and editing studio creating professional visual content for brands, businesses and creators.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function HomePage() {
-  const [currentWordIndex, setCurrentWordIndex] = React.useState(0);
-  const [selectedWork, setSelectedWork] = React.useState<{
-    title: string;
-    tag: string;
-    tagColor: string;
-    image: string;
-    videoUrl?: string;
-    subtext: string;
-    credits?: string;
-    description?: string;
-  } | null>(null);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
-    }, 2400);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Close modal on Escape key
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedWork(null);
-    };
-    if (selectedWork) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedWork]);
-
-  const latestWorkPreviews = [
-    {
-      title: "Artisan Cafe Commercial Reel",
-      tag: "SHOOT + EDIT",
-      tagColor: "bg-[#5B2EE8]",
-      image: "/assets/projects/cafe-reel.jpg",
-      videoUrl: "/assets/videos/cafe-edit.mp4",
-      subtext: "4K 9:16 Vertical • Full On-Location Shoot + Master Post-Production",
-      credits: "Stock Footage: Pexels (Free Commercial License) • Editing, Sound Design & Color Grading: Maximum Pixel Studio",
-      description: "A rich, sensory commercial capturing artisan pour-over brewing, warm ambient seating, and barista craft. Produced from storyboard to final master cut.",
-    },
-    {
-      title: "Cinematic Brand Commercial",
-      tag: "VIDEO SHOOT",
-      tagColor: "bg-[#1E7FE0]",
-      image: "/assets/projects/brand-film.jpg",
-      videoUrl: "/assets/videos/barista-edit.mp4",
-      subtext: "4K Cinema & Lighting • Multi-Angle Production Rigging",
-      credits: "Stock Footage: Sourced from Pexels (Commercial Creative Commons License) • Editing, Cinematography Direction & Grade: MaximumPixel Studio",
-      description: "High-dynamic-range cinematography crafted with precision lighting, fluid camera movement, and dedicated director monitoring tailored for luxury brands.",
-    },
-    {
-      title: "Espresso Craft & Greenhouse Cafe Edit",
-      tag: "VIDEO EDIT",
-      tagColor: "bg-[#FF7A1A]",
-      image: "/assets/projects/barista-reel.jpg",
-      videoUrl: "/assets/videos/barista-edit.mp4",
-      subtext: "Kinetic Velocity Pacing • Warm Color Grading & Audio Foley",
-      credits: "Stock Footage: Sourced from Pexels (Commercial Creative Commons License) • Post-Production, Velocity Editing, Audio Mastering & Grade: MaximumPixel Studio",
-      description: "A rhythmic, sensory hospitality commercial edit capturing iced espresso preparation, barista artistry, and modern sunlit cafe ambiance with rich sound design.",
-    },
-  ];
-
-  const wordVariants: Variants = {
-    hidden: { opacity: 0, y: 35 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        delay: i * 0.15,
-        ease: [0.215, 0.61, 0.355, 1] as const,
-      },
-    }),
-  };
+  const featuredProjects = PROJECTS.filter((p) => p.featured).slice(0, 4);
 
   return (
-    <div className="relative overflow-hidden bg-[#0A0A0A] text-white">
+    <div className="bg-[#F4F3EF] text-[#171717]">
       {/* ═══════════════════════════════════════════════════════
-          HERO SECTION
+          SECTION 01 — HERO
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative pt-0 sm:pt-1 md:pt-2 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
-        {/* Floating Confetti Accents */}
-        <ConfettiAccent variant="hero-home" />
+      <section className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-10 sm:pt-14 lg:pt-16 pb-16 sm:pb-24">
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-[#DAD8D1]">
+          <span className="editorial-label text-[#777873]">
+            {COMPANY_INFO.cityLabel} · Video Production &amp; Post-Production
+          </span>
+          <span className="editorial-label text-[#A78B70]">
+            {COMPANY_INFO.tagline}
+          </span>
+        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-12 gap-3 sm:gap-6 md:gap-8 lg:gap-12 items-center">
-            {/* Left Content */}
-            <div className="col-span-7 sm:col-span-7 md:col-span-6 lg:col-span-6 z-10 space-y-3 sm:space-y-4 md:space-y-5 text-left">
-              {/* Big Display Headline with Staggered Word Reveal & Rotating Word */}
-              <h1 className="font-display font-black text-3xl sm:text-5xl md:text-6xl lg:text-8xl tracking-tight leading-[0.92] uppercase overflow-hidden">
-                <motion.span
-                  custom={0}
-                  variants={wordVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="block text-white"
-                >
-                  WE
-                </motion.span>
-                <motion.span
-                  custom={1}
-                  variants={wordVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="block text-white"
-                >
-                  CREATE
-                </motion.span>
-                <div className="relative block h-[1.08em] overflow-hidden align-top w-full">
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={ROTATING_WORDS[currentWordIndex].text}
-                      initial={{ y: 40, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -40, opacity: 0 }}
-                      transition={{ duration: 0.45, ease: [0.21, 0.47, 0.32, 0.98] }}
-                      className={`block ${ROTATING_WORDS[currentWordIndex].color}`}
-                      style={{
-                        textShadow: `0 0 25px ${ROTATING_WORDS[currentWordIndex].shadow}`,
-                      }}
-                    >
-                      {ROTATING_WORDS[currentWordIndex].text}
-                    </motion.span>
-                  </AnimatePresence>
-                </div>
-              </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 pt-10 sm:pt-14 items-end">
+          <div className="lg:col-span-7 space-y-6">
+            <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] tracking-[-0.035em] leading-[0.95] text-[#171717]">
+              WE MAKE
+              <br />
+              IDEAS VISIBLE.
+            </h1>
 
-              {/* Sub-headline */}
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="text-[#FF7A1A] font-semibold text-xs sm:text-base md:text-xl lg:text-2xl pt-0.5 sm:pt-1 leading-snug"
-              >
-                Jaipur Video Shoot &amp; Reels Production Studio
-              </motion.p>
+            <p className="text-base sm:text-lg text-[#777873] max-w-xl leading-relaxed">
+              Video production and post-production for brands, businesses and creators.
+            </p>
 
-              {/* Body Description */}
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.65 }}
-                className="text-[#A0A0A0] text-xs sm:text-sm md:text-base lg:text-lg max-w-md leading-relaxed"
-              >
-                Video Shoot • Video Edit • Shoot + Edit — On-location 4K mobile cinematography and high-retention video editing in Jaipur.
-              </motion.p>
-
-              {/* CTA Button */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.8 }}
-                className="pt-1"
-              >
-                <Button
-                  href="/contact"
-                  variant="primary"
-                  size="md"
-                  showArrow
-                  className="px-8 sm:px-10 py-4 sm:py-4.5 text-base sm:text-lg font-black shadow-[0_8px_35px_rgba(91,46,232,0.65)] hover:shadow-[0_10px_45px_rgba(91,46,232,0.85)] hover:scale-105 transition-all"
-                >
-                  Let&apos;s Create
-                </Button>
-              </motion.div>
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <Button href="/work" variant="primary" size="lg" showArrow>
+                EXPLORE OUR WORK
+              </Button>
+              <Button href="/contact" variant="outline" size="lg">
+                START A PROJECT
+              </Button>
             </div>
+          </div>
 
-            {/* Right Mascot Visual (Interactive 3D Character with Abstract Faceted Polygon Background) */}
-            <div className="col-span-5 sm:col-span-5 md:col-span-6 lg:col-span-6 relative flex justify-end sm:justify-center items-center">
-              <div className="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[520px] lg:max-w-[620px] xl:max-w-[680px] min-h-[350px] sm:min-h-[460px] md:min-h-[560px] lg:min-h-[640px] xl:min-h-[700px] aspect-[4/5] flex items-center justify-center">
-                {/* Faceted polygon background shape - Scaled with generous clearance */}
-                <div
-                  className="absolute -inset-1 sm:-inset-3 md:-inset-5 lg:-inset-6 w-[104%] sm:w-[108%] md:w-[110%] h-[104%] sm:h-[108%] md:h-[110%] pointer-events-none opacity-95 flex items-center justify-center"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 400 500" fill="none" className="w-full h-full object-contain">
-                    <polygon points="280,40 400,140 340,240 260,180" fill="#1E7FE0" />
-                    <polygon points="340,240 260,180 200,280 290,320" fill="#E53E3E" />
-                    <polygon points="260,180 400,280 340,360 200,280" fill="#FFC72C" />
-                    <polygon points="200,280 340,360 280,460 160,400" fill="#5B2EE8" />
-                    <polygon points="160,400 280,460 180,500 80,440" fill="#22B14C" />
-                  </svg>
-                </div>
-
-                {/* Interactive 3D Mascot Model with Mouse Tracking */}
-                <div className="relative z-10 w-full h-full flex items-center justify-center">
-                  <Mascot3D className="w-full h-full" />
-                </div>
+          <div className="lg:col-span-5">
+            <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#171717] rounded-[2px] border border-[#DAD8D1]">
+              <video
+                src="/videos/cafe-edit.mp4"
+                poster="/images/projects/cafe-reel.jpg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Maximum Pixel editing showcase preview"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute bottom-3 left-3 px-2.5 py-1 bg-[#171717]/80 text-[#F4F3EF] text-[10px] font-medium uppercase tracking-[0.14em] rounded-[2px]">
+                Post-Production Reel Study
               </div>
+            </div>
+            <div className="flex items-center justify-between pt-3 text-[11px] font-medium uppercase tracking-[0.12em] text-[#777873]">
+              <span>From the first frame to the final cut</span>
+              <span>Jaipur, IN</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          OUR PROCESS SECTION (Unified Section Pattern)
+          SECTION 02 — SELECTED WORK
           ═══════════════════════════════════════════════════════ */}
-      <section className="py-16 border-t border-white/[0.08] relative overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
-          <div className="mb-8 md:mb-10">
-            <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">
-              Our Process
-            </h2>
-            <p className="text-xs sm:text-sm text-[#A0A0A0] mt-1 max-w-md">
-              From initial brief to final delivery in 6 smooth creative steps.
-            </p>
-          </div>
-
-          {/* Connected Steps Grid */}
-          <div className="relative">
-            {/* Horizontal clean consistent connector track on desktop */}
-            <div className="hidden lg:block absolute top-7 left-[8%] right-[8%] h-[2px] z-0 overflow-hidden">
-              <div className="w-full h-full border-b-2 border-dotted border-white/20" />
+      <section className="border-t border-[#DAD8D1] bg-[#F4F3EF]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24">
+          <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#DAD8D1]">
+            <div className="space-y-3">
+              <p className="editorial-label text-[#A78B70]">02 / Portfolio</p>
+              <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.03em] text-[#171717]">
+                SELECTED WORK.
+              </h2>
+              <p className="text-sm sm:text-base text-[#777873] max-w-md">
+                A selection of projects, ideas and visual stories.
+              </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 relative z-10">
-              {PROCESS_STEPS.map((step, idx) => (
-                <motion.div
-                  key={step.step}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1, duration: 0.4 }}
-                >
-                  <ProcessBadge
-                    step={step.step}
-                    badgeColor={step.badgeColor}
-                    title={step.title}
-                    description={step.description}
-                    iconName={step.iconName}
-                    index={idx}
-                  />
-                </motion.div>
+            <Link
+              href="/work"
+              className="group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-[#171717] hover:text-[#A78B70] transition-colors self-start md:self-auto"
+            >
+              <span>View All Projects</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 pt-12">
+            {featuredProjects.map((project, idx) => (
+              <Reveal key={project.slug} delay={idx * 0.05}>
+                <ProjectCard project={project} index={idx} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          SECTION 03 — SERVICES (DARK CINEMATIC SECTION)
+          ═══════════════════════════════════════════════════════ */}
+      <section className="bg-[#171717] text-[#F4F3EF] border-t border-[#2D2D2A]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-20 sm:py-28">
+          <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#2D2D2A]">
+            <div className="space-y-3">
+              <p className="editorial-label text-[#A78B70]">03 / Capabilities</p>
+              <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.03em] text-[#FFFFFF]">
+                PRODUCTION MEETS PRECISION.
+              </h2>
+            </div>
+
+            <Link
+              href="/services"
+              className="group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-[#DAD8D1] hover:text-[#FFFFFF] transition-colors self-start md:self-auto"
+            >
+              <span>Explore Services &amp; Pricing</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 divide-y md:divide-y-0 border-b border-[#2D2D2A]">
+            {CORE_SERVICES.map((service, idx) => (
+              <Reveal
+                key={service.id}
+                delay={idx * 0.05}
+                className="py-8 sm:py-10 border-b border-[#2D2D2A] md:last:border-b-0 md:[&:nth-last-child(2)]:border-b-0 flex flex-col justify-between gap-6"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium uppercase tracking-[0.14em] text-[#A78B70]">
+                      {service.number} —
+                    </span>
+                    <Link
+                      href={`/services#${service.id}`}
+                      className="text-[11px] font-medium uppercase tracking-[0.14em] text-[#777873] hover:text-[#FFFFFF] transition-colors"
+                    >
+                      Details
+                    </Link>
+                  </div>
+                  <h3 className="font-display font-semibold text-2xl sm:text-3xl tracking-[-0.02em] text-[#FFFFFF]">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-[#B8B6AF] leading-relaxed max-w-md">
+                    {service.shortDescription}
+                  </p>
+                </div>
+
+                <div>
+                  <Link
+                    href={`/contact?service=${encodeURIComponent(service.title)}`}
+                    className="group inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-[#F4F3EF] hover:text-[#A78B70] transition-colors"
+                  >
+                    <span>Enquire About {service.title.toLowerCase()}</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          SECTION 04 — OUR PROCESS
+          ═══════════════════════════════════════════════════════ */}
+      <section className="bg-[#F4F3EF] border-t border-[#DAD8D1]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24">
+          <Reveal className="space-y-3 pb-12 border-b border-[#DAD8D1]">
+            <p className="editorial-label text-[#A78B70]">04 / Workflow</p>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-[-0.03em] text-[#171717]">
+              FROM CONCEPT TO FINAL CUT.
+            </h2>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-b border-[#DAD8D1]">
+            {PROCESS_STAGES.map((stage, idx) => (
+              <Reveal
+                key={stage.step}
+                delay={idx * 0.05}
+                className="py-8 sm:py-10 lg:pr-6 border-b sm:border-b-0 lg:border-r last:border-r-0 last:border-b-0 border-[#DAD8D1] lg:pl-6 first:lg:pl-0 flex flex-col justify-between gap-6"
+              >
+                <span className="font-display font-bold text-xs tracking-[0.14em] text-[#A78B70]">
+                  {stage.step}
+                </span>
+                <div className="space-y-2">
+                  <h3 className="font-display font-semibold text-xl tracking-[-0.02em] text-[#171717]">
+                    {stage.title}
+                  </h3>
+                  <p className="text-sm text-[#777873] leading-relaxed">
+                    {stage.description}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          SECTION 05 — ABOUT THE STUDIO
+          ═══════════════════════════════════════════════════════ */}
+      <section className="bg-[#FFFFFF] border-t border-[#DAD8D1]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <Reveal className="lg:col-span-5 space-y-5">
+              <p className="editorial-label text-[#A78B70]">05 / The Studio</p>
+              <h2 className="font-display font-bold text-3xl sm:text-4xl tracking-[-0.03em] leading-[1.08] text-[#171717]">
+                GOOD VISUALS START WITH GOOD THINKING.
+              </h2>
+              <p className="text-sm sm:text-base text-[#777873] leading-relaxed">
+                Maximum Pixel is an independent video production and post-production studio in Jaipur led by founders Krishna Rajak, Vishwajeet Barman and Rahul Gyanchandani. We focus on thoughtful pre-production, disciplined camera work and clean editing—without agency bloat.
+              </p>
+              <div className="pt-2">
+                <Button href="/about" variant="outline" size="md" showArrow>
+                  Read About the Studio
+                </Button>
+              </div>
+            </Reveal>
+
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {FOUNDERS.map((founder, idx) => (
+                <Reveal key={founder.id} delay={idx * 0.06} className="space-y-3">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#171717] rounded-[2px] border border-[#DAD8D1]">
+                    <Image
+                      src={founder.imageUrl}
+                      alt={`${founder.name} — ${founder.role}`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 22vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-display font-semibold text-base text-[#171717]">
+                      {founder.name}
+                    </h3>
+                    <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-[#777873] mt-0.5">
+                      {founder.role}
+                    </p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -267,190 +271,9 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          TRENDING REELS SHOWCASE
+          SECTION 06 — FINAL CTA
           ═══════════════════════════════════════════════════════ */}
-      <ReelsShowcase />
-
-      {/* ═══════════════════════════════════════════════════════
-          LATEST WORK SECTION
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-16 border-t border-white/[0.08]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header with Baseline-Aligned View All Link */}
-          <div className="flex items-baseline justify-between mb-8">
-            <h2 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tight">
-              Latest Work
-            </h2>
-            <Link
-              href="/our-work"
-              className="group inline-flex items-center gap-2 text-base font-extrabold text-[#FF7A1A] hover:text-[#FF8E3C] transition-colors"
-            >
-              <span>View All</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
-            </Link>
-          </div>
-
-          {/* 3 Work Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
-            {latestWorkPreviews.map((work, idx) => (
-              <motion.div
-                key={work.title}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.12, duration: 0.5 }}
-                onClick={() => setSelectedWork(work)}
-                className="group relative rounded-2xl bg-[#111113] border border-white/[0.08] overflow-hidden transition-all duration-300 hover:border-white/25 hover:-translate-y-1 shadow-lg flex flex-col cursor-pointer"
-              >
-                {/* Image Container with Top Gradient Isolation */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40">
-                  <Image
-                    src={work.image}
-                    alt={work.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {/* Subtle top scrim */}
-                  <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/75 via-black/30 to-transparent pointer-events-none" />
-
-                  {/* Hover Play Button Overlay */}
-                  <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                    <div className="w-12 h-12 rounded-full bg-[#5B2EE8] text-white flex items-center justify-center shadow-xl transform scale-90 group-hover:scale-100 transition-transform">
-                      <Play className="w-5 h-5 fill-white ml-0.5" />
-                    </div>
-                  </div>
-
-                  {/* Dark subtle bottom gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#111113] via-transparent to-transparent opacity-80 pointer-events-none" />
-                </div>
-
-                {/* Card Body with Consistent Vertical Spacing */}
-                <div className="p-4 sm:p-5 flex flex-col justify-between flex-1">
-                  <h3 className="font-display font-black text-lg text-white mb-1 min-h-[3.25rem] flex items-start group-hover:text-[#FF7A1A] transition-colors">
-                    {work.title}
-                  </h3>
-                  <p className="text-xs text-[#CCCCCC] mt-auto">{work.subtext}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          STUDIO HIGHLIGHTS & CAPABILITIES (Visible SEO & AI Overview Optimized)
-          ═══════════════════════════════════════════════════════ */}
-      <StudioHighlights />
-
-      {/* ═══════════════════════════════════════════════════════
-          FREQUENTLY ASKED QUESTIONS (Visible Interactive FAQ & Schema Grounding)
-          ═══════════════════════════════════════════════════════ */}
-      <FAQSection />
-
-      {/* Interactive Video Preview Modal for Latest Work */}
-      <AnimatePresence>
-        {selectedWork && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setSelectedWork(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto"
-            role="dialog"
-            aria-modal="true"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 25 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 25 }}
-              transition={{ type: "spring", stiffness: 350, damping: 25 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-2xl sm:max-w-3xl rounded-3xl bg-[#141416] border border-white/20 overflow-hidden shadow-2xl flex flex-col md:flex-row my-auto"
-            >
-              {/* Prominent High-Contrast Close Button in Top-Right */}
-              <button
-                onClick={() => setSelectedWork(null)}
-                className="absolute top-3.5 right-3.5 z-30 w-9 h-9 rounded-full bg-black/80 text-white hover:bg-white hover:text-black flex items-center justify-center transition-all border border-white/25 shadow-xl cursor-pointer"
-                aria-label="Close preview"
-                title="Close (Esc)"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Left Side: 9:16 Video Player or Image Container (Zero Text Overlaid) */}
-              <div className="relative w-full md:w-[320px] aspect-[9/16] bg-black flex items-center justify-center overflow-hidden shrink-0">
-                {selectedWork.videoUrl ? (
-                  <video
-                    src={selectedWork.videoUrl}
-                    poster={selectedWork.image}
-                    controls
-                    autoPlay
-                    playsInline
-                    loop
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <Image
-                    src={selectedWork.image}
-                    alt={selectedWork.title}
-                    fill
-                    className="object-cover"
-                  />
-                )}
-              </div>
-
-              {/* Right Side: Description, Credits & Action Panel */}
-              <div className="p-5 sm:p-7 md:p-8 flex-1 flex flex-col justify-between space-y-4 bg-[#141416]">
-                <div className="space-y-3">
-                  <div className="pr-8">
-                    <h3 className="font-display font-black text-xl sm:text-2xl text-white leading-tight">
-                      {selectedWork.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[#FF7A1A] font-semibold mt-1">
-                      {selectedWork.subtext}
-                    </p>
-                  </div>
-
-                  {selectedWork.description && (
-                    <p className="text-xs sm:text-sm text-[#CCCCCC] leading-relaxed">
-                      {selectedWork.description}
-                    </p>
-                  )}
-
-                  {selectedWork.credits && (
-                    <div className="flex items-start gap-2 p-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-xs text-[#A0A0A0] leading-relaxed">
-                      <Sparkles className="w-4 h-4 text-[#FFC72C] shrink-0 mt-0.5" />
-                      <span>{selectedWork.credits}</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3">
-                  <Button
-                    href={`/contact?service=${encodeURIComponent(selectedWork.tag)}&project=${encodeURIComponent(selectedWork.title)}`}
-                    variant="primary"
-                    size="md"
-                    showArrow
-                    fullWidth
-                    className="py-3 font-bold shadow-lg"
-                  >
-                    Discuss Similar Project
-                  </Button>
-                  <button
-                    onClick={() => setSelectedWork(null)}
-                    className="w-full sm:w-auto px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-bold transition-colors cursor-pointer"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <FinalCTA />
     </div>
   );
 }
-

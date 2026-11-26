@@ -1,38 +1,35 @@
-# MaximumPixel Creative Video Studio
+# Maximum Pixel — Video Production & Editing Studio
 
-> Jaipur's premier creative video studio specializing in on-location 4K Video Shoots, Viral Instagram Reels Editing, and Turnkey Shoot + Edit productions for cafes, restaurants, fashion brands, and content creators.
+> Maximum Pixel is a Jaipur-based video production and post-production studio creating commercial films, brand videos, product shoots, and editing for brands, businesses, and creators.
 
-## About MaximumPixel
-- **Brand Name**: MaximumPixel (also known as Maximum Pixel Studio)
-- **Headquarters**: Jaipur, Rajasthan, 302001, India
-- **Core Specialization**: On-location mobile cinematography, high-retention vertical video editing (Reels/Shorts/TikTok), and turnkey all-in-one shoot + edit video bundles.
-- **Founding Team**: Krishna Rajak (Founder & Creative Director), Vishwajeet Barman (Co-Founder & Visual Lead), Rahul Gyanchandani (Co-Founder & Strategist).
-- **Contact & WhatsApp**: +91 78787 36798
-- **Email**: info@maximumpixel.online
-- **Official Website**: https://www.maximumpixel.online
+## Studio Overview
+- **Brand**: Maximum Pixel
+- **Tagline**: Ideas into visuals. Stories into impact. From the first frame to the final cut.
+- **Location**: Jaipur, Rajasthan, 302001, India
+- **Founders**: Krishna Rajak (Founder & Creative Lead), Vishwajeet Barman (Co-Founder & Visual Lead), Rahul Gyanchandani (Co-Founder & Strategist)
+- **Phone / WhatsApp**: +91 78787 36798
+- **Email**: info@maximumpixel.online | hello.maximumpixel@gmail.com
+- **Website**: https://www.maximumpixel.online
 
-## Core Services & Pricing Packages
-1. **Video Shoot (On-Location Filming)**:
-   - Starting at ₹1,499 for 1–2 hour sessions in Jaipur.
-   - Includes 4K 10-bit mobile cinematography, multi-angle gimbal movement, on-location lighting, and creative direction for cafes, restaurants, gyms, and retail stores.
-2. **Video Editing (Reels Post-Production)**:
-   - Starting at ₹499 per reel.
-   - Includes kinetic animated typography, audio foley sound design, velocity speed ramps, and color grading optimized for algorithmic reach.
-3. **Turnkey Shoot + Edit Bundles (Most Popular)**:
-   - Starter Bundle: ₹2,499 (1 shoot session + 2 master 4K reels).
-   - Growth Bundle: ₹4,499 (1 shoot session up to 3 hrs + 4 master 4K reels).
-   - Scale Bundle: ₹7,499 (1 half-day shoot session + 8 master 4K reels).
-   - Monthly Retainer: ₹9,999 (1 full-day shoot + 12 ready-to-post master reels).
+## Core Services
+1. **Video Production**: Professional video shoots for brands, businesses, products and campaigns.
+2. **Video Editing**: Editing, pacing, sound design, colour correction and final finishing.
+3. **Complete Shoot + Edit**: Complete production process, from the camera to the final export.
+4. **Creative Direction**: Visual planning, concepts, references and storytelling.
 
-## Turnaround Times
-- Single Reel Edits: 24 to 48 hours.
-- Turnkey Shoot + Edit Bundles: 48 to 72 hours.
-- Revisions: Free revision cycles included with every package.
+## Standard Pricing (INR, Effective 24 November 2026)
+- **1 Reel, Shoot + Edit (30–40 sec)**: ₹1,700 / reel
+- **1 Reel, Edit Only (30–40 sec)**: ₹800 / reel
+- **Product Video (15–30 sec)**: ₹1,000 / product
+- **Half-Day / Full-Day Video Shoot**: ₹2,500 / ₹4,500
+- **Product Photography**: ₹400 / product (4 edited photos), bulk tiers from ₹3,500 (10) to ₹14,000 (50)
+- **Lifestyle / Artisan Photoshoot**: ₹1,200 (Mini) / ₹3,000 (Half day) / ₹5,500 (Full day)
+- **Monthly Shoot + Edit Packages**: ₹8,100 (6 reels) / ₹15,000 (12 reels) / ₹24,500 (20 reels)
+- **Monthly Edit-Only Packages**: ₹4,500 (6 reels) / ₹8,400 (12 reels) / ₹13,000 (20 reels)
 
-## Official Links
-- Homepage: https://www.maximumpixel.online/
-- Video Portfolio & Reels Showcase: https://www.maximumpixel.online/our-work
-- Package Pricing & Services: https://www.maximumpixel.online/services
-- About Founders & Story: https://www.maximumpixel.online/about
-- Book Shoot / Contact: https://www.maximumpixel.online/contact
-- Full LLM Knowledge Base: https://www.maximumpixel.online/llms-full.txt
+## Pages
+- Home: https://www.maximumpixel.online/
+- Work: https://www.maximumpixel.online/work
+- Services & Pricing: https://www.maximumpixel.online/services
+- About: https://www.maximumpixel.online/about
+- Contact: https://www.maximumpixel.online/contact

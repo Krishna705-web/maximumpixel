@@ -1,288 +1,286 @@
-export interface PricingTier {
-  id: string;
-  category: "edit" | "shoot" | "shoot-edit";
-  name: string;
-  tagline: string;
-  badge?: string;
-  badgeColor?: string;
-  price: number;
-  originalPrice: number;
-  unit: string;
-  isPopular?: boolean;
-  features: string[];
-  turnaround: string;
-  whatsappMessage: string;
+export interface PricingRow {
+  service: string;
+  included: string;
+  price: string;
 }
 
-export const PRICING_CATEGORIES = [
-  { id: "shoot-edit", label: "Shoot + Edit (Best Value)" },
-  { id: "edit", label: "Video Edit Only" },
-  { id: "shoot", label: "Video Shoot Only" },
-] as const;
+export interface MonthlyPackageTier {
+  name: "Starter" | "Growth" | "Pro";
+  reelsPerMonth: string;
+  freePosts?: string;
+  totalShootTime?: string;
+  packageRatePerReel: string;
+  reelsAtStandardRate: string;
+  freePostsValue?: string;
+  totalValueAtStandardRates?: string;
+  monthlyPrice: string;
+  clientSaves: string;
+}
 
-export type PricingCategory = (typeof PRICING_CATEGORIES)[number]["id"];
-
-export const PRICING_PLANS: Record<PricingCategory, PricingTier[]> = {
-  "shoot-edit": [
-    {
-      id: "bundle-starter",
-      category: "shoot-edit",
-      name: "Starter Bundle",
-      tagline: "Ideal for testing short-form reel marketing for your business",
-      price: 2499,
-      originalPrice: 4999,
-      unit: "2 Reels • 1 Single Shoot (1.5 hrs)",
-      features: [
-        "1 Single On-Location Shoot Session (1.5 hrs in Jaipur)",
-        "2 High-Retention 4K Vertical Reels",
-        "Kinetic Subtitles & Viral SFX",
-        "Trending Audio & Color Grading",
-        "Up to 2 Rounds of Free Revisions per Reel",
-        "Delivery within 48 Hours",
-      ],
-      turnaround: "48 Hours",
-      whatsappMessage: "Hi MaximumPixel! I want to book the Starter Bundle (1 Shoot Session + 2 Reels) for ₹2,499.",
-    },
-    {
-      id: "bundle-growth",
-      category: "shoot-edit",
-      name: "Growth Bundle",
-      tagline: "Our #1 best seller: a full month of weekly viral reels",
-      badge: "MOST POPULAR",
-      badgeColor: "bg-[#5B2EE8]",
-      price: 4499,
-      originalPrice: 8999,
-      unit: "4 Reels • 1 Single Shoot (Up to 3 hrs)",
-      isPopular: true,
-      features: [
-        "1 Single Shoot Session (Up to 3 hrs in Jaipur)",
-        "4 Ready-to-Post Master 4K Reels",
-        "Concept Direction & Hook Scripting",
-        "Dynamic Animated Subtitles & SFX",
-        "Color Grading & Audio Mastering",
-        "Full Access to Raw 4K Footage",
-        "Up to 2 Rounds of Free Revisions per Reel",
-        "Priority 48-Hour Turnaround",
-      ],
-      turnaround: "48–72 Hours",
-      whatsappMessage: "Hi MaximumPixel! I want to book the Growth Bundle (1 Shoot Session + 4 Reels) for ₹4,499.",
-    },
-    {
-      id: "bundle-scale",
-      category: "shoot-edit",
-      name: "Scale Bundle",
-      tagline: "Consistent 2 reels per week for aggressive brand reach",
-      badge: "BEST VALUE",
-      badgeColor: "bg-[#FF7A1A]",
-      price: 7499,
-      originalPrice: 14999,
-      unit: "8 Reels • 1 Half-Day Shoot (4 hrs)",
-      features: [
-        "1 Single Half-Day Shoot Session (4 hrs in Jaipur)",
-        "8 Master 4K Viral Reels",
-        "Complete Visual Storyboarding & Scripting",
-        "Custom Sound Design & Hook Editing",
-        "Full Raw Footage Cloud Drive Folder",
-        "Up to 3 Rounds of Free Revisions per Reel",
-        "Dedicated Creative Lead Directing",
-      ],
-      turnaround: "3–5 Days",
-      whatsappMessage: "Hi MaximumPixel! I want to book the Scale Bundle (1 Half-Day Shoot + 8 Reels) for ₹7,499.",
-    },
-    {
-      id: "bundle-monthly",
-      category: "shoot-edit",
-      name: "Monthly Content Retainer",
-      tagline: "1 intensive monthly shoot day that produces all 12 reels",
-      badge: "FULL TAKEOVER",
-      badgeColor: "bg-[#22B14C]",
-      price: 9999,
-      originalPrice: 19999,
-      unit: "12 Reels • 1 Full-Day Shoot (per month)",
-      features: [
-        "1 Dedicated Full-Day Shoot Session (6–7 hrs in Jaipur)",
-        "12 Ready-to-Post Master Reels (covers full month)",
-        "End-to-End Content Calendar & Hooks",
-        "Full Brand Styling & Audio Sync",
-        "Organized Google Drive Raw Library",
-        "Up to 3–4 Rounds of Free Revisions per Reel",
-        "VIP Support & Fast Rolling Turnaround",
-      ],
-      turnaround: "Rolling Weekly Deliveries",
-      whatsappMessage: "Hi MaximumPixel! I want to book the Monthly Content Retainer (1 Full-Day Shoot + 12 Reels) for ₹9,999.",
-    },
-  ],
-
-  "edit": [
-    {
-      id: "edit-single",
-      category: "edit",
-      name: "Single Reel Edit",
-      tagline: "Test our editing speed & high retention quality risk-free",
-      price: 499,
-      originalPrice: 999,
-      unit: "1 Master Reel",
-      features: [
-        "1 High-Retention 9:16 Vertical Reel",
-        "Hook Pacing & Pattern Interrupts",
-        "Dynamic Animated Subtitles",
-        "Sound Effects & Background Music Sync",
-        "Color Enhancement & Polish",
-        "Up to 2 Rounds of Free Revisions",
-        "24–48 Hour Fast Delivery",
-      ],
-      turnaround: "24–48 Hours",
-      whatsappMessage: "Hi MaximumPixel! I want to try the Single Reel Edit for ₹499.",
-    },
-    {
-      id: "edit-4-pack",
-      category: "edit",
-      name: "4 Reels Pack",
-      tagline: "Perfect for weekly active creators & local businesses",
-      badge: "MOST POPULAR",
-      badgeColor: "bg-[#5B2EE8]",
-      price: 1899,
-      originalPrice: 3499,
-      unit: "4 Reels (₹475/reel)",
-      isPopular: true,
-      features: [
-        "4 Master High-Retention Reels",
-        "Custom Kinetic Subtitles & Emoji Graphics",
-        "Viral Sound Design & Beat Sync",
-        "Pacing Optimized for Instagram Algorithm",
-        "Up to 2 Rounds of Free Revisions per Reel",
-        "Delivery within 48 Hours",
-      ],
-      turnaround: "48 Hours",
-      whatsappMessage: "Hi MaximumPixel! I want to book the 4 Reels Edit Pack for ₹1,899.",
-    },
-    {
-      id: "edit-8-pack",
-      category: "edit",
-      name: "8 Reels Pack",
-      tagline: "2 reels/week to maintain steady organic social growth",
-      badge: "POPULAR",
-      badgeColor: "bg-[#FF7A1A]",
-      price: 3499,
-      originalPrice: 6999,
-      unit: "8 Reels (₹437/reel)",
-      features: [
-        "8 Master High-Retention Reels",
-        "Strong First-3-Seconds Visual Hooks",
-        "Dynamic Subtitles, SFX & Transitions",
-        "Color Correction & Contrast Boost",
-        "Up to 2 Rounds of Free Revisions per Reel",
-        "Multi-Platform (Reels & Shorts Export)",
-      ],
-      turnaround: "Rolling Deliveries",
-      whatsappMessage: "Hi MaximumPixel! I want to book the 8 Reels Edit Pack for ₹3,499.",
-    },
-    {
-      id: "edit-12-pack",
-      category: "edit",
-      name: "12 Reels Monthly Pack",
-      tagline: "Complete month of high-frequency social video edits",
-      badge: "BEST VALUE",
-      badgeColor: "bg-[#22B14C]",
-      price: 4999,
-      originalPrice: 9999,
-      unit: "12 Reels (₹416/reel)",
-      features: [
-        "12 High-Converting Master Reels",
-        "Bespoke Visual Brand Style Templates",
-        "Premium Sound Design & Audio Balancing",
-        "Engaging Kinetic Titles & Motion Hooks",
-        "Up to 3–4 Rounds of Free Revisions per Reel",
-        "Multi-Format Delivery (9:16 + 1:1 / 16:9)",
-      ],
-      turnaround: "Rolling Weekly Deliveries",
-      whatsappMessage: "Hi MaximumPixel! I want to book the 12 Reels Monthly Edit Pack for ₹4,999.",
-    },
-  ],
-
-  "shoot": [
-    {
-      id: "shoot-quick",
-      category: "shoot",
-      name: "Quick Content Shoot",
-      tagline: "1 focused session for products, menu items, or dishes",
-      price: 1499,
-      originalPrice: 2999,
-      unit: "1 Single Shoot Session (1–2 hrs)",
-      features: [
-        "1 Single On-Location Shoot Session (1–2 hrs in Jaipur)",
-        "4K 60FPS Ultra HD Mobile Cinematography",
-        "Stabilized Tripod & Dynamic Motion Angles",
-        "A-Roll & B-Roll Product/Ambiance Shots",
-        "All Raw 4K Video Delivered via Drive",
-        "Same-Day Cloud Upload",
-      ],
-      turnaround: "Same-Day Raw Delivery",
-      whatsappMessage: "Hi MaximumPixel! I want to book the Quick Content Shoot (1-2h single session) for ₹1,499.",
-    },
-    {
-      id: "shoot-half-day",
-      category: "shoot",
-      name: "Half-Day Shoot",
-      tagline: "1 thorough session covering your cafe, salon, gym, or brand space",
-      badge: "MOST POPULAR",
-      badgeColor: "bg-[#5B2EE8]",
-      price: 2999,
-      originalPrice: 5999,
-      unit: "1 Single Shoot Session (3–4 hrs)",
-      isPopular: true,
-      features: [
-        "1 Single On-Location Shoot Session (3–4 hrs in Jaipur)",
-        "4K 60FPS Multi-Angle Filming",
-        "Natural Light & Controlled Setup Directing",
-        "Product Showcases, Staff & Customer Vibe",
-        "Smooth Panning & Cinematic Detail Closeups",
-        "All Raw High-Bitrate Files Organised in Drive",
-      ],
-      turnaround: "Within 24 Hours",
-      whatsappMessage: "Hi MaximumPixel! I want to book the Half-Day Shoot (1 session / 3-4h) for ₹2,999.",
-    },
-    {
-      id: "shoot-full-day",
-      category: "shoot",
-      name: "Full-Day Commercial Shoot",
-      tagline: "1 intensive full-day production covering multiple scenes and setups",
-      badge: "BEST VALUE",
-      badgeColor: "bg-[#FF7A1A]",
-      price: 4999,
-      originalPrice: 9999,
-      unit: "1 Single Production Day (6–7 hrs)",
-      features: [
-        "1 Dedicated Full-Day Production Session (6–7 hrs in Jaipur)",
-        "Multi-Angle Coverage & Dedicated Shot List",
-        "Interviews, Founder Talks, B-Roll & Ambiance",
-        "Model / Customer Interaction Directing",
-        "Extensive 4K Video Library (50+ clips)",
-        "Organized Cloud Drive with Lifetime Access",
-      ],
-      turnaround: "Within 24 Hours",
-      whatsappMessage: "Hi MaximumPixel! I want to book the Full-Day Commercial Shoot (1 single day) for ₹4,999.",
-    },
-    {
-      id: "shoot-event",
-      category: "shoot",
-      name: "Event & Launch Shoot",
-      tagline: "1 event timeline coverage for openings, workshops & live events",
-      badge: "EVENT SPECIAL",
-      badgeColor: "bg-[#22B14C]",
-      price: 6999,
-      originalPrice: 12999,
-      unit: "1 Single Event Coverage Session",
-      features: [
-        "1 Single Event Session Coverage (Jaipur)",
-        "Crowd Energy, Stage & VIP Guest Moments",
-        "Ultra-Smooth Movement & Atmosphere Capture",
-        "Clean Ambient Audio Capture",
-        "Complete Raw Video Library Delivery",
-        "Same-Night Highlight Reel Clips for Stories",
-      ],
-      turnaround: "Same-Day Story Clips + 24h Full Raw",
-      whatsappMessage: "Hi MaximumPixel! I want to book the Event & Launch Shoot (1 event) for ₹6,999.",
-    },
-  ],
+export const PRICING_META = {
+  effectiveDate: "24 November 2026",
+  currencyNote: "All prices in Indian rupees (₹). No GST shown.",
+  studioSummary:
+    "Video and photo shoot and editing studio for handicraft, product and local brands.",
+  quotationValidity: "15 days from date of issue (24 Nov to 9 Dec 2026 for current quotes).",
 };
+
+export const VIDEO_SHOOT_EDIT_ROWS: PricingRow[] = [
+  {
+    service: "Reel, shoot + edit",
+    included: "Shoot up to 1-2 hours, editing, music, captions, basic transitions, 1 revision",
+    price: "₹1,700 / reel",
+  },
+  {
+    service: "Reel, shoot only",
+    included: "Raw clips, up to 2 hours shooting, no editing",
+    price: "₹1,000 / reel",
+  },
+  {
+    service: "Product video (15-30 sec)",
+    included: "Single product, shoot + edit, music, captions",
+    price: "₹1,000 / product",
+  },
+  {
+    service: "Video shoot, half day",
+    included: "Up to 4 hours, raw footage for multiple reels, no editing",
+    price: "₹2,500",
+  },
+  {
+    service: "Video shoot, full day",
+    included: "Up to 8 hours, raw footage for multiple reels, no editing",
+    price: "₹4,500",
+  },
+];
+
+export const EDITING_ONLY_ROWS: PricingRow[] = [
+  {
+    service: "Reel editing (30-40 sec)",
+    included:
+      "Client footage up to 10 min raw, cuts, music, captions, transitions, colour correction, 1 revision",
+    price: "₹800 / reel",
+  },
+  {
+    service: "Photo editing",
+    included: "Colour correction, basic retouch, background clean-up",
+    price: "₹40 / photo (₹30 / photo for 25+ photos)",
+  },
+  {
+    service: "Single image post",
+    included: "Post design from client photos, caption and hashtag suggestions",
+    price: "₹200 / post",
+  },
+  {
+    service: "Carousel post (3-5 slides)",
+    included: "Carousel design from client photos, caption and hashtags",
+    price: "₹400 / post",
+  },
+];
+
+export const PRODUCT_PHOTOGRAPHY_ROWS: PricingRow[] = [
+  {
+    service: "Single product",
+    included: "4 edited photos (front, side, back/detail, close-up), plain or simple background",
+    price: "₹400 / product",
+  },
+  {
+    service: "10 products (40 photos)",
+    included: "Bulk rate, client saves ₹500",
+    price: "₹3,500 (₹350 per product)",
+  },
+  {
+    service: "25 products (100 photos)",
+    included: "Bulk rate, client saves ₹2,000",
+    price: "₹8,000 (₹320 per product)",
+  },
+  {
+    service: "50 products (200 photos)",
+    included: "Bulk rate, client saves ₹6,000",
+    price: "₹14,000 (₹280 per product)",
+  },
+  {
+    service: "Extra photo of same product",
+    included: "Additional angle or detail shot, edited",
+    price: "₹100 / photo",
+  },
+];
+
+export const PRODUCT_PHOTOGRAPHY_NOTE =
+  "Note: products needing complex styling, props or models are priced under Lifestyle, Brand and Artisan Photoshoots.";
+
+export const LIFESTYLE_PHOTOSHOOT_ROWS: PricingRow[] = [
+  {
+    service: "Mini shoot (1 hour)",
+    included: "Up to 10 edited photos; styled product, artisan at work or brand portrait",
+    price: "₹1,200",
+  },
+  {
+    service: "Half day (up to 4 hours)",
+    included: "Up to 25 edited photos, styled scenes, lifestyle and in-use shots",
+    price: "₹3,000",
+  },
+  {
+    service: "Full day (up to 8 hours)",
+    included: "Up to 50 edited photos, multiple setups and locations in the city",
+    price: "₹5,500",
+  },
+];
+
+export const LIFESTYLE_PHOTOSHOOT_NOTE =
+  "Note: client provides products, props, location and model or artisan. Props styling support by us: ₹300 per shoot.";
+
+export const SOCIAL_POSTS_WITH_SHOOT_ROWS: PricingRow[] = [
+  {
+    service: "Single image post",
+    included: "Photo shoot, colour correction, caption and hashtags",
+    price: "₹300 / post",
+  },
+  {
+    service: "Carousel post (3-5 slides)",
+    included: "Photo shoot, colour correction, simple layout, caption and hashtags",
+    price: "₹500 / post",
+  },
+  {
+    service: "Post shot with a reel",
+    included: "Post photos taken during the same reel shoot day",
+    price: "₹150 / post",
+  },
+];
+
+export const MONTHLY_SHOOT_EDIT_PACKAGES: MonthlyPackageTier[] = [
+  {
+    name: "Starter",
+    reelsPerMonth: "6",
+    freePosts: "4",
+    totalShootTime: "up to 9 hours",
+    packageRatePerReel: "₹1,350",
+    reelsAtStandardRate: "₹10,200",
+    freePostsValue: "₹1,200",
+    totalValueAtStandardRates: "₹11,400",
+    monthlyPrice: "₹8,100",
+    clientSaves: "₹3,300 (29%)",
+  },
+  {
+    name: "Growth",
+    reelsPerMonth: "12",
+    freePosts: "6",
+    totalShootTime: "up to 18 hours",
+    packageRatePerReel: "₹1,250",
+    reelsAtStandardRate: "₹20,400",
+    freePostsValue: "₹1,800",
+    totalValueAtStandardRates: "₹22,200",
+    monthlyPrice: "₹15,000",
+    clientSaves: "₹7,200 (32%)",
+  },
+  {
+    name: "Pro",
+    reelsPerMonth: "20",
+    freePosts: "10",
+    totalShootTime: "up to 30 hours",
+    packageRatePerReel: "₹1,225",
+    reelsAtStandardRate: "₹34,000",
+    freePostsValue: "₹3,000",
+    totalValueAtStandardRates: "₹37,000",
+    monthlyPrice: "₹24,500",
+    clientSaves: "₹12,500 (34%)",
+  },
+];
+
+export const MONTHLY_SHOOT_EDIT_NOTE =
+  "Shoot about 1.5 hours per reel, pooled across the month. Free posts are made from photos taken during the reel shoots and are only available with monthly shoot + edit packages.";
+
+export const MONTHLY_EDIT_ONLY_PACKAGES: MonthlyPackageTier[] = [
+  {
+    name: "Starter",
+    reelsPerMonth: "6",
+    packageRatePerReel: "₹750",
+    reelsAtStandardRate: "₹4,800",
+    monthlyPrice: "₹4,500",
+    clientSaves: "₹300 (6%)",
+  },
+  {
+    name: "Growth",
+    reelsPerMonth: "12",
+    packageRatePerReel: "₹700",
+    reelsAtStandardRate: "₹9,600",
+    monthlyPrice: "₹8,400",
+    clientSaves: "₹1,200 (13%)",
+  },
+  {
+    name: "Pro",
+    reelsPerMonth: "20",
+    packageRatePerReel: "₹650",
+    reelsAtStandardRate: "₹16,000",
+    monthlyPrice: "₹13,000",
+    clientSaves: "₹3,000 (19%)",
+  },
+];
+
+export const MONTHLY_EDIT_ONLY_NOTE =
+  "Client supplies footage; no shoot and no posts included. Posts are not included in editing-only packages: ₹200 single / ₹400 carousel. Packages are for one month of service, paid 100% in advance.";
+
+export const ADDONS_ROWS: { addon: string; rate: string }[] = [
+  { addon: "Extra shoot hour (beyond included time)", rate: "₹500 / hour" },
+  { addon: "Reel longer than 40 sec", rate: "₹500 shoot + edit / ₹300 editing only" },
+  { addon: "Extra revision round", rate: "₹300 reels / ₹200 editing and photos" },
+  { addon: "Raw footage beyond 10 min per reel (editing only)", rate: "₹200 per extra 10 min" },
+  { addon: "Urgent delivery (within 24 hours)", rate: "+30% of job price" },
+  { addon: "Raw footage / original files handover", rate: "₹1,000 per project" },
+  {
+    addon: "Extra posts beyond a package",
+    rate: "₹200 / ₹400 (editing only), ₹300 / ₹500 (with shoot)",
+  },
+  {
+    addon: "Voiceover, custom graphic design, logo work, festival creatives, paid music, drone",
+    rate: "Quoted separately",
+  },
+  { addon: "Travel outside the city", rate: "Actual cost, quoted separately" },
+];
+
+export const PRICING_TERMS = [
+  {
+    label: "Delivery",
+    detail:
+      "Reels 3-5 days after the shoot (2-3 days for editing only, after complete files are received). Photos 2-3 days after the shoot.",
+  },
+  {
+    label: "Revisions",
+    detail: "1 round included per job; extra rounds charged as listed under Add-ons.",
+  },
+  {
+    label: "Payment",
+    detail: "Monthly packages 100% in advance. Single jobs 50% advance, 50% on delivery.",
+  },
+  {
+    label: "Client provides",
+    detail:
+      "Products, location, script ideas or references (shoot jobs); raw footage and photos in good quality, brand logo, captions and music preferences (editing-only jobs).",
+  },
+  {
+    label: "Usage",
+    detail:
+      "The client may use final content on their own social media and website. Raw footage and project files only if agreed and paid for.",
+  },
+  {
+    label: "Quotation validity",
+    detail: "15 days from date of issue (24 Nov to 9 Dec 2026 for current quotes).",
+  },
+];
+
+export const STUDIO_GEAR = [
+  { category: "Photo editing", tools: "Lightroom" },
+  { category: "Graphics", tools: "Canva, Photoshop, plus AI tools" },
+  { category: "Video editing", tools: "CapCut and Instagram Edits" },
+  { category: "Shoot gear", tools: "iPhone 15, vivo X300, Canon 700D (kit lens only)" },
+];
+
+export const QUICK_CHEAT_SHEET: { need: string; price: string }[] = [
+  { need: "1 reel, shoot + edit", price: "₹1,700" },
+  { need: "1 reel, edit only", price: "₹800" },
+  { need: "1 single post (with shoot / edit only)", price: "₹300 / ₹200" },
+  { need: "1 carousel (with shoot / edit only)", price: "₹500 / ₹400" },
+  { need: "Monthly shoot + edit (6 / 12 / 20 reels)", price: "₹8,100 / ₹15,000 / ₹24,500" },
+  { need: "Monthly edit only (6 / 12 / 20 reels)", price: "₹4,500 / ₹8,400 / ₹13,000" },
+  { need: "Product photos, 1 product (4 photos)", price: "₹400" },
+  { need: "Photoshoot half day / full day", price: "₹3,000 / ₹5,500" },
+];
